@@ -6,8 +6,8 @@ import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.EscapeGame;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
-import net.raydeejay.escapegame.reactors.Door;
-import net.raydeejay.escapegame.reactors.Movable;
+import net.raydeejay.escapegame.rooms.Room01;
+import net.raydeejay.escapegame.rooms.Room02;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -36,30 +36,8 @@ public class GameScreen implements Screen {
 
 	private void createRooms() {
 		// room 01
-		Room room01 = new Room("room01.png");
-
-		Door door01 = new Door(EscapeGame.WIDTH / 3, 100, "door2.png", "room02");
-		room01.addReactor(door01);
-
-		Movable vase = new Movable(200, 200, "vase.png");
-		vase.addCoords(400, 200);
-		vase.addCoords(600, 200);
-		room01.addReactor(vase);
-
-		this.rooms.put("room01", room01);
-
-		// room 02
-		Room room02 = new Room("room02.png");
-
-		Door door02 = new Door(EscapeGame.WIDTH / 2, 80, "door2.png", "room01");
-		room02.addReactor(door02);
-
-		this.rooms.put("room02", room02);
-
-		// room 03
-		Room room03 = new Room("room02.png");
-		this.rooms.put("room03", room03);
-
+		this.rooms.put("room01", new Room01());
+		this.rooms.put("room02", new Room02());
 	}
 
 	public void switchToRoom(String destination) {
