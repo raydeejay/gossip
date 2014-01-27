@@ -2,7 +2,6 @@ package net.raydeejay.escapegame.reactors;
 
 import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Reactor;
-import net.raydeejay.escapegame.rooms.Location;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -29,7 +28,7 @@ public class Item extends Reactor {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				Item item = getInventory().getSelectedItem();
-				if (item == null) {
+				if (item == null || isSelected()) {
 					whenClicked();
 				} else {
 					whenClickedWith(item);
@@ -42,16 +41,7 @@ public class Item extends Reactor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
-		batch.draw(this.getImage(), this.getX(), this.getY(), 32, 32);
-	}
-
-	@Override
-	public void whenClicked() {
-		if (!this.isSelected()) {
-			this.beSelected();
-		} else {
-			this.beUnselected();
-		}
+		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
 	private void beUnselected() {
@@ -71,12 +61,17 @@ public class Item extends Reactor {
 		return this.inventory;
 	}
 
-	public Location getLocation() {
-		return this.getInventory();
-	}
-
 	public void setInventory(Inventory anInventory) {
 		this.inventory = anInventory;
+	}
+
+	@Override
+	public void whenClicked() {
+		if (!this.isSelected()) {
+			this.beSelected();
+		} else {
+			this.beUnselected();
+		}
 	}
 
 }

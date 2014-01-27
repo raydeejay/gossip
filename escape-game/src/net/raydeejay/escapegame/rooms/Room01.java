@@ -4,28 +4,30 @@ import net.raydeejay.escapegame.EscapeGame;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
+import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Room01 extends Room {
 
 	public Room01(GameScreen gameScreen) {
 		super("room01partial.png", gameScreen);
-		
-		final Reactor door01 = new Reactor(EscapeGame.WIDTH / 3, 100, "door2.png");
-		
+
+		final Reactor door01 = new Reactor(EscapeGame.WIDTH / 3, 100,
+				"door2.png");
+
 		door01.addState("closed", new State() {
 			@Override
 			public void whenClicked() {
 				door01.switchToState("open");
 			}
 		});
-		
+
 		door01.addState("open", new State() {
 			@Override
 			public void onEnter() {
 				door01.setImage("door2open.png");
 			}
-			
+
 			@Override
 			public void whenClicked() {
 				getScreen().switchToRoom("room02");
@@ -68,7 +70,9 @@ public class Room01 extends Room {
 
 			@Override
 			public void whenClicked() {
-				vase.switchToState("1");
+				removeReactor(vase);
+				final Item vaseItem = new Item("vase", 720, 420, "vase.png");
+				addToInventory(vaseItem);
 			}
 		});
 
