@@ -10,25 +10,37 @@ public class Movable extends Reactor {
 
 		this.addState("1", new State() {
 			@Override
+			public void onEnter() {
+				setX(200);
+			}
+
+			@Override
 			public void whenClicked() {
 				switchToState("2");
-				setX(400);
 			}
 		});
 
 		this.addState("2", new State() {
 			@Override
+			public void onEnter() {
+				setX(400);
+			}
+
+			@Override
 			public void whenClicked() {
 				switchToState("3");
-				setX(600);
 			}
 		});
 
 		this.addState("3", new State() {
 			@Override
+			public void onEnter() {
+				setX(600);
+			}
+
+			@Override
 			public void whenClicked() {
 				switchToState("1");
-				setX(200);
 			}
 		});
 

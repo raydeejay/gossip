@@ -18,18 +18,17 @@ public class Reactor extends Actor {
 
 	public Reactor(int x, int y, String aFilename) {
 		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-		
+
 		this.setImage(aTexture);
 		this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
-		
+
 		this.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-					whenClicked();
-					return true;
+				whenClicked();
+				return true;
 			}
-
 		});
 	}
 
@@ -42,12 +41,12 @@ public class Reactor extends Actor {
 		this.setWidth(aTexture.getWidth());
 		this.setHeight(aTexture.getHeight());
 	}
-	
+
 	public void setImage(String aFilename) {
 		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
 		this.setImage(aTexture);
 	}
-	
+
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
@@ -56,7 +55,7 @@ public class Reactor extends Actor {
 
 	// these are to be overriden if necessary by subclasses
 	// default implementation is to do nothing
-	
+
 	public Room getRoom() {
 		return room;
 	}
@@ -70,11 +69,16 @@ public class Reactor extends Actor {
 	}
 
 	public State getCurrentState() {
-		return currentState;
+		return this.currentState;
 	}
 
 	public void switchToState(String aString) {
+		this.getCurrentState();
+		if (this.currentState != null) {
+			this.currentState.onExit();
+		}
 		this.currentState = this.states.get(aString);
+		this.currentState.onEnter();
 	}
 
 	public void whenClicked() {
@@ -85,11 +89,11 @@ public class Reactor extends Actor {
 	}
 
 	public void whenClickedWith(Reactor aReactor) {
-		
+
 	}
-	
+
 	public void whenCombinedWith(Reactor aReactor) {
-		
+
 	}
 
 }
