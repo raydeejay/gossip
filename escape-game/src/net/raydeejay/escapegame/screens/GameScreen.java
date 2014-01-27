@@ -35,9 +35,8 @@ public class GameScreen implements Screen {
 	}
 
 	private void createRooms() {
-		// room 01
-		this.rooms.put("room01", new Room01());
-		this.rooms.put("room02", new Room02());
+		this.rooms.put("room01", new Room01(this));
+		this.rooms.put("room02", new Room02(this));
 	}
 
 	public void switchToRoom(String destination) {
@@ -53,6 +52,10 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	public void addReactor(Reactor aReactor) {
+		this.stage.addActor(aReactor);
+	}
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);

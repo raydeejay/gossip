@@ -6,13 +6,10 @@ import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.screens.GameScreen;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-
 public class Room01 extends Room {
 
-	public Room01() {
-		super("room01.png");
+	public Room01(GameScreen gameScreen) {
+		super("room01.png", gameScreen);
 		
 		final Reactor door01 = new Reactor(EscapeGame.WIDTH / 3, 100, "door2.png");
 		
@@ -31,9 +28,7 @@ public class Room01 extends Room {
 			
 			@Override
 			public void whenClicked() {
-				GameScreen screen = (GameScreen) ((Game) Gdx.app
-						.getApplicationListener()).getScreen();
-				screen.switchToRoom("room02");
+				getScreen().switchToRoom("room02");
 			}
 		});
 
