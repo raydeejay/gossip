@@ -2,6 +2,7 @@ package net.raydeejay.escapegame;
 
 import java.util.ArrayList;
 
+import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Room {
@@ -23,6 +24,10 @@ public class Room {
 		aReactor.setRoom(this);
 		this.reactors.add(aReactor);
 		this.getScreen().addReactor(aReactor);
+	}
+
+	public void addToInventory(Item anItem) {
+		this.getScreen().addToInventory(anItem);
 	}
 
 	public String getBackgroundFilename() {

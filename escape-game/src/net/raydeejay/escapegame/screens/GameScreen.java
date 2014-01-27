@@ -4,8 +4,10 @@ import java.util.Hashtable;
 
 import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.EscapeGame;
+import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
+import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.rooms.Room01;
 import net.raydeejay.escapegame.rooms.Room02;
 
@@ -17,14 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 
 public class GameScreen implements Screen {
-	final EscapeGame game;
 	private Stage stage;
 	private Room currentRoom;
+	private Inventory inventory;
 	private Hashtable<String, Room> rooms;
 
 	public GameScreen() {
-		this.game = (EscapeGame) Gdx.app.getApplicationListener();
 		this.rooms = new Hashtable<String, Room>();
+		this.setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
 		// set up the rooms
@@ -47,8 +49,16 @@ public class GameScreen implements Screen {
 				this.currentRoom.getBackgroundFilename());
 		this.stage.addActor(background);
 
+		Background invBackground = new Background(700, 0,
+				this.getInventory().getBackgroundFilename());
+		this.stage.addActor(invBackground);
+
 		for (Reactor r : this.currentRoom.getReactors()) {
 			this.stage.addActor(r);
+		}
+
+		for (Item i : this.getInventory().getItems()) {
+			this.stage.addActor(i);
 		}
 	}
 
@@ -56,6 +66,11 @@ public class GameScreen implements Screen {
 		this.stage.addActor(aReactor);
 	}
 	
+	public void addToInventory(Item anItem) {
+		this.getInventory().addItem(anItem);
+		this.stage.addActor(anItem);
+	}
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -100,6 +115,14 @@ public class GameScreen implements Screen {
 	public void dispose() {
 		// Raindrop.dropImage.dispose();
 		stage.dispose();
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 }

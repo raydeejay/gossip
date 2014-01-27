@@ -9,7 +9,7 @@ import net.raydeejay.escapegame.screens.GameScreen;
 public class Room01 extends Room {
 
 	public Room01(GameScreen gameScreen) {
-		super("room01.png", gameScreen);
+		super("room01partial.png", gameScreen);
 		
 		final Reactor door01 = new Reactor(EscapeGame.WIDTH / 3, 100, "door2.png");
 		

@@ -1,35 +1,53 @@
 package net.raydeejay.escapegame.reactors;
 
+import net.raydeejay.escapegame.Inventory;
+import net.raydeejay.escapegame.Reactor;
+import net.raydeejay.escapegame.rooms.Location;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-
-import net.raydeejay.escapegame.Reactor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 /*
- * An Item is a Reactor that can be picked up, put in the inventory,
- * and used and/or combined with another Reactor
+ * An Item is a Reactor in an Inventory, or something like that.
  */
 
 public class Item extends Reactor {
 
-	private boolean inInventory = false;
-	private boolean selected = false;
+	private Inventory inventory;
 
-	public Item(int x, int y, String aFilename) {
+	public Item(String name, int x, int y, String aFilename) {
 		super(x, y, aFilename);
+		this.setName(name);
+	}
+
+	@Override
+	protected void setUpListeners() {
+		this.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				Item item = getInventory().getSelectedItem();
+				if (item == null) {
+					whenClicked();
+				} else {
+					whenClickedWith(item);
+				}
+				return true;
+			}
+		});
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
-		batch.draw(this.getImage(), 50, 50, 32, 32);
+		batch.draw(this.getImage(), this.getX(), this.getY(), 32, 32);
 	}
 
 	@Override
 	public void whenClicked() {
-		if (!this.isInInventory()) {
-			this.beInInventory();
-		} else if (!this.isSelected()) {
+		if (!this.isSelected()) {
 			this.beSelected();
 		} else {
 			this.beUnselected();
@@ -37,23 +55,28 @@ public class Item extends Reactor {
 	}
 
 	private void beUnselected() {
-		this.selected = false;
+		this.getInventory().setSelectedItem(null);
 	}
 
 	private void beSelected() {
-		this.selected = true;
+		this.getInventory().setSelectedItem(this);
 	}
 
 	private boolean isSelected() {
-		return this.selected;
+		return (this.getInventory().getSelectedItem() == this);
 	}
 
-	private void beInInventory() {
-		this.inInventory = true;
+	// INVENTORY
+	public Inventory getInventory() {
+		return this.inventory;
 	}
 
-	private boolean isInInventory() {
-		return this.inInventory;
+	public Location getLocation() {
+		return this.getInventory();
+	}
+
+	public void setInventory(Inventory anInventory) {
+		this.inventory = anInventory;
 	}
 
 }

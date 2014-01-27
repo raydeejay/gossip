@@ -2,6 +2,8 @@ package net.raydeejay.escapegame;
 
 import java.util.HashMap;
 
+import net.raydeejay.escapegame.reactors.Item;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,11 +24,21 @@ public class Reactor extends Actor {
 		this.setImage(aTexture);
 		this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
 
+		this.setUpListeners();
+	}
+
+	protected void setUpListeners() {
 		this.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				whenClicked();
+				Item item = getRoom().getScreen().getInventory()
+						.getSelectedItem();
+				if (item == null) {
+					whenClicked();
+				} else {
+					whenClickedWith(item);
+				}
 				return true;
 			}
 		});
@@ -89,7 +101,11 @@ public class Reactor extends Actor {
 		}
 	}
 
-	public void whenClickedWith(Reactor aReactor) {
+	public void whenClickedWith(Item anItem) {
+		State state = this.getCurrentState();
+		if (state != null) {
+			state.whenClickedWith(anItem);
+		}
 
 	}
 

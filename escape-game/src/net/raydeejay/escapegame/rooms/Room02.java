@@ -10,9 +10,19 @@ import net.raydeejay.escapegame.screens.GameScreen;
 public class Room02 extends Room {
 
 	public Room02(GameScreen gameScreen) {
-		super("room02.png", gameScreen);
+		super("room02partial.png", gameScreen);
 		
 		final Reactor door02 = new Reactor(EscapeGame.WIDTH / 2, 100, "door2.png");
+		door02.addState("locked", new State() {
+			@Override
+			public void whenClickedWith(Item anItem) {
+				if(anItem.getName() == "key") {
+					anItem.getInventory().removeItem(anItem);
+					door02.switchToState("closed");
+				}
+			}
+		});
+		
 		door02.addState("closed", new State() {
 			@Override
 			public void whenClicked() {
@@ -32,16 +42,16 @@ public class Room02 extends Room {
 			}
 		});
 
-		door02.switchToState("closed");
+		door02.switchToState("locked");
 		this.addReactor(door02);
 		
 		final Reactor key = new Reactor(200, 200, "key.png");
 		key.addState("state", new State() {
 			@Override
 			public void whenClicked() {
-				final Item keyItem = new Item(50, 50, "key.png");
-				addReactor(keyItem);
 				removeReactor(key);
+				final Item keyItem = new Item("key", 720, 420, "key.png");
+				addToInventory(keyItem);
 			}
 			
 		});
