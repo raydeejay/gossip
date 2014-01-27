@@ -32,6 +32,13 @@ public class Reactor extends Actor {
 		});
 	}
 
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		batch.setColor(Color.WHITE);
+		batch.draw(this.getImage(), this.getX(), this.getY());
+	}
+
+	// IMAGE
 	public Texture getImage() {
 		return image;
 	}
@@ -47,15 +54,7 @@ public class Reactor extends Actor {
 		this.setImage(aTexture);
 	}
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.setColor(Color.WHITE);
-		batch.draw(this.getImage(), this.getX(), this.getY());
-	}
-
-	// these are to be overriden if necessary by subclasses
-	// default implementation is to do nothing
-
+	// ROOM
 	public Room getRoom() {
 		return room;
 	}
@@ -64,6 +63,7 @@ public class Reactor extends Actor {
 		this.room = room;
 	}
 
+	// STATE
 	public void addState(String aString, State aState) {
 		this.states.put(aString, aState);
 	}
@@ -81,6 +81,7 @@ public class Reactor extends Actor {
 		this.currentState.onEnter();
 	}
 
+	// INTERACTION
 	public void whenClicked() {
 		State state = this.getCurrentState();
 		if (state != null) {
