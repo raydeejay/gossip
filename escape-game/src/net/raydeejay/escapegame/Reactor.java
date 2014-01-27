@@ -1,5 +1,7 @@
 package net.raydeejay.escapegame;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Reactor extends Actor {
+	private State currentState;
+	private HashMap<String, State> states = new HashMap<String, State>();
 	private Texture image;
 	private Room room;
 
@@ -53,24 +57,39 @@ public class Reactor extends Actor {
 	// these are to be overriden if necessary by subclasses
 	// default implementation is to do nothing
 	
-	public void whenClicked() {
-		
-	}
-	
-	public void whenClickedWith(Reactor aReactor) {
-		
-	}
-	
-	public void whenCombinedWith(Reactor aReactor) {
-		
-	}
-
 	public Room getRoom() {
 		return room;
 	}
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public void addState(String aString, State aState) {
+		this.states.put(aString, aState);
+	}
+
+	public State getCurrentState() {
+		return currentState;
+	}
+
+	public void switchToState(String aString) {
+		this.currentState = this.states.get(aString);
+	}
+
+	public void whenClicked() {
+		State state = this.getCurrentState();
+		if (state != null) {
+			state.whenClicked();
+		}
+	}
+
+	public void whenClickedWith(Reactor aReactor) {
+		
+	}
+	
+	public void whenCombinedWith(Reactor aReactor) {
+		
 	}
 
 }

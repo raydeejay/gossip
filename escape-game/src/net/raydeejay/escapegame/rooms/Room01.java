@@ -14,8 +14,6 @@ public class Room01 extends Room {
 		this.addReactor(door01);
 
 		Movable vase = new Movable(200, 200, "vase.png");
-		vase.addCoords(400, 200);
-		vase.addCoords(600, 200);
 		this.addReactor(vase);
 
 		//this.rooms.put("room01", room01);		
