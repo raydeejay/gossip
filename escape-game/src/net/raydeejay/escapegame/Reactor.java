@@ -18,12 +18,13 @@ public class Reactor extends Actor {
 	private Texture image;
 	private Room room;
 
-	public Reactor(int x, int y, String aFilename) {
+	public Reactor(String name, float x, float y, String aFilename) {
 		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
 
 		this.setImage(aTexture);
 		this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
 
+		this.setName(name);
 		this.setUpListeners();
 	}
 

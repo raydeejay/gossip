@@ -12,9 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class Room01 extends Room {
 
 	public Room01(GameScreen gameScreen) {
-		super("room01partial.png", gameScreen);
+		super("room01", "room01partial.png", gameScreen);
 
-		final Reactor door01 = new Reactor(EscapeGame.WIDTH / 3, 100,
+		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 100,
 				"door2.png");
 
 		door01.addState("closed", new State() {
@@ -39,7 +39,7 @@ public class Room01 extends Room {
 		door01.switchToState("closed");
 		this.addReactor(door01);
 
-		final Reactor vase = new Reactor(200, 200, "vase.png");
+		final Reactor vase = new Reactor("vase", 200, 200, "vase.png");
 		vase.addState("1", new State() {
 			@Override
 			public void onEnter() {
@@ -68,7 +68,7 @@ public class Room01 extends Room {
 			@Override
 			public void onEnter() {
 				vase.addAction(Actions.sequence(
-						Actions.moveTo(600, vase.getY(), 3.0f),
+						Actions.moveTo(600, vase.getY(), 2.0f),
 						Actions.run(new Runnable() {
 							public void run() {
 								vase.switchToState("4");
@@ -77,17 +77,38 @@ public class Room01 extends Room {
 			}
 		});
 
+//		vase.addState("4", new State() {
+//			@Override
+//			public void whenClicked() {
+//				removeReactor(vase);
+//				final Item vaseItem = new Item("vase", 720, 420, "vase.png");
+//				addToInventory(vaseItem);
+//			}
+//		});
+//
 		vase.addState("4", new State() {
 			@Override
-			public void whenClicked() {
-				removeReactor(vase);
-				final Item vaseItem = new Item("vase", 720, 420, "vase.png");
-				addToInventory(vaseItem);
+			public void whenClickedWith(Item anItem) {
+				if(anItem.getName() == "hammerItem") {
+					anItem.getInventory().removeItem(anItem);
+					removeReactor(vase);
+					
+					final Reactor paper = new Reactor("paper", vase.getX(), vase.getY(), "paper.png");
+					paper.addState("state", new State() {
+						public void whenClicked() {
+							// show a message ?
+						}
+					});
+
+					paper.switchToState("state");
+					addReactor(paper);
+				}
 			}
 		});
 
 		vase.switchToState("1");
 		this.addReactor(vase);
+
 
 	}
 }

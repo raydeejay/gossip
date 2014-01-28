@@ -9,15 +9,25 @@ public class Room {
 	ArrayList<Reactor> reactors;
 	private String backgroundFilename;
 	private GameScreen screen;
+	private String name;
 
 	public ArrayList<Reactor> getReactors() {
 		return this.reactors;
 	}
 
-	public Room(String aFilename, GameScreen gameScreen) {
+	public Room(String name, String aFilename, GameScreen gameScreen) {
 		this.reactors = new ArrayList<Reactor>();
 		this.setBackgroundFilename(aFilename);
 		this.setScreen(gameScreen);
+		this.setName(name);
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void addReactor(Reactor aReactor) {

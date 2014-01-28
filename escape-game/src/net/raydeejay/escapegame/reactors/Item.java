@@ -17,8 +17,11 @@ public class Item extends Reactor {
 	private Inventory inventory;
 
 	public Item(String name, int x, int y, String aFilename) {
-		super(x, y, aFilename);
-		this.setName(name);
+		super(name, x, y, aFilename);
+	}
+
+	public Item(String name, String aFilename) {
+		super(name, 0, 0, aFilename);
 	}
 
 	@Override
