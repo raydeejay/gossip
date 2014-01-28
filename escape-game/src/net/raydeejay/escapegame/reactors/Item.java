@@ -40,7 +40,11 @@ public class Item extends Reactor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.setColor(Color.WHITE);
+		if (this.isSelected()) {
+			batch.setColor(Color.rgba8888(0, 0.5f, 0.5f, 0.4f));
+		} else {
+			batch.setColor(Color.WHITE);
+		}
 		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
