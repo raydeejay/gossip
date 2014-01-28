@@ -16,7 +16,7 @@ public class Room02 extends Room {
 		door02.addState("locked", new State() {
 			@Override
 			public void whenClickedWith(Item anItem) {
-				if(anItem.getName() == "keyItem") {
+				if(anItem.getName().equals("keyItem")) {
 					anItem.getInventory().removeItem(anItem);
 					door02.switchToState("closed");
 				}
@@ -49,9 +49,9 @@ public class Room02 extends Room {
 		key.addState("state", new State() {
 			@Override
 			public void whenClicked() {
-				removeReactor(key);
-				final Item keyItem = new Item("keyItem", 720, 420, "key.png");
+				final Item keyItem = new Item("keyItem", "key.png");
 				addToInventory(keyItem);
+				removeReactor(key);
 			}
 			
 		});
@@ -62,14 +62,36 @@ public class Room02 extends Room {
 		hammer.addState("state", new State() {
 			@Override
 			public void whenClicked() {
-				removeReactor(hammer);
-				final Item hammerItem = new Item("hammerItem", "hammer.png");
+				final Item hammerItem = new Item(hammer);
 				addToInventory(hammerItem);
+				removeReactor(hammer);
 			}
 			
 		});
 		hammer.switchToState("state");
 		this.addReactor(hammer);
+		
+		final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png");
+		arrowLeft.addState("state", new State() {
+			@Override
+			public void whenClicked() {
+				getScreen().switchToRoom("room01");
+			}
+			
+		});
+		arrowLeft.switchToState("state");
+		this.addReactor(arrowLeft);
+		
+		final Reactor arrowRight = new Reactor("arrowRight", 620, 240, "arrowRight.png");
+		arrowRight.addState("state", new State() {
+			@Override
+			public void whenClicked() {
+				getScreen().switchToRoom("room01");
+			}
+			
+		});
+		arrowRight.switchToState("state");
+		this.addReactor(arrowRight);
 		
 	}
 

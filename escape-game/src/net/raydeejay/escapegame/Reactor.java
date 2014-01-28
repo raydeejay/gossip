@@ -19,12 +19,20 @@ public class Reactor extends Actor {
 	private Room room;
 
 	public Reactor(String name, float x, float y, String aFilename) {
-		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-
-		this.setImage(aTexture);
-		this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
-
+		this.setX(x);
+		this.setY(y);
+		this.setImage(aFilename);
 		this.setName(name);
+
+		this.setUpListeners();
+	}
+
+	public Reactor(String name, float x, float y, Texture aTexture) {
+		this.setX(x);
+		this.setY(y);
+		this.setImage(aTexture);
+		this.setName(name);
+
 		this.setUpListeners();
 	}
 
@@ -107,10 +115,6 @@ public class Reactor extends Actor {
 		if (state != null) {
 			state.whenClickedWith(anItem);
 		}
-
-	}
-
-	public void whenCombinedWith(Reactor aReactor) {
 
 	}
 

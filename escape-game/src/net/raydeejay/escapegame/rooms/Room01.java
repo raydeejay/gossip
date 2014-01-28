@@ -77,19 +77,10 @@ public class Room01 extends Room {
 			}
 		});
 
-//		vase.addState("4", new State() {
-//			@Override
-//			public void whenClicked() {
-//				removeReactor(vase);
-//				final Item vaseItem = new Item("vase", 720, 420, "vase.png");
-//				addToInventory(vaseItem);
-//			}
-//		});
-//
 		vase.addState("4", new State() {
 			@Override
 			public void whenClickedWith(Item anItem) {
-				if(anItem.getName() == "hammerItem") {
+				if(anItem.getName().equals("hammerItem")) {
 					anItem.getInventory().removeItem(anItem);
 					removeReactor(vase);
 					

@@ -16,7 +16,7 @@ public class Item extends Reactor {
 
 	private Inventory inventory;
 
-	public Item(String name, int x, int y, String aFilename) {
+	public Item(String name, float x, float y, String aFilename) {
 		super(name, x, y, aFilename);
 	}
 
@@ -24,6 +24,11 @@ public class Item extends Reactor {
 		super(name, 0, 0, aFilename);
 	}
 
+	public Item(Reactor aReactor) {
+		super(aReactor.getName() + "Item", 0, 0, aReactor.getImage());
+	
+	}
+	
 	@Override
 	protected void setUpListeners() {
 		this.addListener(new InputListener() {
