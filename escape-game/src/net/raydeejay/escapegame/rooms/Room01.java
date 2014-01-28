@@ -7,6 +7,8 @@ import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
 public class Room01 extends Room {
 
 	public Room01(GameScreen gameScreen) {
@@ -65,9 +67,17 @@ public class Room01 extends Room {
 		vase.addState("3", new State() {
 			@Override
 			public void onEnter() {
-				vase.setX(600);
+				vase.addAction(Actions.sequence(
+						Actions.moveTo(600, vase.getY(), 3.0f),
+						Actions.run(new Runnable() {
+							public void run() {
+								vase.switchToState("4");
+							}
+						})));
 			}
+		});
 
+		vase.addState("4", new State() {
 			@Override
 			public void whenClicked() {
 				removeReactor(vase);
