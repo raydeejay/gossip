@@ -6,13 +6,17 @@ import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
+import net.raydeejay.escapegame.screens.MainMenuScreen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Room01 extends Room {
 
 	public Room01(GameScreen gameScreen) {
 		super("room01", "room01partial.png", gameScreen);
+
+		this.setExitLeft("room02");
 
 		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 100,
 				"door2.png");
@@ -80,14 +84,19 @@ public class Room01 extends Room {
 		vase.addState("4", new State() {
 			@Override
 			public void whenClickedWith(Item anItem) {
-				if(anItem.getName().equals("hammerItem")) {
+				if (anItem.getName().equals("hammerItem")) {
 					anItem.getInventory().removeItem(anItem);
 					removeReactor(vase);
-					
-					final Reactor paper = new Reactor("paper", vase.getX(), vase.getY(), "paper.png");
+
+					final Reactor paper = new Reactor("paper", vase.getX(),
+							vase.getY(), "paper.png");
 					paper.addState("state", new State() {
 						public void whenClicked() {
 							// show a message ?
+							GameScreen screen = getScreen();
+							EscapeGame game = screen.getGame();
+							game.setScreen(new MainMenuScreen(game));
+							screen.dispose();
 						}
 					});
 
@@ -99,7 +108,6 @@ public class Room01 extends Room {
 
 		vase.switchToState("1");
 		this.addReactor(vase);
-
 
 	}
 }

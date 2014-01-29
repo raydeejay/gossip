@@ -11,6 +11,8 @@ public class Room02 extends Room {
 
 	public Room02(GameScreen gameScreen) {
 		super("room02", "room02partial.png", gameScreen);
+		this.setExitLeft("room01");
+		this.setExitRight("room01");
 		
 		final Reactor door02 = new Reactor("door02", EscapeGame.WIDTH / 2, 100, "door2.png");
 		door02.addState("locked", new State() {
@@ -70,28 +72,6 @@ public class Room02 extends Room {
 		});
 		hammer.switchToState("state");
 		this.addReactor(hammer);
-		
-		final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png");
-		arrowLeft.addState("state", new State() {
-			@Override
-			public void whenClicked() {
-				getScreen().switchToRoom("room01");
-			}
-			
-		});
-		arrowLeft.switchToState("state");
-		this.addReactor(arrowLeft);
-		
-		final Reactor arrowRight = new Reactor("arrowRight", 620, 240, "arrowRight.png");
-		arrowRight.addState("state", new State() {
-			@Override
-			public void whenClicked() {
-				getScreen().switchToRoom("room01");
-			}
-			
-		});
-		arrowRight.switchToState("state");
-		this.addReactor(arrowRight);
 		
 	}
 

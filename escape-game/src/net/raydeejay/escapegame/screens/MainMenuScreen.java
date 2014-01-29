@@ -29,11 +29,9 @@ public class MainMenuScreen implements Screen {
 		public void draw(Batch batch, float parentAlpha) {
 			batch.setColor(Color.WHITE);
 			game.font.setScale(3);
-			game.font.draw(batch, "EscapeGame ", 300, 350);
+			game.font.draw(batch, "Escape Game Demo", 200, 350);
 			game.font.setScale(1);
 			game.font.draw(batch, "Tap anywhere to begin!", 100, 100);
-
-			super.draw(batch, parentAlpha);
 		}
 
 		@Override
@@ -43,14 +41,14 @@ public class MainMenuScreen implements Screen {
 	}
 
 	public MainMenuScreen(final EscapeGame gam) {
-		game = (EscapeGame) Gdx.app.getApplicationListener();
+		game = gam;
 		stage = new Stage();
 
 		TitleText title = new TitleText();
 		title.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				game.setScreen(new GameScreen());
+				game.setScreen(new GameScreen(game));
 				dispose();
 				return true;
 			}

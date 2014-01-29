@@ -11,6 +11,11 @@ public class Room {
 	private GameScreen screen;
 	private String name;
 
+	private String exitLeft;
+	private String exitRight;
+	private String exitTop;
+	private String exitBottom;
+
 	public ArrayList<Reactor> getReactors() {
 		return this.reactors;
 	}
@@ -60,6 +65,38 @@ public class Room {
 
 	public void setScreen(GameScreen screen) {
 		this.screen = screen;
+	}
+
+	public String getExitLeft() {
+		return this.exitLeft;
+	}
+
+	public void setExitLeft(String exitLeft) {
+		this.exitLeft = exitLeft;
+	}
+
+	public String getExitRight() {
+		return this.exitRight;
+	}
+
+	public void setExitRight(String exitRight) {
+		this.exitRight = exitRight;
+	}
+
+	public String getExitTop() {
+		return this.exitTop;
+	}
+
+	public void setExitTop(String exitTop) {
+		this.exitTop = exitTop;
+	}
+
+	public String getExitBottom() {
+		return this.exitBottom;
+	}
+
+	public void setExitBottom(String exitBottom) {
+		this.exitBottom = exitBottom;
 	}
 
 }

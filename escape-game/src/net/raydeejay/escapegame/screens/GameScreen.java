@@ -7,6 +7,7 @@ import net.raydeejay.escapegame.EscapeGame;
 import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
+import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.rooms.Room01;
 import net.raydeejay.escapegame.rooms.Room02;
@@ -19,12 +20,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 
 public class GameScreen implements Screen {
+
+	final EscapeGame game;
 	private Stage stage;
 	private Room currentRoom;
 	private Inventory inventory;
 	private Hashtable<String, Room> rooms;
 
-	public GameScreen() {
+	public GameScreen(final EscapeGame gam) {
+		this.game = gam;
 		this.rooms = new Hashtable<String, Room>();
 		this.setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
@@ -49,23 +53,59 @@ public class GameScreen implements Screen {
 				this.currentRoom.getBackgroundFilename());
 		this.stage.addActor(background);
 
-		Background invBackground = new Background(700, 0,
-				this.getInventory().getBackgroundFilename());
+		Background invBackground = new Background(700, 0, this.getInventory()
+				.getBackgroundFilename());
 		this.stage.addActor(invBackground);
 
+		// room
 		for (Reactor r : this.currentRoom.getReactors()) {
 			this.stage.addActor(r);
 		}
 
+		// inventory
 		for (Item i : this.getInventory().getItems()) {
 			this.stage.addActor(i);
+		}
+
+		// navigation
+		this.setUpNavigation();
+
+	}
+
+	private void setUpNavigation() {
+		if (currentRoom.getExitLeft() != null) {
+			final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240,
+					"arrowLeft.png");
+			arrowLeft.addState("state", new State() {
+				@Override
+				public void whenClicked() {
+					switchToRoom(currentRoom.getExitLeft());
+				}
+
+			});
+			arrowLeft.switchToState("state");
+			this.currentRoom.addReactor(arrowLeft);
+		}
+
+		if (currentRoom.getExitRight() != null) {
+			final Reactor arrowRight = new Reactor("arrowRight", 620, 240,
+					"arrowRight.png");
+			arrowRight.addState("state", new State() {
+				@Override
+				public void whenClicked() {
+					switchToRoom(currentRoom.getExitRight());
+				}
+
+			});
+			arrowRight.switchToState("state");
+			this.currentRoom.addReactor(arrowRight);
 		}
 	}
 
 	public void addReactor(Reactor aReactor) {
 		this.stage.addActor(aReactor);
 	}
-	
+
 	public void addToInventory(Item anItem) {
 		this.getInventory().addItem(anItem);
 		this.stage.addActor(anItem);
@@ -123,6 +163,10 @@ public class GameScreen implements Screen {
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
+	}
+
+	public EscapeGame getGame() {
+		return this.game;
 	}
 
 }
