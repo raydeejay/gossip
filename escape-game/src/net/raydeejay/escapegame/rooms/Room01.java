@@ -8,7 +8,6 @@ import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 import net.raydeejay.escapegame.screens.MainMenuScreen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Room01 extends Room {

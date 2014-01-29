@@ -26,6 +26,8 @@ public class GameScreen implements Screen {
 	private Room currentRoom;
 	private Inventory inventory;
 	private Hashtable<String, Room> rooms;
+	final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png");
+	final Reactor arrowRight = new Reactor("arrowRight", 620, 240, "arrowRight.png");
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
@@ -33,8 +35,9 @@ public class GameScreen implements Screen {
 		this.setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
-		// set up the rooms
+		// set up the rooms and stuff
 		this.createRooms();
+		this.createNavigationButtons();
 
 		// and go
 		this.switchToRoom("room01");
@@ -43,6 +46,28 @@ public class GameScreen implements Screen {
 	private void createRooms() {
 		this.rooms.put("room01", new Room01(this));
 		this.rooms.put("room02", new Room02(this));
+	}
+
+	private void createNavigationButtons() {
+		arrowLeft.addState("state", new State() {
+			@Override
+			public void whenClicked() {
+				switchToRoom(currentRoom.getExitLeft());
+			}
+
+		});
+		arrowLeft.switchToState("state");
+		arrowLeft.setVisible(false);
+
+		arrowRight.addState("state", new State() {
+			@Override
+			public void whenClicked() {
+				switchToRoom(currentRoom.getExitRight());
+			}
+
+		});
+		arrowRight.switchToState("state");
+		arrowRight.setVisible(false);
 	}
 
 	public void switchToRoom(String destination) {
@@ -68,37 +93,23 @@ public class GameScreen implements Screen {
 		}
 
 		// navigation
-		this.setUpNavigation();
+		this.currentRoom.addReactor(arrowLeft);
+		this.currentRoom.addReactor(arrowRight);
+		this.updateNavigation();
 
 	}
 
-	private void setUpNavigation() {
-		if (currentRoom.getExitLeft() != null) {
-			final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240,
-					"arrowLeft.png");
-			arrowLeft.addState("state", new State() {
-				@Override
-				public void whenClicked() {
-					switchToRoom(currentRoom.getExitLeft());
-				}
-
-			});
-			arrowLeft.switchToState("state");
-			this.currentRoom.addReactor(arrowLeft);
+	private void updateNavigation() {
+		if (currentRoom.getExitLeft() == null) {
+			this.arrowLeft.setVisible(false);
+		} else {
+			this.arrowLeft.setVisible(true);
 		}
 
-		if (currentRoom.getExitRight() != null) {
-			final Reactor arrowRight = new Reactor("arrowRight", 620, 240,
-					"arrowRight.png");
-			arrowRight.addState("state", new State() {
-				@Override
-				public void whenClicked() {
-					switchToRoom(currentRoom.getExitRight());
-				}
-
-			});
-			arrowRight.switchToState("state");
-			this.currentRoom.addReactor(arrowRight);
+		if (currentRoom.getExitRight() == null) {
+			this.arrowRight.setVisible(false);
+		} else {
+			this.arrowRight.setVisible(true);
 		}
 	}
 
