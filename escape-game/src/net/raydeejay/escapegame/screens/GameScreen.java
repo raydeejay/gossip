@@ -135,10 +135,14 @@ public class GameScreen implements Screen {
 	public void resize(int width, int height) {
 		Vector2 size = Scaling.fit.apply(EscapeGame.WIDTH, EscapeGame.HEIGHT,
 				width, height);
-		int viewportX = (int) (width - size.x) / 2;
-		int viewportY = (int) (height - size.y) / 2;
-		int viewportWidth = (int) size.x;
-		int viewportHeight = (int) size.y;
+		int sizeX = (int) size.x;
+		int sizeY = (int) size.y;
+		
+		int viewportX = (width - sizeX) / 2;
+		int viewportY = (height - sizeY) / 2;
+		int viewportWidth = sizeX;
+		int viewportHeight = sizeY;
+		
 		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
 		stage.setViewport(EscapeGame.WIDTH, EscapeGame.HEIGHT, true, viewportX,
 				viewportY, viewportWidth, viewportHeight);
