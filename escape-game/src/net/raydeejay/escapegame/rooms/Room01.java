@@ -15,7 +15,7 @@ public class Room01 extends Room {
 	public Room01(GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-		//this.setExitLeft("room02");
+		// this.setExitLeft("room02");
 
 		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 82,
 				"door2.png");
@@ -107,6 +107,19 @@ public class Room01 extends Room {
 
 		vase.switchToState("1");
 		this.addReactor(vase);
+
+		final Reactor box = new Reactor("box", 100, 20, "box.png");
+		box.addState("state", new State() {
+			@Override
+			public void whenClicked() {
+				final Item boxItem = new Item(box);
+				addToInventory(boxItem);
+				removeReactor(box);
+			}
+
+		});
+		box.switchToState("state");
+		this.addReactor(box);
 
 	}
 }

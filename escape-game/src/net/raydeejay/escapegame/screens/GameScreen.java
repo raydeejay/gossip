@@ -46,6 +46,7 @@ public class GameScreen implements Screen {
 		this.rooms.put("room01", new Room01(this));
 		this.rooms.put("room02", new Room02(this));
 		this.rooms.put("room03", new Room03(this));
+		this.rooms.put("room04", new Room04(this));
 	}
 
 	private void createNavigationButtons() {

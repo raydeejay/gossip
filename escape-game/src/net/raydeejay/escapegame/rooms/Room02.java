@@ -60,19 +60,7 @@ public class Room02 extends Room {
 		key.switchToState("state");
 		this.addReactor(key);
 		
-		final Reactor hammer = new Reactor("hammer", 400, 100, "hammer.png");
-		hammer.addState("state", new State() {
-			@Override
-			public void whenClicked() {
-				final Item hammerItem = new Item(hammer);
-				addToInventory(hammerItem);
-				removeReactor(hammer);
-			}
-			
-		});
-		hammer.switchToState("state");
-		this.addReactor(hammer);
-		
+
 	}
 
 }
