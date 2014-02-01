@@ -11,8 +11,8 @@ public class Room02 extends Room {
 
 	public Room02(GameScreen gameScreen) {
 		super("room02", "room02.png", gameScreen);
-		this.setExitLeft("room01");
-		this.setExitRight("room01");
+		//this.setExitLeft("room01");
+		this.setExitRight("room03");
 		
 		final Reactor door02 = new Reactor("door02", EscapeGame.WIDTH / 2, 82, "door2.png");
 		door02.addState("locked", new State() {

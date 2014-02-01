@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
+import net.raydeejay.escapegame.rooms.*;
 
 public class GameScreen implements Screen {
 
@@ -46,6 +47,7 @@ public class GameScreen implements Screen {
 	private void createRooms() {
 		this.rooms.put("room01", new Room01(this));
 		this.rooms.put("room02", new Room02(this));
+		this.rooms.put("room03", new Room03(this));
 	}
 
 	private void createNavigationButtons() {
