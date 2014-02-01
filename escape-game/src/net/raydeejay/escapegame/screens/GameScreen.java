@@ -9,8 +9,6 @@ import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
-import net.raydeejay.escapegame.rooms.Room01;
-import net.raydeejay.escapegame.rooms.Room02;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
