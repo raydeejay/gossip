@@ -36,16 +36,7 @@ public class Inventory {
 	public void addItem(Item anItem) {
 		anItem.setInventory(this);
 		this.items.add(anItem);
-		
-		// calculate coordinates
-		int index = this.items.indexOf(anItem);
-		int x = 2 + (48 * (index % 2)); 
-		int y = 6 + (60 * (index / 2));
-		
-		// set them, with the appropriate offsets
-		// TODO - this is extremely ugly, refactor it
-		anItem.setX(700 + x);
-		anItem.setY(480 - y - 48);
+
 	}
 
 	public void removeItem(Item anItem) {

@@ -15,14 +15,56 @@ public class Room03 extends Room {
 
 		final Reactor fireplace = new Reactor("fireplace", 200, 82,
 				"fireplace.png");
-		fireplace.addState("state", new State() {
+		final Reactor fire = new Reactor("fire", 325, 85, "fire.png");
 
+		// fireplace
+		fireplace.addState("empty", new State() {
+			@Override
+			public void whenClickedWith(Item anItem) {
+				if (anItem.getName().equals("logsItem")) {
+					anItem.getInventory().removeItem(anItem);
+					fire.switchToState("with logs");
+					fireplace.switchToState("filled");
+				}
+			}
 		});
-		fireplace.switchToState("state");
+
+		fireplace.addState("filled", new State() {
+		});
+
+		fireplace.switchToState("empty");
 		this.addReactor(fireplace);
 
-		final Reactor fire = new Reactor("fire", 325, 85, "fire.png");
-		fire.addState("state", new State() {
+		// fire
+		fire.addState("hidden", new State() {
+			@Override
+			public void onEnter() {
+				fire.setVisible(false);
+			}
+		});
+
+		fire.addState("with logs", new State() {
+			@Override
+			public void onEnter() {
+				fire.setImage("logs.png");
+				fire.setVisible(true);
+			}
+
+			@Override
+			public void whenClickedWith(Item anItem) {
+				if (anItem.getName().equals("lighterItem")) {
+					anItem.getInventory().removeItem(anItem);
+					fire.switchToState("lit");
+				}
+			}
+		});
+
+		fire.addState("lit", new State() {
+			@Override
+			public void onEnter() {
+				fire.setImage("fire.png");
+			}
+
 			@Override
 			public void whenClickedWith(Item anItem) {
 				if (anItem.getName().equals("boxItem")) {
@@ -48,9 +90,10 @@ public class Room03 extends Room {
 
 		});
 
-		fire.switchToState("state");
+		fire.switchToState("hidden");
 		this.addReactor(fire);
 
+		// knife
 		final Reactor knife = new Reactor("knife", 530, 5, "knife.png");
 		knife.addState("state", new State() {
 

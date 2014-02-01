@@ -26,9 +26,9 @@ public class Item extends Reactor {
 
 	public Item(Reactor aReactor) {
 		super(aReactor.getName() + "Item", 0, 0, aReactor.getImage());
-	
+
 	}
-	
+
 	@Override
 	protected void setUpListeners() {
 		this.addListener(new InputListener() {
@@ -48,11 +48,23 @@ public class Item extends Reactor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		// calculate coordinates
+		int index = this.getInventory().getItems().indexOf(this);
+		int x = 2 + (48 * (index % 2));
+		int y = 6 + (60 * (index / 2));
+
+		// set them, with the appropriate offsets
+		// TODO - this is extremely ugly, refactor it
+		this.setX(700 + x);
+		this.setY(480 - y - 48);
+
+		// add "halo" if the item is selected
 		if (this.isSelected()) {
 			batch.setColor(Color.rgba8888(0, 0.5f, 0.5f, 0.4f));
 		} else {
 			batch.setColor(Color.WHITE);
 		}
+		
 		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
