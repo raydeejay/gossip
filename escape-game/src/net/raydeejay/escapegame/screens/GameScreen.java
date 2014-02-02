@@ -26,7 +26,8 @@ public class GameScreen implements Screen {
 	private Inventory inventory;
 	private Hashtable<String, Room> rooms;
 	final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png");
-	final Reactor arrowRight = new Reactor("arrowRight", 620, 240, "arrowRight.png");
+	final Reactor arrowRight = new Reactor("arrowRight", 620, 240,
+			"arrowRight.png");
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
@@ -39,14 +40,18 @@ public class GameScreen implements Screen {
 		this.createNavigationButtons();
 
 		// and go
-		this.switchToRoom("room01");
+		this.switchToRoom("room02");
 	}
 
 	private void createRooms() {
-		this.rooms.put("room01", new Room01(this));
-		this.rooms.put("room02", new Room02(this));
-		this.rooms.put("room03", new Room03(this));
-		this.rooms.put("room04", new Room04(this));
+		this.addRoom(new Room01(this));
+		this.addRoom(new Room02(this));
+		this.addRoom(new Room03(this));
+		this.addRoom(new Room04(this));
+	}
+
+	private void addRoom(Room aRoom) {
+		this.rooms.put(aRoom.getName(), aRoom);
 	}
 
 	private void createNavigationButtons() {
@@ -101,17 +106,8 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateNavigation() {
-		if (currentRoom.getExitLeft() == null) {
-			this.arrowLeft.setVisible(false);
-		} else {
-			this.arrowLeft.setVisible(true);
-		}
-
-		if (currentRoom.getExitRight() == null) {
-			this.arrowRight.setVisible(false);
-		} else {
-			this.arrowRight.setVisible(true);
-		}
+		this.arrowLeft.setVisible(this.currentRoom.getExitLeft() != null);
+		this.arrowRight.setVisible(this.currentRoom.getExitRight() != null);
 	}
 
 	public void addReactor(Reactor aReactor) {
@@ -138,12 +134,12 @@ public class GameScreen implements Screen {
 				width, height);
 		int sizeX = (int) size.x;
 		int sizeY = (int) size.y;
-		
+
 		int viewportX = (width - sizeX) / 2;
 		int viewportY = (height - sizeY) / 2;
 		int viewportWidth = sizeX;
 		int viewportHeight = sizeY;
-		
+
 		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
 		stage.setViewport(EscapeGame.WIDTH, EscapeGame.HEIGHT, true, viewportX,
 				viewportY, viewportWidth, viewportHeight);

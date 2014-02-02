@@ -15,8 +15,6 @@ public class Room01 extends Room {
 	public Room01(GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-		// this.setExitLeft("room02");
-
 		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 82,
 				"door2.png");
 
