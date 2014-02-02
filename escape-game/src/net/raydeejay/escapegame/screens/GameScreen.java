@@ -55,7 +55,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void createNavigationButtons() {
-		arrowLeft.addState("state", new State() {
+		arrowLeft.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				switchToRoom(currentRoom.getExitLeft());
@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
 		arrowLeft.switchToState("state");
 		arrowLeft.setVisible(false);
 
-		arrowRight.addState("state", new State() {
+		arrowRight.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				switchToRoom(currentRoom.getExitRight());

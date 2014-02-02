@@ -18,14 +18,14 @@ public class Room01 extends Room {
 		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 82,
 				"door2.png");
 
-		door01.addState("closed", new State() {
+		door01.addState(new State("closed") {
 			@Override
 			public void whenClicked() {
 				door01.switchToState("open");
 			}
 		});
 
-		door01.addState("open", new State() {
+		door01.addState(new State("open") {
 			@Override
 			public void onEnter() {
 				door01.setImage("door2open.png");
@@ -41,7 +41,7 @@ public class Room01 extends Room {
 		this.addReactor(door01);
 
 		final Reactor vase = new Reactor("vase", 200, 200, "vase.png");
-		vase.addState("1", new State() {
+		vase.addState(new State("1") {
 			@Override
 			public void onEnter() {
 				vase.setX(200);
@@ -53,7 +53,7 @@ public class Room01 extends Room {
 			}
 		});
 
-		vase.addState("2", new State() {
+		vase.addState(new State("2") {
 			@Override
 			public void onEnter() {
 				vase.setX(400);
@@ -65,7 +65,7 @@ public class Room01 extends Room {
 			}
 		});
 
-		vase.addState("3", new State() {
+		vase.addState(new State("3") {
 			@Override
 			public void onEnter() {
 				vase.addAction(Actions.sequence(
@@ -78,7 +78,7 @@ public class Room01 extends Room {
 			}
 		});
 
-		vase.addState("4", new State() {
+		vase.addState(new State("4") {
 			@Override
 			public void whenClickedWith(Item anItem) {
 				if (anItem.getName().equals("hammerItem")) {
@@ -87,7 +87,7 @@ public class Room01 extends Room {
 
 					final Reactor paper = new Reactor("paper", vase.getX(),
 							vase.getY(), "paper.png");
-					paper.addState("state", new State() {
+					paper.addState(new State("state") {
 						public void whenClicked() {
 							// show a message ?
 							GameScreen screen = getScreen();
@@ -107,7 +107,7 @@ public class Room01 extends Room {
 		this.addReactor(vase);
 
 		final Reactor box = new Reactor("box", 100, 20, "box.png");
-		box.addState("state", new State() {
+		box.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				final Item boxItem = new Item(box);

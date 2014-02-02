@@ -13,7 +13,7 @@ public class Room04 extends Room {
 		this.setExitLeft("room03");
 
 		final Reactor axe = new Reactor("axe", 100, 40, "axe.png");
-		axe.addState("state", new State() {
+		axe.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				final Item axeItem = new Item(axe);
@@ -26,7 +26,7 @@ public class Room04 extends Room {
 		this.addReactor(axe);
 		
 		final Reactor lighter = new Reactor("lighter", 200, 40, "lighter.png");
-		lighter.addState("state", new State() {
+		lighter.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				final Item lighterItem = new Item(lighter);
@@ -39,21 +39,21 @@ public class Room04 extends Room {
 		this.addReactor(lighter);
 		
 		final Reactor tree = new Reactor("tree", 480, 20, "tree.png");
-		tree.addState("state", new State() {
+		tree.addState(new State("state") {
 			@Override
 			public void whenClickedWith(Item anItem) {
 				if (anItem.getName().equals("axeItem")) {
-					anItem.getInventory().removeItem(anItem);
-					removeReactor(tree);
+					anItem.removeFromInventory();
+					tree.removeFromRoom();
 
 					final Reactor logs = new Reactor("logs", tree.getX(),
 							tree.getY(), "logs.png");
-					logs.addState("state", new State() {
+					logs.addState(new State("state") {
 						@Override
 						public void whenClicked() {
 							final Item logsItem = new Item(logs);
 							addToInventory(logsItem);
-							removeReactor(logs);
+							logs.removeFromRoom();
 						}
 
 					});

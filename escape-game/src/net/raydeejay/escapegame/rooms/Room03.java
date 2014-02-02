@@ -18,7 +18,7 @@ public class Room03 extends Room {
 		final Reactor fire = new Reactor("fire", 325, 85, "fire.png");
 
 		// fireplace
-		fireplace.addState("empty", new State() {
+		fireplace.addState(new State("empty") {
 			@Override
 			public void whenClickedWith(Item anItem) {
 				if (anItem.getName().equals("logsItem")) {
@@ -29,21 +29,21 @@ public class Room03 extends Room {
 			}
 		});
 
-		fireplace.addState("filled", new State() {
+		fireplace.addState(new State("filled") {
 		});
 
 		fireplace.switchToState("empty");
 		this.addReactor(fireplace);
 
 		// fire
-		fire.addState("hidden", new State() {
+		fire.addState(new State("hidden") {
 			@Override
 			public void onEnter() {
 				fire.setVisible(false);
 			}
 		});
 
-		fire.addState("with logs", new State() {
+		fire.addState(new State("with logs") {
 			@Override
 			public void onEnter() {
 				fire.setImage("logs.png");
@@ -59,7 +59,7 @@ public class Room03 extends Room {
 			}
 		});
 
-		fire.addState("lit", new State() {
+		fire.addState(new State("lit") {
 			@Override
 			public void onEnter() {
 				fire.setImage("fire.png");
@@ -73,7 +73,7 @@ public class Room03 extends Room {
 
 					final Reactor hammer = new Reactor("hammer", fire.getX(),
 							fire.getY(), "hammer.png");
-					hammer.addState("state", new State() {
+					hammer.addState(new State("state") {
 						@Override
 						public void whenClicked() {
 							final Item hammerItem = new Item(hammer);
@@ -95,7 +95,7 @@ public class Room03 extends Room {
 
 		// knife
 		final Reactor knife = new Reactor("knife", 530, 5, "knife.png");
-		knife.addState("state", new State() {
+		knife.addState(new State("state") {
 
 		});
 		knife.switchToState("state");

@@ -15,7 +15,7 @@ public class Room02 extends Room {
 		this.setExitRight("room03");
 		
 		final Reactor door02 = new Reactor("door02", EscapeGame.WIDTH / 2, 82, "door2.png");
-		door02.addState("locked", new State() {
+		door02.addState(new State("locked") {
 			@Override
 			public void whenClickedWith(Item anItem) {
 				if(anItem.getName().equals("keyItem")) {
@@ -25,14 +25,14 @@ public class Room02 extends Room {
 			}
 		});
 		
-		door02.addState("closed", new State() {
+		door02.addState(new State("closed") {
 			@Override
 			public void whenClicked() {
 				door02.switchToState("open");
 			}
 		});
 		
-		door02.addState("open", new State() {
+		door02.addState(new State("open") {
 			@Override
 			public void onEnter() {
 				door02.setImage("door2open.png");
@@ -48,7 +48,7 @@ public class Room02 extends Room {
 		this.addReactor(door02);
 		
 		final Reactor key = new Reactor("key", 200, 200, "key.png");
-		key.addState("state", new State() {
+		key.addState(new State("state") {
 			@Override
 			public void whenClicked() {
 				final Item keyItem = new Item("keyItem", "key.png");
