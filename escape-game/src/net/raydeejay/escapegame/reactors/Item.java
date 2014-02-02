@@ -88,6 +88,10 @@ public class Item extends Reactor {
 	public void setInventory(Inventory anInventory) {
 		this.inventory = anInventory;
 	}
+	
+	public void removeFromInventory() {
+		this.getInventory().removeItem(this);
+	}
 
 	@Override
 	public void whenClicked() {
