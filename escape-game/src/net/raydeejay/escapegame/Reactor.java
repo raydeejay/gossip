@@ -83,10 +83,14 @@ public class Reactor extends Actor {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+	
+	public void removeFromRoom() {
+		this.getRoom().removeReactor(this);
+	}
 
 	// STATE
-	public void addState(String aString, State aState) {
-		this.states.put(aString, aState);
+	public void addState(State aState) {
+		this.states.put(aState.getName(), aState);
 	}
 
 	public State getCurrentState() {
