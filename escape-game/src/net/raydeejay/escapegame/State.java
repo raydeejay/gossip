@@ -3,6 +3,20 @@ package net.raydeejay.escapegame;
 import net.raydeejay.escapegame.reactors.Item;
 
 public class State {
+	private String name;
+	
+	public State(String name) {
+		this.setName(name);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void onEnter() {}
 	public void onExit() {}
 	public void whenClicked() {}
