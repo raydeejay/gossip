@@ -23,16 +23,17 @@ public class GameScreen implements Screen {
 	final EscapeGame game;
 	private Stage stage;
 	private Room currentRoom;
-	private Inventory inventory;
+	private static Inventory inventory;
 	private Hashtable<String, Room> rooms;
-	final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png");
+	final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png", this);
 	final Reactor arrowRight = new Reactor("arrowRight", 620, 240,
-			"arrowRight.png");
+			"arrowRight.png", this);
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
 		this.rooms = new Hashtable<String, Room>();
-		this.setInventory(new Inventory("inventory.png", this));
+		
+		setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
 		// set up the rooms and stuff
@@ -84,7 +85,7 @@ public class GameScreen implements Screen {
 				this.currentRoom.getBackgroundFilename());
 		this.stage.addActor(background);
 
-		Background invBackground = new Background(700, 0, this.getInventory()
+		Background invBackground = new Background(700, 0, GameScreen.getInventory()
 				.getBackgroundFilename());
 		this.stage.addActor(invBackground);
 
@@ -94,7 +95,7 @@ public class GameScreen implements Screen {
 		}
 
 		// inventory
-		for (Item i : this.getInventory().getItems()) {
+		for (Item i : GameScreen.getInventory().getItems()) {
 			this.stage.addActor(i);
 		}
 
@@ -115,7 +116,7 @@ public class GameScreen implements Screen {
 	}
 
 	public void addToInventory(Item anItem) {
-		this.getInventory().addItem(anItem);
+		GameScreen.getInventory().addItem(anItem);
 		this.stage.addActor(anItem);
 	}
 
@@ -154,31 +155,33 @@ public class GameScreen implements Screen {
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
-
 	@Override
 	public void dispose() {
-		// Raindrop.dropImage.dispose();
 		stage.dispose();
 	}
 
-	public Inventory getInventory() {
+	public static Inventory getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
+	public static void setInventory(Inventory anInventory) {
+		inventory = anInventory;
 	}
 
 	public EscapeGame getGame() {
 		return this.game;
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,10 +1,12 @@
 package net.raydeejay.escapegame.rooms;
 
+import net.raydeejay.escapegame.Door;
+import net.raydeejay.escapegame.Dropper;
 import net.raydeejay.escapegame.EscapeGame;
+import net.raydeejay.escapegame.Obtainable;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
-import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 import net.raydeejay.escapegame.screens.MainMenuScreen;
 
@@ -12,48 +14,49 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Room01 extends Room {
 
-	public Room01(GameScreen gameScreen) {
+	public Room01(final GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-		final Reactor door01 = new Reactor("door01", EscapeGame.WIDTH / 3, 82,
-				"door2.png");
+		Reactor door01 = new Door("door01", gameScreen)
+			.at(EscapeGame.WIDTH / 3, 82)
+			.destination("room02")
+			.imageForOpen("door2open.png")
+			.imageForClosed("door2.png")
+			.switchToState("closed");
 
-		door01.addState(new State("closed") {
-			@Override
-			public void whenClicked() {
-				door01.switchToState("open");
-			}
-		});
-
-		door01.addState(new State("open") {
-			@Override
-			public void onEnter() {
-				door01.setImage("door2open.png");
-			}
-
-			@Override
-			public void whenClicked() {
-				getScreen().switchToRoom("room02");
-			}
-		});
-
-		door01.switchToState("closed");
 		this.addReactor(door01);
 
-		final Reactor vase = new Reactor("vase", 200, 200, "vase.png");
-		vase.addState(new State("1") {
-			@Override
-			public void onEnter() {
-				vase.setX(200);
-			}
+		// @formatter:off
+		Reactor box = new Obtainable("box", gameScreen)
+			.setImage("box.png")
+			.at(100, 20);
 
+		this.addReactor(box);
+
+		final Reactor paper = new Reactor("paper", 0, 0, "paper.png", gameScreen)
+			.addState(new State("state") {
+				public void whenClicked() {
+					EscapeGame game = gameScreen.getGame();
+					game.setScreen(new MainMenuScreen(game));
+					gameScreen.dispose();
+				}
+			})
+			.switchToState("state");
+		// @formatter:on
+
+		// FIXME - note that it harcodes final coordinates
+		final Reactor vase = new Dropper("vase", gameScreen)
+			.at(200, 30)
+			.reactTo("hammerItem")
+			.dropAt(600, 30, "paper")
+			.setImage("vase.png");
+
+		vase.addState(new State("1") {
 			@Override
 			public void whenClicked() {
 				vase.switchToState("2");
 			}
-		});
-
-		vase.addState(new State("2") {
+		}).addState(new State("2") {
 			@Override
 			public void onEnter() {
 				vase.setX(400);
@@ -63,61 +66,21 @@ public class Room01 extends Room {
 			public void whenClicked() {
 				vase.switchToState("3");
 			}
-		});
-
-		vase.addState(new State("3") {
+		}).addState(new State("3") {
 			@Override
 			public void onEnter() {
 				vase.addAction(Actions.sequence(
 						Actions.moveTo(600, vase.getY(), 2.0f),
 						Actions.run(new Runnable() {
 							public void run() {
-								vase.switchToState("4");
+								vase.switchToState("state");
 							}
 						})));
 			}
-		});
+		})
+		.switchToState("1");
 
-		vase.addState(new State("4") {
-			@Override
-			public void whenClickedWith(Item anItem) {
-				if (anItem.getName().equals("hammerItem")) {
-					anItem.getInventory().removeItem(anItem);
-					removeReactor(vase);
-
-					final Reactor paper = new Reactor("paper", vase.getX(),
-							vase.getY(), "paper.png");
-					paper.addState(new State("state") {
-						public void whenClicked() {
-							// show a message ?
-							GameScreen screen = getScreen();
-							EscapeGame game = screen.getGame();
-							game.setScreen(new MainMenuScreen(game));
-							screen.dispose();
-						}
-					});
-
-					paper.switchToState("state");
-					addReactor(paper);
-				}
-			}
-		});
-
-		vase.switchToState("1");
 		this.addReactor(vase);
-
-		final Reactor box = new Reactor("box", 100, 20, "box.png");
-		box.addState(new State("state") {
-			@Override
-			public void whenClicked() {
-				final Item boxItem = new Item(box);
-				addToInventory(boxItem);
-				removeReactor(box);
-			}
-
-		});
-		box.switchToState("state");
-		this.addReactor(box);
 
 	}
 }

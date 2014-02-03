@@ -1,7 +1,7 @@
 package net.raydeejay.escapegame.reactors;
 
-import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Reactor;
+import net.raydeejay.escapegame.screens.GameScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,16 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Item extends Reactor {
 
-	private Inventory inventory;
-
-	public Item(String name, float x, float y, String aFilename) {
-		super(name, x, y, aFilename);
-	}
-
-	public Item(String name, String aFilename) {
-		super(name, 0, 0, aFilename);
-	}
-
+//	public Item(String name, float x, float y, String aFilename) {
+//		super(name, x, y, aFilename);
+//	}
+//
+//	public Item(String name, String aFilename) {
+//		super(name, 0, 0, aFilename);
+//	}
+//
 	public Item(Reactor aReactor) {
 		super(aReactor.getName() + "Item", 0, 0, aReactor.getImage());
 
@@ -35,7 +33,7 @@ public class Item extends Reactor {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				Item item = getInventory().getSelectedItem();
+				Item item = GameScreen.getInventory().getSelectedItem();
 				if (item == null || isSelected()) {
 					whenClicked();
 				} else {
@@ -49,7 +47,7 @@ public class Item extends Reactor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		// calculate coordinates
-		int index = this.getInventory().getItems().indexOf(this);
+		int index = GameScreen.getInventory().getItems().indexOf(this);
 		int x = 2 + (48 * (index % 2));
 		int y = 6 + (60 * (index / 2));
 
@@ -68,29 +66,24 @@ public class Item extends Reactor {
 		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
-	private void beUnselected() {
-		this.getInventory().setSelectedItem(null);
+	private Item beUnselected() {
+		GameScreen.getInventory().setSelectedItem(null);
+		return this;
 	}
 
-	private void beSelected() {
-		this.getInventory().setSelectedItem(this);
+	private Item beSelected() {
+		GameScreen.getInventory().setSelectedItem(this);
+		return this;
 	}
 
 	private boolean isSelected() {
-		return (this.getInventory().getSelectedItem() == this);
+		return (GameScreen.getInventory().getSelectedItem() == this);
 	}
 
 	// INVENTORY
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
-	public void setInventory(Inventory anInventory) {
-		this.inventory = anInventory;
-	}
-	
-	public void removeFromInventory() {
-		this.getInventory().removeItem(this);
+	public Item removeFromInventory() {
+		GameScreen.getInventory().removeItem(this);
+		return this;
 	}
 
 	@Override
@@ -100,6 +93,11 @@ public class Item extends Reactor {
 		} else {
 			this.beUnselected();
 		}
+	}
+
+	public void addToInventory() {
+		GameScreen.getInventory().addItem(this);
+		
 	}
 
 }

@@ -1,66 +1,33 @@
 package net.raydeejay.escapegame.rooms;
 
+import net.raydeejay.escapegame.Door;
 import net.raydeejay.escapegame.EscapeGame;
+import net.raydeejay.escapegame.Obtainable;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
-import net.raydeejay.escapegame.State;
-import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Room02 extends Room {
 
 	public Room02(GameScreen gameScreen) {
 		super("room02", "room02.png", gameScreen);
-		//this.setExitLeft("room01");
 		this.setExitRight("room03");
 		
-		final Reactor door02 = new Reactor("door02", EscapeGame.WIDTH / 2, 82, "door2.png");
-		door02.addState(new State("locked") {
-			@Override
-			public void whenClickedWith(Item anItem) {
-				if(anItem.getName().equals("keyItem")) {
-					anItem.getInventory().removeItem(anItem);
-					door02.switchToState("closed");
-				}
-			}
-		});
-		
-		door02.addState(new State("closed") {
-			@Override
-			public void whenClicked() {
-				door02.switchToState("open");
-			}
-		});
-		
-		door02.addState(new State("open") {
-			@Override
-			public void onEnter() {
-				door02.setImage("door2open.png");
-			}
-			
-			@Override
-			public void whenClicked() {
-				getScreen().switchToRoom("room01");
-			}
-		});
+		Reactor door02 = new Door("door02", gameScreen)
+			.at(EscapeGame.WIDTH / 3, 82)
+			.destination("room01")
+			.lockedWith("keyItem")
+			.imageForOpen("door2open.png")
+			.imageForClosed("door2.png")
+			.imageForLocked("door2.png")
+			.switchToState("locked");
 
-		door02.switchToState("locked");
 		this.addReactor(door02);
+
+		Reactor key = new Obtainable("key", gameScreen)
+			.setImage("key.png")
+			.at(200, 20);
 		
-		final Reactor key = new Reactor("key", 200, 200, "key.png");
-		key.addState(new State("state") {
-			@Override
-			public void whenClicked() {
-				final Item keyItem = new Item("keyItem", "key.png");
-				addToInventory(keyItem);
-				removeReactor(key);
-			}
-			
-		});
-		key.switchToState("state");
 		this.addReactor(key);
-		
-
 	}
-
 }

@@ -31,72 +31,82 @@ public class Room {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public Room setName(String name) {
 		this.name = name;
+		return this;
 	}
 
-	public void addReactor(Reactor aReactor) {
+	public Room addReactor(Reactor aReactor) {
 		aReactor.setRoom(this);
 		this.reactors.add(aReactor);
 		this.getScreen().addReactor(aReactor);
+		return this;
 	}
 
-	public void addToInventory(Item anItem) {
+	public Room addToInventory(Item anItem) {
 		this.getScreen().addToInventory(anItem);
+		return this;
 	}
 
 	public String getBackgroundFilename() {
 		return backgroundFilename;
 	}
 
-	public void setBackgroundFilename(String backgroundFilename) {
+	public Room setBackgroundFilename(String backgroundFilename) {
 		this.backgroundFilename = backgroundFilename;
+		return this;
 	}
 
-	public void removeReactor(Reactor aReactor) {
+	public Room removeReactor(Reactor aReactor) {
 		aReactor.setRoom(null);
 		this.reactors.remove(aReactor);
 		aReactor.remove();
-	}
+		return this;
+}
 
 	public GameScreen getScreen() {
 		return screen;
 	}
 
-	public void setScreen(GameScreen screen) {
+	public Room setScreen(GameScreen screen) {
 		this.screen = screen;
+		return this;
 	}
 
 	public String getExitLeft() {
 		return this.exitLeft;
 	}
 
-	public void setExitLeft(String exitLeft) {
+	public Room setExitLeft(String exitLeft) {
 		this.exitLeft = exitLeft;
+		return this;
 	}
 
 	public String getExitRight() {
 		return this.exitRight;
 	}
 
-	public void setExitRight(String exitRight) {
+	public Room setExitRight(String exitRight) {
 		this.exitRight = exitRight;
+		return this;
 	}
 
 	public String getExitTop() {
 		return this.exitTop;
 	}
 
-	public void setExitTop(String exitTop) {
+	public Room setExitTop(String exitTop) {
 		this.exitTop = exitTop;
+		return this;
 	}
 
 	public String getExitBottom() {
 		return this.exitBottom;
 	}
 
-	public void setExitBottom(String exitBottom) {
+	public Room setExitBottom(String exitBottom) {
 		this.exitBottom = exitBottom;
+		return this;
 	}
 
 }

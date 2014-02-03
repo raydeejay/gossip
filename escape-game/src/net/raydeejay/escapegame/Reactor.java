@@ -3,6 +3,7 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 
 import net.raydeejay.escapegame.reactors.Item;
+import net.raydeejay.escapegame.screens.GameScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,14 +18,17 @@ public class Reactor extends Actor {
 	private HashMap<String, State> states = new HashMap<String, State>();
 	private Texture image;
 	private Room room;
+	protected GameScreen gameScreen;
 
-	public Reactor(String name, float x, float y, String aFilename) {
+	public Reactor(String name, float x, float y, String aFilename, GameScreen aScreen) {
 		this.setX(x);
 		this.setY(y);
 		this.setImage(aFilename);
 		this.setName(name);
+		gameScreen = aScreen;
 
 		this.setUpListeners();
+		GameRegistry.registerReactor(name, this);
 	}
 
 	public Reactor(String name, float x, float y, Texture aTexture) {
@@ -41,8 +45,7 @@ public class Reactor extends Actor {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				Item item = getRoom().getScreen().getInventory()
-						.getSelectedItem();
+				Item item = GameScreen.getInventory().getSelectedItem();
 				if (item == null) {
 					whenClicked();
 				} else {
@@ -64,46 +67,57 @@ public class Reactor extends Actor {
 		return image;
 	}
 
-	public void setImage(Texture aTexture) {
+	public Reactor setImage(Texture aTexture) {
 		this.image = aTexture;
 		this.setWidth(aTexture.getWidth());
 		this.setHeight(aTexture.getHeight());
+		return this;
 	}
 
-	public void setImage(String aFilename) {
+	public Reactor setImage(String aFilename) {
 		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
 		this.setImage(aTexture);
+		return this;
 	}
 
+	// CONVERSION
+	public Item asItem() {
+		return new Item(this);
+	}
+	
 	// ROOM
 	public Room getRoom() {
 		return room;
 	}
 
-	public void setRoom(Room room) {
+	public Reactor setRoom(Room room) {
 		this.room = room;
+		return this;
 	}
 	
-	public void removeFromRoom() {
+	public Reactor removeFromRoom() {
 		this.getRoom().removeReactor(this);
+		return this;
 	}
 
 	// STATE
-	public void addState(State aState) {
+	public Reactor addState(State aState) {
 		this.states.put(aState.getName(), aState);
+		return this;
 	}
 
 	public State getCurrentState() {
 		return this.currentState;
 	}
 
-	public void switchToState(String aString) {
+	public Reactor switchToState(String aString) {
 		this.getCurrentState();
 		if (this.currentState != null) {
 			this.currentState.onExit();
 		}
 		this.currentState = this.states.get(aString);
 		this.currentState.onEnter();
+		return this;
 	}
 
 	// INTERACTION
@@ -122,4 +136,10 @@ public class Reactor extends Actor {
 
 	}
 
+	// OTHER
+	public Reactor at(int x, int y) {
+		setX(x);
+		setY(y);
+		return this;
+	}
 }

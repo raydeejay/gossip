@@ -34,7 +34,6 @@ public class Inventory {
 	}
 
 	public void addItem(Item anItem) {
-		anItem.setInventory(this);
 		this.items.add(anItem);
 
 	}
@@ -43,7 +42,6 @@ public class Inventory {
 		if (this.getSelectedItem() == anItem) {
 			this.setSelectedItem(null);
 		}
-		anItem.setInventory(null);
 		this.items.remove(anItem);
 		anItem.remove();
 	}
