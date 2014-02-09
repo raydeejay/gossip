@@ -1,6 +1,12 @@
 package net.raydeejay.escapegame.screens;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Hashtable;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptException;
 
 import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.EscapeGame;
@@ -9,14 +15,19 @@ import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
+import net.raydeejay.escapegame.rooms.Room01;
+import net.raydeejay.escapegame.rooms.Room02;
+import net.raydeejay.escapegame.rooms.Room03;
+import net.raydeejay.escapegame.rooms.Room04;
+import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
-import net.raydeejay.escapegame.rooms.*;
 
 public class GameScreen implements Screen {
 
@@ -25,9 +36,13 @@ public class GameScreen implements Screen {
 	private Room currentRoom;
 	private static Inventory inventory;
 	private Hashtable<String, Room> rooms;
-	final Reactor arrowLeft = new Reactor("arrowLeft", 10, 240, "arrowLeft.png", this);
-	final Reactor arrowRight = new Reactor("arrowRight", 620, 240,
-			"arrowRight.png", this);
+	
+	final Reactor arrowLeft = new Reactor("arrowLeft", this)
+		.at(10, 240)
+		.setImage("arrowLeft.png");
+	final Reactor arrowRight = new Reactor("arrowRight", this)
+		.at(620, 240)
+		.setImage("arrowRight.png");
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
@@ -40,6 +55,37 @@ public class GameScreen implements Screen {
 		this.createRooms();
 		this.createNavigationButtons();
 
+		// init Gossip
+		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
+		InputStream is = null;
+		try {
+			is = imageFile.read();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		ScriptEngineFactory factory = new GossipScriptFactory();
+        ScriptEngine engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
+        
+    	// monkeypatch Gdx file access into the image
+        try {
+			System.out.println(engine.eval("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
+		} catch (ScriptException e1) {
+			e1.printStackTrace();
+		}
+                
+    	// load code not shipped in the image
+        try {
+            System.out.println(engine.eval("File fileIn: 'gossip/Test.st'"));
+        }
+        catch(ScriptException e) { System.err.println("ERROR :" + e); }
+        
+    	// test code
+        try {
+            System.out.println(engine.eval("(GameRegistry getReactor: 'door02') openDoor"));
+        }
+        catch(ScriptException e) { System.err.println("ERROR :" + e); }
+        
 		// and go
 		this.switchToRoom("room02");
 	}
@@ -49,6 +95,9 @@ public class GameScreen implements Screen {
 		this.addRoom(new Room02(this));
 		this.addRoom(new Room03(this));
 		this.addRoom(new Room04(this));
+		
+		// TODO - load file-based rooms here
+		// or not, perhaps do it from Gossip :D
 	}
 
 	private void addRoom(Room aRoom) {

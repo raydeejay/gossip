@@ -2,7 +2,6 @@ package net.raydeejay.escapegame.rooms;
 
 import net.raydeejay.escapegame.Dropper;
 import net.raydeejay.escapegame.Obtainable;
-import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.screens.GameScreen;
 
@@ -15,33 +14,31 @@ public class Room03 extends Room {
 		this.setExitRight("room04");
 
 		// hammer
-		Reactor hammer = new Obtainable("hammer", gameScreen)
+		new Obtainable("hammer", gameScreen)
 			.setImage("hammer.png");
 
 		// knife
-		Reactor knife = new Obtainable("knife", gameScreen)
+		new Obtainable("knife", gameScreen)
 			.setImage("knife.png")
-			.at(530, 5);
-
-		this.addReactor(knife);
+			.at(530, 5)
+			.addToRoom(this);
 
 		// fireplace
-		Reactor fireplace = new Dropper("fireplace", gameScreen)
+		new Dropper("fireplace", gameScreen)
 			.at(200, 82)
 			.dropAt(325, 85, "unlitFire")
 			.reactTo("logsItem")
 			.shouldStay()
-			.setImage("fireplace.png");
-
-		this.addReactor(fireplace);
+			.setImage("fireplace.png")
+			.addToRoom(this);
 
 		// fire
-		Reactor unlitFire = new Dropper("unlitFire", gameScreen)
+		new Dropper("unlitFire", gameScreen)
 			.reactTo("lighterItem")
 			.dropAt(325, 85, "litFire")
 			.setImage("logs.png");
 
-		Reactor litFire = new Dropper("litFire", gameScreen)
+		new Dropper("litFire", gameScreen)
 			.reactTo("boxItem")
 			.dropAt(325, 85, "hammer")
 			.setImage("fire.png");

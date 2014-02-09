@@ -14,17 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Item extends Reactor {
 
-//	public Item(String name, float x, float y, String aFilename) {
-//		super(name, x, y, aFilename);
-//	}
-//
-//	public Item(String name, String aFilename) {
-//		super(name, 0, 0, aFilename);
-//	}
-//
-	public Item(Reactor aReactor) {
-		super(aReactor.getName() + "Item", 0, 0, aReactor.getImage());
+	public Item(Reactor aReactor, GameScreen aScreen) {
+		super(aReactor.getName() + "Item", aScreen);
+		setImage(aReactor.getImage());
+	}
 
+	public Item(String aName, GameScreen aScreen) {
+		super(aName, aScreen);
 	}
 
 	@Override

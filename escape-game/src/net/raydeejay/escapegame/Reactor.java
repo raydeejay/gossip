@@ -20,24 +20,12 @@ public class Reactor extends Actor {
 	private Room room;
 	protected GameScreen gameScreen;
 
-	public Reactor(String name, float x, float y, String aFilename, GameScreen aScreen) {
-		this.setX(x);
-		this.setY(y);
-		this.setImage(aFilename);
+	public Reactor(String name, GameScreen aScreen) {
 		this.setName(name);
 		gameScreen = aScreen;
 
 		this.setUpListeners();
-		GameRegistry.registerReactor(name, this);
-	}
-
-	public Reactor(String name, float x, float y, Texture aTexture) {
-		this.setX(x);
-		this.setY(y);
-		this.setImage(aTexture);
-		this.setName(name);
-
-		this.setUpListeners();
+		GameRegistry.instance().registerReactor(name, this);
 	}
 
 	protected void setUpListeners() {
@@ -58,8 +46,10 @@ public class Reactor extends Actor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.setColor(Color.WHITE);
-		batch.draw(this.getImage(), this.getX(), this.getY());
+		if(getImage() != null) {
+			batch.setColor(Color.WHITE);
+			batch.draw(this.getImage(), this.getX(), this.getY());
+		}
 	}
 
 	// IMAGE
@@ -74,15 +64,27 @@ public class Reactor extends Actor {
 		return this;
 	}
 
-	public Reactor setImage(String aFilename) {
-		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-		this.setImage(aTexture);
+	public Reactor setImage(final String aFilename) {
+		final Reactor thisReactor = this;
+		new Thread(new Runnable() {
+			   @Override
+			   public void run() {
+			      // post a Runnable to the rendering thread that processes the result
+			      Gdx.app.postRunnable(new Runnable() {
+			         @Override
+			         public void run() {
+			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
+			    		thisReactor.setImage(aTexture);
+			         }
+			      });
+			   }
+			}).start();
 		return this;
 	}
 
 	// CONVERSION
 	public Item asItem() {
-		return new Item(this);
+		return new Item(this, gameScreen);
 	}
 	
 	// ROOM
@@ -92,6 +94,11 @@ public class Reactor extends Actor {
 
 	public Reactor setRoom(Room room) {
 		this.room = room;
+		return this;
+	}
+	
+	public Reactor addToRoom(Room aRoom) {
+		aRoom.addReactor(this);
 		return this;
 	}
 	

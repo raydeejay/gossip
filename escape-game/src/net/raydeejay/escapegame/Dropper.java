@@ -12,7 +12,7 @@ public class Dropper extends Reactor {
 	private boolean shouldStay = false;
 
 	public Dropper(String aName, GameScreen aScreen) {
-		super(aName, 0, 0, "door2.png", aScreen); // FIXME
+		super(aName, aScreen); // FIXME
 
 		addState(new State("state") {
 
@@ -21,7 +21,7 @@ public class Dropper extends Reactor {
 				if (anItem.getName().equals(reactTo)) {
 					anItem.removeFromInventory();
 
-					Reactor drop = GameRegistry.getReactor(dropItem).at(
+					Reactor drop = GameRegistry.instance().getReactor(dropItem).at(
 							dropAtX, dropAtY);
 					getRoom().addReactor(drop);
 					if (!shouldStay) {

@@ -14,7 +14,7 @@ public class Obtainable extends Reactor {
 //	}
 
 	public Obtainable(String aName, GameScreen aScreen) {
-		super(aName, 0, 0, "door2.png", aScreen);
+		super(aName, aScreen);
 
 		addState(new State("state") {
 			@Override

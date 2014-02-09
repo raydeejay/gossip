@@ -17,23 +17,22 @@ public class Room01 extends Room {
 	public Room01(final GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-		Reactor door01 = new Door("door01", gameScreen)
+		new Door("door01", gameScreen)
 			.at(EscapeGame.WIDTH / 3, 82)
 			.destination("room02")
 			.imageForOpen("door2open.png")
 			.imageForClosed("door2.png")
-			.switchToState("closed");
-
-		this.addReactor(door01);
+			.switchToState("closed")
+			.addToRoom(this);
 
 		// @formatter:off
-		Reactor box = new Obtainable("box", gameScreen)
+		new Obtainable("box", gameScreen)
 			.setImage("box.png")
-			.at(100, 20);
+			.at(100, 20)
+			.addToRoom(this);
 
-		this.addReactor(box);
-
-		final Reactor paper = new Reactor("paper", 0, 0, "paper.png", gameScreen)
+		new Reactor("paper", gameScreen)
+			.setImage("paper.png")
 			.addState(new State("state") {
 				public void whenClicked() {
 					EscapeGame game = gameScreen.getGame();
@@ -44,7 +43,7 @@ public class Room01 extends Room {
 			.switchToState("state");
 		// @formatter:on
 
-		// FIXME - note that it harcodes final coordinates
+		// FIXME - note that it hardcodes final coordinates
 		final Reactor vase = new Dropper("vase", gameScreen)
 			.at(200, 30)
 			.reactTo("hammerItem")
