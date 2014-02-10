@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 		this.createRooms();
 		this.createNavigationButtons();
 
-		// init Gossip
+		// initialize Gossip
 		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
 		InputStream is = null;
 		try {
@@ -77,14 +77,12 @@ public class GameScreen implements Screen {
 		}
                 
     	// load code not shipped in the image
+        // FIXME - Gossip needs to be fixed because it chokes on the input,
+        // claiming that 'hammer' and 'logs' are unrecognized selectors,
+        // yet the code is correctly compiled (?)
+        // NOTE: it won't be relevant later, when the code ships in the image 
         try {
             System.out.println(engine.eval("File fileIn: 'gossip/Test.st'"));
-        }
-        catch(ScriptException e) { System.err.println("ERROR :" + e); }
-        
-    	// test code
-        try {
-            System.out.println(engine.eval("(GameRegistry getReactor: 'door02') openDoor"));
         }
         catch(ScriptException e) { System.err.println("ERROR :" + e); }
         
