@@ -5,16 +5,16 @@ javaObject
 	^ javaObject 
 !
 META GameRegistry
+newReactor: aString
+	| aReactor |
+	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
+	^ Reactor forJavaObject: aReactor
+!
+META GameRegistry
 getReactor: aString
 	| aReactor |
 	aReactor := (self javaObject invoke: 'getReactor' with: aString asJavaObject).
 	^ Reactor forJavaObject: aReactor
-!
-META GameRegistry
-getRoom: aString
-	| aRoom |
-	aRoom := (self javaObject invoke: 'getRoom' with: aString asJavaObject).
-	^ Room forJavaObject: aRoom
 !
 META GameRegistry
 newRoom: aString
@@ -23,8 +23,14 @@ newRoom: aString
 	^ Room forJavaObject: aRoom
 !
 META GameRegistry
-newReactor: aString
-	| aReactor |
-	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
-	^ Reactor forJavaObject: aReactor
+getRoom: aString
+	| aRoom |
+	aRoom := (self javaObject invoke: 'getRoom' with: aString asJavaObject).
+	^ Room forJavaObject: aRoom
+!
+META GameRegistry
+newDoor: aString
+	| aDoor |
+	aDoor := (self javaObject invoke: 'newDoor' with: aString asJavaObject).
+	^ Door forJavaObject: aDoor
 !

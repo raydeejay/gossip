@@ -17,13 +17,13 @@ public class Room01 extends Room {
 	public Room01(final GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-		new Door("door01", gameScreen)
-			.at(EscapeGame.WIDTH / 3, 82)
-			.destination("room02")
-			.imageForOpen("door2open.png")
-			.imageForClosed("door2.png")
-			.switchToState("closed")
-			.addToRoom(this);
+//		new Door("door01", gameScreen)
+//			.at(EscapeGame.WIDTH / 3, 82)
+//			.destination("room02")
+//			.imageForOpen("door2open.png")
+//			.imageForClosed("door2.png")
+//			.switchToState("closed")
+//			.addToRoom(this);
 
 		// @formatter:off
 //		new Obtainable("box", gameScreen);

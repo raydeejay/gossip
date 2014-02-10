@@ -1,13 +1,5 @@
 EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: '' classVariables: '')
 METHOD Reactor
-openDoor
-	self javaObject invoke: 'switchToState' with: 'open' asJavaObject
-!
-METHOD Reactor
-closeDoor
-	self javaObject invoke: 'switchToState' with: 'close' asJavaObject
-!
-METHOD Reactor
 onClick: aBlock
 	<150 javaObject aBlock>
 !
