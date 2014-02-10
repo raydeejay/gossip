@@ -13,7 +13,7 @@ public class Door extends Reactor {
 	private String imageForLocked;
 
 	public Door(String aName, GameScreen aScreen) {
-		super(aName, aScreen); // FIXME
+		super(aName, aScreen);
 
 		addState(new State("locked") {
 			@Override
