@@ -77,10 +77,6 @@ public class GameScreen implements Screen {
 		}
                 
     	// load code not shipped in the image
-        // FIXME - Gossip needs to be fixed because it chokes on the input,
-        // claiming that 'hammer' and 'logs' are unrecognized selectors,
-        // yet the code is correctly compiled (?)
-        // NOTE: it won't be relevant later, when the code ships in the image 
         try {
             System.out.println(engine.eval("File fileIn: 'gossip/Test.st'"));
         }
