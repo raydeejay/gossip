@@ -1,6 +1,7 @@
-package net.raydeejay.escapegame;
+package net.raydeejay.escapegame.reactors;
 
-import net.raydeejay.escapegame.reactors.Item;
+import net.raydeejay.escapegame.Reactor;
+import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Obtainable extends Reactor {
