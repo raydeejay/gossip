@@ -1,19 +1,4 @@
-EVAL Class addNewClass: (Object subclass: 'Reactor' variables: 'javaObject' classVariables: '')
-META Reactor
-forJavaObject: aJavaObject
-	| newReactor |
-	newReactor := self new.
-	newReactor javaObject: aJavaObject.
-	^ newReactor
-!
-METHOD Reactor
-javaObject: aJavaObject
-	javaObject := aJavaObject
-!
-METHOD Reactor
-javaObject
-	^ javaObject
-!
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: '' classVariables: '')
 METHOD Reactor
 openDoor
 	self javaObject invoke: 'switchToState' with: 'open' asJavaObject
@@ -21,29 +6,6 @@ openDoor
 METHOD Reactor
 closeDoor
 	self javaObject invoke: 'switchToState' with: 'close' asJavaObject
-!
-METHOD Reactor
-call: aMethod
-	self javaObject invoke: aMethod
-!
-METHOD Reactor
-call: aMethod with: first
-	self javaObject invoke: aMethod with: first asJavaObject
-!
-METHOD Reactor
-call: aMethod with: first with: second
-	self javaObject
-	    invoke: aMethod
-	    with: first asJavaObject
-	    with: second asJavaObject
-!
-METHOD Reactor
-call: aMethod with: first with: second with: third
-	self javaObject
-	    invoke: aMethod
-	    with: first asJavaObject
-	    with: second asJavaObject
-	    with: third asJavaObject
 !
 METHOD Reactor
 onClick: aBlock

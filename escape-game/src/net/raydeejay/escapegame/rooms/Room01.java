@@ -1,12 +1,12 @@
 package net.raydeejay.escapegame.rooms;
 
-import net.raydeejay.escapegame.Door;
-import net.raydeejay.escapegame.Dropper;
 import net.raydeejay.escapegame.EscapeGame;
-import net.raydeejay.escapegame.Obtainable;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
+import net.raydeejay.escapegame.reactors.Door;
+import net.raydeejay.escapegame.reactors.Dropper;
+import net.raydeejay.escapegame.reactors.Obtainable;
 import net.raydeejay.escapegame.screens.GameScreen;
 import net.raydeejay.escapegame.screens.MainMenuScreen;
 

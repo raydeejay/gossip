@@ -1,8 +1,8 @@
 package net.raydeejay.escapegame.rooms;
 
-import net.raydeejay.escapegame.Dropper;
-import net.raydeejay.escapegame.Obtainable;
 import net.raydeejay.escapegame.Room;
+import net.raydeejay.escapegame.reactors.Dropper;
+import net.raydeejay.escapegame.reactors.Obtainable;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Room03 extends Room {
@@ -13,15 +13,15 @@ public class Room03 extends Room {
 		this.setExitLeft("room02");
 		this.setExitRight("room04");
 
-		// hammer
-		new Obtainable("hammer", gameScreen)
-			.setImage("hammer.png");
-
-		// knife
-		new Obtainable("knife", gameScreen)
-			.setImage("knife.png")
-			.at(530, 5)
-			.addToRoom(this);
+//		// hammer
+//		new Obtainable("hammer", gameScreen)
+//			.setImage("hammer.png");
+//
+//		// knife
+//		new Obtainable("knife", gameScreen)
+//			.setImage("knife.png")
+//			.at(530, 5)
+//			.addToRoom(this);
 
 		// fireplace
 		new Dropper("fireplace", gameScreen)
