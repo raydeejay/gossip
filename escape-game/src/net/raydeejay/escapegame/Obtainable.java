@@ -5,14 +5,6 @@ import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Obtainable extends Reactor {
 
-//	public Obtainable(String name, float x, float y, String aFilename) {
-//		super(name, x, y, aFilename);
-//	}
-//
-//	public Obtainable(String name, float x, float y, Texture aTexture) {
-//		super(name, x, y, aTexture);
-//	}
-
 	public Obtainable(String aName, GameScreen aScreen) {
 		super(aName, aScreen);
 

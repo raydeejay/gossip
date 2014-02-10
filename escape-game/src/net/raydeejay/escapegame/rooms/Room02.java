@@ -22,9 +22,9 @@ public class Room02 extends Room {
 			.switchToState("locked")
 			.addToRoom(this);
 
-		new Obtainable("key", gameScreen)
-			.setImage("key.png")
-			.at(200, 20)
-			.addToRoom(this);
+//		new Obtainable("key", gameScreen)
+//			.setImage("key.png")
+//			.at(200, 20)
+//			.addToRoom(this);
 	}
 }

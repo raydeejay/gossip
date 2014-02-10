@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
+import net.raydeejay.gossip.engine.interpreter.SmallJavaObject;
 
 public class Room {
 	ArrayList<Reactor> reactors;
@@ -25,6 +26,14 @@ public class Room {
 		this.setBackgroundFilename(aFilename);
 		this.setScreen(gameScreen);
 		this.setName(name);
+		GameRegistry.instance().registerRoom(name, this);
+	}
+
+	public Room(String name, GameScreen gameScreen) {
+		this.reactors = new ArrayList<Reactor>();
+		this.setScreen(gameScreen);
+		this.setName(name);
+		GameRegistry.instance().registerRoom(name, this);
 	}
 
 	public String getName() {
@@ -41,6 +50,11 @@ public class Room {
 		this.reactors.add(aReactor);
 		this.getScreen().addReactor(aReactor);
 		return this;
+	}
+
+	public Room addReactorNamed(String aName) {
+		Reactor aReactor = GameRegistry.instance().getReactor(aName);
+		return this.addReactor(aReactor);
 	}
 
 	public Room addToInventory(Item anItem) {

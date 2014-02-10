@@ -10,6 +10,7 @@ import javax.script.ScriptException;
 
 import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.EscapeGame;
+import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
@@ -47,7 +48,8 @@ public class GameScreen implements Screen {
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
 		this.rooms = new Hashtable<String, Room>();
-		
+
+		GameRegistry.instance().setScreen(this);
 		setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 

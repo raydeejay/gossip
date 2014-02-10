@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
+import net.raydeejay.gossip.engine.interpreter.SmallJavaObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -57,7 +58,7 @@ public class Reactor extends Actor {
 		return image;
 	}
 
-	public Reactor setImage(Texture aTexture) {
+	public Reactor setImageTexture(Texture aTexture) {
 		this.image = aTexture;
 		this.setWidth(aTexture.getWidth());
 		this.setHeight(aTexture.getHeight());
@@ -74,7 +75,7 @@ public class Reactor extends Actor {
 			         @Override
 			         public void run() {
 			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-			    		thisReactor.setImage(aTexture);
+			    		thisReactor.setImageTexture(aTexture);
 			         }
 			      });
 			   }
@@ -102,9 +103,21 @@ public class Reactor extends Actor {
 		return this;
 	}
 	
+	public Reactor addToRoomNamed(String aRoomName) {
+		Room aRoom = GameRegistry.instance().getRoom(aRoomName.toString());
+		return this.addToRoom(aRoom);
+	}
+	
 	public Reactor removeFromRoom() {
 		this.getRoom().removeReactor(this);
 		return this;
+	}
+
+	// INVENTORY
+	public void moveToInventory() {
+		Item item = this.asItem();
+		gameScreen.addToInventory(item);
+		this.removeFromRoom();
 	}
 
 	// STATE

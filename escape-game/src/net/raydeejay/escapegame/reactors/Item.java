@@ -16,7 +16,7 @@ public class Item extends Reactor {
 
 	public Item(Reactor aReactor, GameScreen aScreen) {
 		super(aReactor.getName() + "Item", aScreen);
-		setImage(aReactor.getImage());
+		setImageTexture(aReactor.getImage());
 	}
 
 	public Item(String aName, GameScreen aScreen) {

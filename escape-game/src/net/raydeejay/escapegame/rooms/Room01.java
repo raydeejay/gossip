@@ -26,10 +26,11 @@ public class Room01 extends Room {
 			.addToRoom(this);
 
 		// @formatter:off
-		new Obtainable("box", gameScreen)
-			.setImage("box.png")
-			.at(100, 20)
-			.addToRoom(this);
+//		new Obtainable("box", gameScreen);
+//		new Obtainable("box", gameScreen)
+//			.setImage("box.png")
+//			.at(100, 20)
+//			.addToRoom(this);
 
 		new Reactor("paper", gameScreen)
 			.setImage("paper.png")
