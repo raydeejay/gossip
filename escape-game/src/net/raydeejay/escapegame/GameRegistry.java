@@ -3,6 +3,7 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.raydeejay.escapegame.reactors.Door;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class GameRegistry {
@@ -19,31 +20,37 @@ public class GameRegistry {
 		return instance;
 	}
 	
+    public void setScreen(GameScreen screen) {
+    	gameScreen = screen;
+    }
+    
     public void registerReactor(String name, Reactor aReactor) {
         objects.put(name, aReactor);
+    }
+
+    public void registerRoom(String name, Room aRoom) {
+        rooms.put(name, aRoom);
     }
 
     public Reactor getReactor(String name) {
         return objects.get(name);
     }
 	
-    public Reactor newReactor(String name) {
-        return new Reactor(name, gameScreen);
+    public Room getRoom(String name) {
+        return rooms.get(name);
     }
-	
+
+    // factories
     public Room newRoom(String name) {
         return new Room(name, gameScreen);
     }
 	
-    public void setScreen(GameScreen screen) {
-    	gameScreen = screen;
+    public Reactor newReactor(String name) {
+        return new Reactor(name, gameScreen);
     }
-    
-    public void registerRoom(String name, Room aRoom) {
-        rooms.put(name, aRoom);
+	
+    public Door newDoor(String name) {
+        return new Door(name, gameScreen);
     }
-
-    public Room getRoom(String name) {
-        return rooms.get(name);
-    }
+	
 }
