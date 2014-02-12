@@ -40,6 +40,14 @@ setX: x Y: y
     self call: #at with: x with: y.
 !
 METHOD Reactor
+setX: x
+    self call: #setX with: x.
+!
+METHOD Reactor
+setY: y
+    self call: #setY with: y.
+!
+METHOD Reactor
 moveToInventory
 	self call: #moveToInventory.
 !

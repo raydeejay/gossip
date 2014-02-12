@@ -3,19 +3,19 @@
 EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
 META SetupRooms
 setup
-	self initSetupRooms.
+	self initRoom01A.
+	self initRoom01B.
 	self initRoom02.
 	self initRoom03.
 	self initRoom04.
 !
 META SetupRooms
-initSetupRooms
-    | box door01 |
+initRoom01A
+    | box door01 paper default |
      
     box := (GameRegistry newObtainable: #box).
     box setImage: 'box.png'.
     box setX: 100 Y: 20.
-" 	GameRegistry instance registerReactor: box."
     box addToRoomNamed: #room01.
     
     door01 := (GameRegistry newDoor: #door01).
@@ -25,6 +25,39 @@ initSetupRooms
     door01 imageForClosed: 'door2.png'.
     door01 close.
     door01 addToRoomNamed: #room01.
+
+    paper := (GameRegistry newReactor: #paper).
+    paper setImage: 'paper.png'.
+    default := State new name: #default.
+    default onClick: [ GameRegistry instance winGame ].
+    paper addState: default.
+    paper switchToState: #default.
+!
+META SetupRooms
+initRoom01B
+	| vase state1 state2 state3 |
+    vase := (GameRegistry newDropper: #vase).
+    vase setX: 200 Y: 30.
+    vase setImage: 'vase.png'.
+    vase reactTo: #hammerItem.
+    vase dropAtX: 600 Y: 30 item: #paper type: Reactor.
+    
+    state1 := State new name: #state1.
+    state1 onClick: [ vase switchToState: #state2 ].
+
+    state2 := State new name: #state2.
+    state2 onEnter: [ vase setX: 400 ].
+    state2 onClick: [ vase switchToState: #state3 ].
+
+    state3 := State new name: #state3.
+    state3 onEnter: [ vase setX: 600 ].
+    state3 onClick: [ vase switchToState: #default ].
+
+    vase addState: state1.
+    vase addState: state2.
+    vase addState: state3.
+    vase switchToState: #state1.
+    vase addToRoomNamed: #room01.
 !
 META SetupRooms
 initRoom02
@@ -51,7 +84,6 @@ initRoom03
 
     hammer := (GameRegistry newObtainable: #hammer).
     hammer setImage: 'hammer.png'.
-"	GameRegistry instance registerReactor: hammer."
 
     knife := (GameRegistry newObtainable: #knife).
     knife setImage: 'knife.png'.
@@ -62,13 +94,11 @@ initRoom03
 	lit reactTo: #boxItem.
 	lit dropAtX: 325 Y: 85 item: #hammer type: Obtainable.
 	lit setImage: 'fire.png'.
-"	GameRegistry instance registerReactor: lit."
 
     unlit := GameRegistry newDropper: #unlitFire.
 	unlit reactTo: #lighterItem.
 	unlit dropAtX: 325 Y: 85 item: #litFire type: Dropper.
 	unlit setImage: 'logs.png'.
-"	GameRegistry instance registerReactor: unlit."
     
     fireplace := GameRegistry newDropper: #fireplace.
 	fireplace reactTo: #logsItem.
@@ -95,7 +125,6 @@ initRoom04
 
     logs := (GameRegistry newObtainable: #logs).
     logs setImage: 'logs.png'.
-"	GameRegistry instance registerReactor: logs."
     
     tree := GameRegistry newDropper: #tree.
 	tree reactTo: #axeItem.

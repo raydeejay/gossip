@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import net.raydeejay.escapegame.reactors.Door;
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
+import net.raydeejay.escapegame.screens.MainMenuScreen;
 
 public class GameRegistry {
 	private Map<String, Reactor> objects = new HashMap<String, Reactor>();
@@ -53,10 +54,6 @@ public class GameRegistry {
         return new Reactor(name, gameScreen);
     }
 	
-    public Door newDoor(String name) {
-        return new Door(name, gameScreen);
-    }
-    
     // TODO - remove this once it's not necessary
     public Item getSelectedItem() {
     	return gameScreen.getInventory().getSelectedItem();
@@ -85,4 +82,9 @@ public class GameRegistry {
 		}).start();
 	}
 	
+	public void winGame() {
+		EscapeGame game = gameScreen.getGame();
+		game.setScreen(new MainMenuScreen(game));
+		gameScreen.dispose();
+	}
 }

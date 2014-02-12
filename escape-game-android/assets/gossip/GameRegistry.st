@@ -85,4 +85,7 @@ METHOD GameRegistry
 switchToRoom: aString
     self class javaObject invoke: #switchToRoom with: aString asJavaObject.
 !
-
+METHOD GameRegistry
+winGame
+    self class javaObject invoke: #winGame.
+!
