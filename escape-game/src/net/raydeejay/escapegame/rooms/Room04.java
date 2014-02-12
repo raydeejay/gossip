@@ -24,11 +24,11 @@ public class Room04 extends Room {
 //		new Obtainable("logs", gameScreen)
 //			.setImage("logs.png");
 //		
-		new Dropper("tree", gameScreen)
-			.reactTo("axeItem")
-			.dropAt(480, 20, "logs")
-			.setImage("tree.png")
-			.at(480, 20)
-			.addToRoom(this);
+//		new Dropper("tree", gameScreen)
+//			.reactTo("axeItem")
+//			.dropAt(480, 20, "logs")
+//			.setImage("tree.png")
+//			.at(480, 20)
+//			.addToRoom(this);
 	}
 }

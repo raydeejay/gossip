@@ -58,7 +58,7 @@ initRoom03
 !
 META SetupRooms
 initRoom04
-    | axe lighter logs |
+    | axe lighter logs tree |
 
     axe := (GameRegistry newObtainable: #axe).
     axe setImage: 'axe.png'.
@@ -72,4 +72,11 @@ initRoom04
 
     logs := (GameRegistry newObtainable: #logs).
     logs setImage: 'logs.png'.
+    
+    tree := GameRegistry newDropper: #tree.
+	tree reactTo: #axeItem.
+	tree dropAtX: 480 Y: 20 item: #logs.
+	tree setImage: 'tree.png'.
+    tree setX: 480 Y: 20.
+	tree addToRoomNamed: #room04.   
 !

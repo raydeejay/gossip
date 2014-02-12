@@ -41,6 +41,12 @@ newObtainable: aString
 	^ Obtainable forJavaObject: aReactor.
 !
 META GameRegistry
+newDropper: aString
+	| aReactor |
+	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
+	^ Dropper forJavaObject: aReactor.
+!
+META GameRegistry
 getSelectedItem
 	| anItem |
 	anItem := self javaObject invoke: #getSelectedItem.

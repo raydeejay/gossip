@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'states currentState' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'room states currentState' classVariables: '')
 METHOD Reactor
 javaObject: aJavaObject
 	javaObject := aJavaObject.
@@ -18,7 +18,12 @@ setImage: aString
 !
 METHOD Reactor
 addToRoomNamed: aString
-    self call: #addToRoomNamed with: aString
+    room := aString.
+    self call: #addToRoomNamed with: aString.
+!
+METHOD Reactor
+room
+    ^ room.
 !
 METHOD Reactor
 setX: x Y: y
@@ -26,7 +31,11 @@ setX: x Y: y
 !
 METHOD Reactor
 moveToInventory
-	self call: #moveToInventory
+	self call: #moveToInventory.
+!
+METHOD Reactor
+removeFromRoom
+	self call: #removeFromRoom.
 !
 METHOD Reactor
 addState: aState

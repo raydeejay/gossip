@@ -16,7 +16,7 @@ public class Dropper extends Reactor {
 	public Dropper(String aName, GameScreen aScreen) {
 		super(aName, aScreen); // FIXME
 
-		addState(new State("state") {
+/*		addState(new State("state") {
 
 			@Override
 			public void whenClickedWith(Item anItem) {
@@ -33,7 +33,7 @@ public class Dropper extends Reactor {
 			}
 		});
 
-		switchToState("state");
+		switchToState("state");*/
 	}
 
 	// public Dropper(String name, float x, float y, String aFilename) {
