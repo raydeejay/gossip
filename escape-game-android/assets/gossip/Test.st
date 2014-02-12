@@ -6,17 +6,29 @@
 // (also figure out how to alter/tweak/replace the syntax)
 ////////////////////////////////////////////////////////////
 
-// Stubs
-EVAL File fileIn: 'gossip/JavaWrapper.st'
-EVAL File fileIn: 'gossip/State.st'
-EVAL File fileIn: 'gossip/Reactor.st'
-EVAL File fileIn: 'gossip/Item.st' 
-EVAL File fileIn: 'gossip/Obtainable.st'
-EVAL File fileIn: 'gossip/Dropper.st'
-EVAL File fileIn: 'gossip/Door.st'
-EVAL File fileIn: 'gossip/Room.st'
-EVAL File fileIn: 'gossip/GameRegistry.st'
-EVAL File fileIn: 'gossip/SetupRooms.st'
+// To have some kind of idea of the loading progress
+META File
+fileInWithNotification: aFileName
+    System println: ('Loading ' , aFileName).
+    self fileIn: aFileName'.
+!
 
+// This little hack allows us to refer to GameRegistry class even when its
+// methods can't be defined yet, because they reference all the other classes
+EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors' classVariables: 'instance javaObject')
+
+// Now load the stuff in the required order
+EVAL File fileInWithNotification: 'gossip/JavaWrapper.st'
+EVAL File fileInWithNotification: 'gossip/State.st'
+EVAL File fileInWithNotification: 'gossip/Reactor.st'
+EVAL File fileInWithNotification: 'gossip/Item.st' 
+EVAL File fileInWithNotification: 'gossip/Obtainable.st'
+EVAL File fileInWithNotification: 'gossip/Dropper.st'
+EVAL File fileInWithNotification: 'gossip/Door.st'
+EVAL File fileInWithNotification: 'gossip/Room.st'
+EVAL File fileInWithNotification: 'gossip/GameRegistry.st'
+EVAL File fileInWithNotification: 'gossip/SetupRooms.st'
+
+// Then start the thing up
 EVAL SetupRooms setup
 EVAL Transcript open

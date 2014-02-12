@@ -5,9 +5,7 @@ initialize
     super initialize.
     default := State new.
     default name: #default.
-    default onClick: [ 
-        System println: 'obtainable onClick invoked once'.
-        self moveToInventory ]. 
+    default onClick: [ self moveToInventory. ]. 
     
     self addState: default.
     self switchToState: #default.

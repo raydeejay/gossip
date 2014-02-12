@@ -1,16 +1,18 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'room states currentState' classVariables: '')
-METHOD Reactor
-javaObject: aJavaObject
-	javaObject := aJavaObject.
-    <150 javaObject [ 
-        "System println: 'clicked from ST'."
-        currentState clicked. ]>.
-!
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name room states currentState' classVariables: '')
 METHOD Reactor
 initialize
     super initialize.
 "    javaObject := (System instantiateJavaClass: 'net.raydeejay.escapegame.Reactor')."
     states := Dictionary new.
+!
+METHOD Reactor
+javaObject: aJavaObject
+	javaObject := aJavaObject.
+    <150 javaObject [ currentState clicked. ]>.
+!
+METHOD Reactor
+installClickListener
+    <150 javaObject [ currentState clicked. ]>.
 !
 METHOD Reactor
 setImage: aString
@@ -20,6 +22,14 @@ METHOD Reactor
 addToRoomNamed: aString
     room := aString.
     self call: #addToRoomNamed with: aString.
+!
+METHOD Reactor
+name: aString
+    name := aString.
+!
+METHOD Reactor
+name
+    ^ name.
 !
 METHOD Reactor
 room
@@ -46,4 +56,8 @@ switchToState: aStateName
     currentState notNil ifTrue: [ currentState exit. ].
     currentState := (states at: aStateName).
     currentState enter.
+!
+METHOD Reactor
+register
+	GameRegistry instance registerReactor: self.
 !

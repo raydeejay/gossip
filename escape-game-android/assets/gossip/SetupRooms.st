@@ -15,6 +15,7 @@ initSetupRooms
     box := (GameRegistry newObtainable: #box).
     box setImage: 'box.png'.
     box setX: 100 Y: 20.
+" 	GameRegistry instance registerReactor: box."
     box addToRoomNamed: #room01.
     
     door01 := (GameRegistry newDoor: #door01).
@@ -46,15 +47,37 @@ initRoom02
 !
 META SetupRooms
 initRoom03
-    | hammer knife |
+    | hammer knife fireplace unlit lit |
 
     hammer := (GameRegistry newObtainable: #hammer).
     hammer setImage: 'hammer.png'.
+"	GameRegistry instance registerReactor: hammer."
 
     knife := (GameRegistry newObtainable: #knife).
     knife setImage: 'knife.png'.
     knife setX: 530 Y: 5.
     knife addToRoomNamed: #room03.
+    
+    lit := GameRegistry newDropper: #litFire.
+	lit reactTo: #boxItem.
+	lit dropAtX: 325 Y: 85 item: #hammer type: Obtainable.
+	lit setImage: 'fire.png'.
+"	GameRegistry instance registerReactor: lit."
+
+    unlit := GameRegistry newDropper: #unlitFire.
+	unlit reactTo: #lighterItem.
+	unlit dropAtX: 325 Y: 85 item: #litFire type: Dropper.
+	unlit setImage: 'logs.png'.
+"	GameRegistry instance registerReactor: unlit."
+    
+    fireplace := GameRegistry newDropper: #fireplace.
+	fireplace reactTo: #logsItem.
+	fireplace dropAtX: 325 Y: 85 item: #unlitFire type: Dropper.
+	fireplace setImage: 'fireplace.png'.
+    fireplace setX: 200 Y: 82.
+    fireplace shouldStay.
+	fireplace addToRoomNamed: #room03.   
+    
 !
 META SetupRooms
 initRoom04
@@ -72,10 +95,11 @@ initRoom04
 
     logs := (GameRegistry newObtainable: #logs).
     logs setImage: 'logs.png'.
+"	GameRegistry instance registerReactor: logs."
     
     tree := GameRegistry newDropper: #tree.
 	tree reactTo: #axeItem.
-	tree dropAtX: 480 Y: 20 item: #logs.
+	tree dropAtX: 480 Y: 20 item: #logs type: Obtainable.
 	tree setImage: 'tree.png'.
     tree setX: 480 Y: 20.
 	tree addToRoomNamed: #room04.   
