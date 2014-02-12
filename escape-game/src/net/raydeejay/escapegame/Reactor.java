@@ -21,6 +21,8 @@ public class Reactor extends Actor {
 	private Room room;
 	protected GameScreen gameScreen;
 
+	public Reactor() { super(); }
+
 	public Reactor(String name, GameScreen aScreen) {
 		this.setName(name);
 		gameScreen = aScreen;
@@ -70,7 +72,7 @@ public class Reactor extends Actor {
 		new Thread(new Runnable() {
 			   @Override
 			   public void run() {
-			      // post a Runnable to the rendering thread that processes the result
+			      // post a Runnable to the rendering thread
 			      Gdx.app.postRunnable(new Runnable() {
 			         @Override
 			         public void run() {

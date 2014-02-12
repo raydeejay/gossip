@@ -6,16 +6,15 @@ setup
 	self initSetupRooms.
 	self initRoom02.
 	self initRoom03.
-	self initRoom04
+	self initRoom04.
 !
 META SetupRooms
 initSetupRooms
     | box door01 |
      
-    box := (GameRegistry newReactor: #box).
+    box := (GameRegistry newObtainable: #box).
     box setImage: 'box.png'.
     box setX: 100 Y: 20.
-    box onClick: [ box moveToInventory ].
     box addToRoomNamed: #room01.
     
     door01 := (GameRegistry newDoor: #door01).
@@ -30,10 +29,9 @@ META SetupRooms
 initRoom02
     | key door02 |
          
-    key := (GameRegistry newReactor: #key).
+    key := (GameRegistry newObtainable: #key).
     key setImage: 'key.png'.
     key setX: 200 Y: 20.
-    key onClick: [ key moveToInventory ].
     key addToRoomNamed: #room02.
 
     door02 := (GameRegistry newDoor: #door02).
@@ -50,33 +48,28 @@ META SetupRooms
 initRoom03
     | hammer knife |
 
-    hammer := (GameRegistry newReactor: #hammer).
+    hammer := (GameRegistry newObtainable: #hammer).
     hammer setImage: 'hammer.png'.
-    hammer onClick: [ hammer moveToInventory ].
 
-    knife := (GameRegistry newReactor: #knife).
+    knife := (GameRegistry newObtainable: #knife).
     knife setImage: 'knife.png'.
     knife setX: 530 Y: 5.
-    knife onClick: [ knife moveToInventory ].
     knife addToRoomNamed: #room03.
 !
 META SetupRooms
 initRoom04
     | axe lighter logs |
 
-    axe := (GameRegistry newReactor: #axe).
+    axe := (GameRegistry newObtainable: #axe).
     axe setImage: 'axe.png'.
     axe setX: 100 Y: 40.
-    axe onClick: [ axe moveToInventory ].
     axe addToRoomNamed: #room04.
 
-    lighter := (GameRegistry newReactor: #lighter).
+    lighter := (GameRegistry newObtainable: #lighter).
     lighter setImage: 'lighter.png'.
     lighter setX: 200 Y: 40.
-    lighter onClick: [ lighter moveToInventory ].
     lighter addToRoomNamed: #room04.
 
-    logs := (GameRegistry newReactor: #logs).
+    logs := (GameRegistry newObtainable: #logs).
     logs setImage: 'logs.png'.
-    logs onClick: [ logs moveToInventory ].
 !

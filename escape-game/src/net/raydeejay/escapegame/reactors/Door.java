@@ -15,7 +15,7 @@ public class Door extends Reactor {
 	public Door(String aName, GameScreen aScreen) {
 		super(aName, aScreen);
 
-		addState(new State("locked") {
+/*		addState(new State("locked") {
 			@Override
 			public void onEnter() {
 				setImage(imageForLocked);
@@ -53,12 +53,12 @@ public class Door extends Reactor {
 				gameScreen.switchToRoom(destination);
 			}
 		});
-
+*/
 		// FIXME
 //		switchToState("closed");
 	}
 
-	public Door at(int x, int y) {
+/*	public Door at(int x, int y) {
 		setX(x);
 		setY(y);
 		return this;
@@ -88,5 +88,5 @@ public class Door extends Reactor {
 		key = anItemName;
 		return this;
 	}
-
+*/
 }

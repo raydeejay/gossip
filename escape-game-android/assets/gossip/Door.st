@@ -1,37 +1,73 @@
-EVAL Class addNewClass: (Reactor subclass: 'Door' variables: '' classVariables: '')
+EVAL Class addNewClass: (Reactor subclass: 'Door' variables: 'key destination imageForOpen imageForClosed imageForLocked' classVariables: '')
 METHOD Door
-open
-	self call: #switchToState with: #open
-!
-METHOD Door
-close
-	self call: #switchToState with: #closed
-!
-METHOD Door
-lock
-	self call: #switchToState with: #locked
-!
-METHOD Door
-unlock
-	self call: #switchToState with: #closed
+initialize
+    | openState closedState lockedState gr selectedItem itemName |
+    super initialize.
+    gr := (System getJavaClass: 'net.raydeejay.escapegame.GameRegistry') invokeStatic: 'instance'.
+
+    openState := State new.
+    openState name: #open.
+    openState onClick: [ 
+        gr invoke: #switchToRoom with: destination asJavaObject. ].
+    self addState: openState.
+     
+    closedState := State new.
+    closedState name: #closed.
+    closedState onClick: [ self open. ].
+    self addState: closedState.
+     
+    lockedState := State new.
+    lockedState name: #locked.
+    lockedState onClick: [ 
+        selectedItem := gr invoke: #getSelectedItem.
+        selectedItem printString = 'JavaObject<null>'
+            ifTrue: [ self. "System println: 'nil'" ]
+            ifFalse: [
+                itemName := (selectedItem invoke: #getName) asSmallString.
+    	        itemName = key ifTrue: [
+    	            gr invoke: #removeItem with: selectedItem. 
+    	            self close. ].
+    	    ]. ].
+    self addState: lockedState.
+    
+    self switchToState: #closed.
 !
 METHOD Door
 key: aReactorName
-	self call: #lockedWith with: aReactorName
+	key := aReactorName.
 !
 METHOD Door
 destination: aRoomName
-	self call: #destination with: aRoomName
+	destination := aRoomName.
 !
 METHOD Door
 imageForOpen: aTextureName
-	self call: #imageForOpen with: aTextureName
+	imageForOpen := aTextureName.
 !
 METHOD Door
 imageForClosed: aTextureName
-	self call: #imageForClosed with: aTextureName
+	imageForClosed := aTextureName.
 !
 METHOD Door
 imageForLocked: aTextureName
-	self call: #imageForLocked with: aTextureName
+	imageForLocked := aTextureName.
+!
+METHOD Door
+open
+	self switchToState: #open.
+	self setImage: imageForOpen.
+!
+METHOD Door
+close
+	self switchToState: #closed.
+	self setImage: imageForClosed.
+!
+METHOD Door
+lock
+        self switchToState: #locked.
+        self setImage: imageForLocked.
+!
+METHOD Door
+unlock
+	self close.
 !

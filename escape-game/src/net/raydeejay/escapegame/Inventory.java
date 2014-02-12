@@ -58,4 +58,8 @@ public class Inventory {
 		this.selectedItem = selectedItem;
 	}
 
+	public void clearSelectedItem() {
+		setSelectedItem(null);
+	}
+
 }

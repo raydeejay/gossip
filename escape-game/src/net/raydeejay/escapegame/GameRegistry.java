@@ -3,7 +3,11 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 import net.raydeejay.escapegame.reactors.Door;
+import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class GameRegistry {
@@ -52,5 +56,33 @@ public class GameRegistry {
     public Door newDoor(String name) {
         return new Door(name, gameScreen);
     }
+    
+    // TODO - remove this once it's not necessary
+    public Item getSelectedItem() {
+    	return gameScreen.getInventory().getSelectedItem();
+    }
+	
+    public void clearSelectedItem() {
+    	gameScreen.getInventory().clearSelectedItem();
+    }
+	
+    public void removeItem(Item anItem) {
+    	gameScreen.getInventory().removeItem(anItem);
+    }
+	
+	public void switchToRoom(final String aRoomName) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// post a Runnable to the rendering thread
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						gameScreen.switchToRoom(aRoomName);
+					}
+				});
+			}
+		}).start();
+	}
 	
 }
