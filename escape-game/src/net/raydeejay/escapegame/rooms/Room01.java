@@ -17,55 +17,5 @@ public class Room01 extends Room {
 	public Room01(final GameScreen gameScreen) {
 		super("room01", "room01.png", gameScreen);
 
-//		new Reactor("paper", gameScreen)
-//			.setImage("paper.png")
-//			.addState(new State("state") {
-//				public void whenClicked() {
-//					EscapeGame game = gameScreen.getGame();
-//					game.setScreen(new MainMenuScreen(game));
-//					gameScreen.dispose();
-//				}
-//			})
-//			.switchToState("state");
-//		// @formatter:on
-//
-//		// FIXME - note that it hardcodes final coordinates
-//		final Reactor vase = new Dropper("vase", gameScreen)
-//			.at(200, 30)
-//			.reactTo("hammerItem")
-//			.dropAt(600, 30, "paper")
-//			.setImage("vase.png");
-//
-//		vase.addState(new State("1") {
-//			@Override
-//			public void whenClicked() {
-//				vase.switchToState("2");
-//			}
-//		}).addState(new State("2") {
-//			@Override
-//			public void onEnter() {
-//				vase.setX(400);
-//			}
-//
-//			@Override
-//			public void whenClicked() {
-//				vase.switchToState("3");
-//			}
-//		}).addState(new State("3") {
-//			@Override
-//			public void onEnter() {
-//				vase.addAction(Actions.sequence(
-//						Actions.moveTo(600, vase.getY(), 2.0f),
-//						Actions.run(new Runnable() {
-//							public void run() {
-//								//vase.switchToState("state");
-//							}
-//						})));
-//			}
-//		})
-//		.switchToState("1");
-//
-//		this.addReactor(vase);
-
 	}
 }
