@@ -1,6 +1,5 @@
 package net.raydeejay.escapegame.screens;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
 
@@ -36,7 +35,6 @@ public class GameScreen implements Screen {
 	private Stage stage;
 	private Room currentRoom;
 	private static Inventory inventory;
-	private Hashtable<String, Room> rooms;
 	
 	final Reactor arrowLeft = new Reactor("arrowLeft", this)
 		.at(10, 240)
@@ -47,14 +45,12 @@ public class GameScreen implements Screen {
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
-		this.rooms = new Hashtable<String, Room>();
 
 		GameRegistry.instance().setScreen(this);
 		setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
-		// set up the rooms and stuff
-		this.createRooms();
+		// set up the navigation buttons
 		this.createNavigationButtons();
 
 		// initialize Gossip
@@ -86,18 +82,8 @@ public class GameScreen implements Screen {
 		this.switchToRoom("room02");
 	}
 
-	private void createRooms() {
-		this.addRoom(new Room01(this));
-		this.addRoom(new Room02(this));
-		this.addRoom(new Room03(this));
-		this.addRoom(new Room04(this));
-		
-		// TODO - load file-based rooms here
-		// or not, perhaps do it from Gossip :D
-	}
-
 	private void addRoom(Room aRoom) {
-		this.rooms.put(aRoom.getName(), aRoom);
+		GameRegistry.instance().registerRoom(aRoom.getName(), aRoom);
 	}
 
 	private void createNavigationButtons() {
@@ -124,7 +110,8 @@ public class GameScreen implements Screen {
 
 	public void switchToRoom(String destination) {
 		this.stage.clear();
-		this.currentRoom = this.rooms.get(destination);
+//		this.currentRoom = this.rooms.get(destination);
+		this.currentRoom = GameRegistry.instance().getRoom(destination);
 
 		Background background = new Background(0, 0,
 				this.currentRoom.getBackgroundFilename());

@@ -3,11 +3,32 @@
 EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
 META SetupRooms
 setup
+    self createRooms.
 	self initRoom01A.
 	self initRoom01B.
 	self initRoom02.
 	self initRoom03.
 	self initRoom04.
+!
+META SetupRooms
+createRooms
+    | r1 r2 r3 r4 |
+
+    r1 := GameRegistry newRoom: #room01.
+    r1 background: 'room01.png'.
+    
+    r2 := GameRegistry newRoom: #room02.
+    r2 background: 'room02.png'.
+    r2 right: #room03.
+    
+    r3 := GameRegistry newRoom: #room03.
+    r3 background: 'room03.png'.
+    r3 left: #room02.
+    r3 right: #room04.
+    
+    r4 := GameRegistry newRoom: #room04.
+    r4 background: 'room04.png'.
+    r4 left: #room03.
 !
 META SetupRooms
 initRoom01A

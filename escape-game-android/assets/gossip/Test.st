@@ -15,7 +15,7 @@ fileInWithNotification: aFileName
 
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
-EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors' classVariables: 'instance javaObject')
+EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms' classVariables: 'instance javaObject')
 
 // Now load the stuff in the required order
 EVAL File fileInWithNotification: 'gossip/JavaWrapper.st'
