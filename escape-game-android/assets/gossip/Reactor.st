@@ -8,7 +8,7 @@ initialize
 METHOD Reactor
 javaObject: aJavaObject
 	javaObject := aJavaObject.
-    <150 javaObject [ currentState clicked. ]>.
+    self installClickListener.
 !
 METHOD Reactor
 installClickListener

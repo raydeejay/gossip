@@ -50,8 +50,7 @@ initRoom01B
     state2 onClick: [ vase switchToState: #state3 ].
 
     state3 := State new name: #state3.
-    state3 onEnter: [ vase setX: 600 ].
-    state3 onClick: [ vase switchToState: #default ].
+    state3 onEnter: [ vase setX: 600. vase switchToState: #default ].
 
     vase addState: state1.
     vase addState: state2.

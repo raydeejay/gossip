@@ -11,7 +11,8 @@ initialize
     default name: #default.
     default onClick: [ 
         selectedItem := GameRegistry getSelectedItem.
-        selectedItem javaObject printString = 'JavaObject<null>'
+    
+        selectedItem isNil
             ifTrue: [ self. "Do nothing" ]
             ifFalse: [
                 selectedItem name = reactTo ifTrue: [
