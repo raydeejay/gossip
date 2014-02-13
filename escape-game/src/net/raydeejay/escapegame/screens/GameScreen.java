@@ -1,7 +1,6 @@
 package net.raydeejay.escapegame.screens;
 
 import java.io.InputStream;
-import java.util.Hashtable;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
@@ -15,10 +14,6 @@ import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
 import net.raydeejay.escapegame.reactors.Item;
-import net.raydeejay.escapegame.rooms.Room01;
-import net.raydeejay.escapegame.rooms.Room02;
-import net.raydeejay.escapegame.rooms.Room03;
-import net.raydeejay.escapegame.rooms.Room04;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 import com.badlogic.gdx.Gdx;
