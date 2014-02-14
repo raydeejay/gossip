@@ -13,6 +13,7 @@ public class GameRegistry {
 	private Map<String, Reactor> objects = new HashMap<String, Reactor>();
 	private Map<String, Room> rooms = new HashMap<String, Room>();
 	private GameScreen gameScreen;
+	private Inventory inventory;
 	
 	private static GameRegistry instance;
 	public static GameRegistry instance() {
@@ -43,6 +44,14 @@ public class GameRegistry {
         return rooms.get(name);
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory i) {
+        inventory = i;
+    }
+
     // factories
     public Room newRoom(String name) {
         return new Room(name, gameScreen);
@@ -54,15 +63,23 @@ public class GameRegistry {
 	
     // TODO - remove this once it's not necessary
     public Item getSelectedItem() {
-    	return gameScreen.getInventory().getSelectedItem();
+    	return inventory.getSelectedItem();
+    }
+	
+    public void setSelectedItem(Reactor anItem) {
+    	inventory.setSelectedItem((Item) anItem);
     }
 	
     public void clearSelectedItem() {
-    	gameScreen.getInventory().clearSelectedItem();
+    	inventory.clearSelectedItem();
+    }
+	
+    public void addToInventory(Reactor anItem) {
+    	gameScreen.addToInventory((Item) anItem);
     }
 	
     public void removeItem(Item anItem) {
-    	gameScreen.getInventory().removeItem(anItem);
+    	inventory.removeItem(anItem);
     }
 	
 	public void switchToRoom(final String aRoomName) {

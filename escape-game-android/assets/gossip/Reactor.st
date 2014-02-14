@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name room states currentState' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name room states currentState image' classVariables: '')
 METHOD Reactor
 initialize
     super initialize.
@@ -20,7 +20,12 @@ installClickListener
 !
 METHOD Reactor
 setImage: aString
+	image := aString.
     self call: #setImage with: aString.
+!
+METHOD Reactor
+getImage
+    ^ image.
 !
 METHOD Reactor
 addToRoomNamed: aString
@@ -53,7 +58,10 @@ setY: y
 !
 METHOD Reactor
 moveToInventory
-	self call: #moveToInventory.
+    | anItem |
+    anItem := GameRegistry newItemFrom: self.
+    GameRegistry instance addToInventory: anItem.
+	self removeFromRoom.
 !
 METHOD Reactor
 removeFromRoom

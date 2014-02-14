@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
-import net.raydeejay.gossip.engine.interpreter.SmallJavaObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -36,7 +35,7 @@ public class Reactor extends Actor {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				Item item = GameScreen.getInventory().getSelectedItem();
+				Item item = GameRegistry.instance().getInventory().getSelectedItem();
 				if (item == null) {
 					whenClicked();
 				} else {
@@ -116,11 +115,11 @@ public class Reactor extends Actor {
 	}
 
 	// INVENTORY
-	public void moveToInventory() {
-		Item item = this.asItem();
-		gameScreen.addToInventory(item);
-		this.removeFromRoom();
-	}
+//	public void moveToInventory() {
+//		Item item = this.asItem();
+//		GameRegistry.instance().addToInventory(item);
+//		this.removeFromRoom();
+//	}
 
 	// STATE
 	public Reactor addState(State aState) {

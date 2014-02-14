@@ -29,8 +29,6 @@ public class GameScreen implements Screen {
 	final EscapeGame game;
 	private Stage stage;
 	private Room currentRoom;
-	private static Inventory inventory;
-	
 	final Reactor arrowLeft = new Reactor("arrowLeft", this)
 		.at(10, 240)
 		.setImage("arrowLeft.png");
@@ -42,7 +40,7 @@ public class GameScreen implements Screen {
 		this.game = gam;
 
 		GameRegistry.instance().setScreen(this);
-		setInventory(new Inventory("inventory.png", this));
+		GameRegistry.instance().setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
 		// set up the navigation buttons
@@ -112,7 +110,7 @@ public class GameScreen implements Screen {
 				this.currentRoom.getBackgroundFilename());
 		this.stage.addActor(background);
 
-		Background invBackground = new Background(700, 0, GameScreen.getInventory()
+		Background invBackground = new Background(700, 0, GameRegistry.instance().getInventory()
 				.getBackgroundFilename());
 		this.stage.addActor(invBackground);
 
@@ -122,7 +120,7 @@ public class GameScreen implements Screen {
 		}
 
 		// inventory
-		for (Item i : GameScreen.getInventory().getItems()) {
+		for (Item i : GameRegistry.instance().getInventory().getItems()) {
 			this.stage.addActor(i);
 		}
 
@@ -143,7 +141,7 @@ public class GameScreen implements Screen {
 	}
 
 	public void addToInventory(Item anItem) {
-		GameScreen.getInventory().addItem(anItem);
+		GameRegistry.instance().getInventory().addItem(anItem);
 		this.stage.addActor(anItem);
 	}
 
@@ -187,14 +185,14 @@ public class GameScreen implements Screen {
 		stage.dispose();
 	}
 
-	public static Inventory getInventory() {
+/*	public static Inventory getInventory() {
 		return inventory;
 	}
 
 	public static void setInventory(Inventory anInventory) {
 		inventory = anInventory;
 	}
-
+*/
 	public EscapeGame getGame() {
 		return this.game;
 	}

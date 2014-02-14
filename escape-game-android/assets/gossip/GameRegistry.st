@@ -1,6 +1,6 @@
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
-//EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms' classVariables: 'instance javaObject')
+//EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory javaObject' classVariables: 'instance javaObject')
 
 META GameRegistry
 instance
@@ -12,6 +12,8 @@ initialize
     super initialize.
     reactors := Dictionary new.
     rooms := Dictionary new.
+    javaObject := self class javaObject.
+    inventory := Inventory forJavaObject: (javaObject invoke: 'getInventory').
 !
 
 META GameRegistry
@@ -50,20 +52,18 @@ newDropper: aString
 	^ ((Dropper forJavaObject: aReactor) name: aString) register.
 !
 META GameRegistry
-getSelectedItem
-	| anItem |
-	anItem := self javaObject invoke: #getSelectedItem.
-	anItem printString = 'JavaObject<null>'
-	    ifTrue: [ ^ nil ]
-	    ifFalse: [ ^ (Item new javaObjectKeepListener: anItem) name: (anItem invoke: #getName) asSmallString ].
-!
-META GameRegistry
-clearSelectedItem
-    self javaObject invoke: #clearSelectedItem.
-!
-META GameRegistry
-removeItem: aJavaObject
-    self javaObject invoke: #removeItem with: aJavaObject.
+newItemFrom: aReactor
+    | anItem anItemJO aString |
+
+    aString := (aReactor name + 'Item').
+    anItemJO := (aReactor javaObject invoke: 'asItem').
+
+"    anItem := Item new javaObjectKeepListener: anItemJO."
+    anItem := Item forJavaObject: anItemJO.
+    anItem name: aString.
+    anItem setImage: aReactor getImage.
+    anItem register.
+    ^ anItem
 !
 META GameRegistry
 switchToRoom: aString
@@ -78,6 +78,7 @@ METHOD GameRegistry
 registerRoom: aRoom
     rooms at: aRoom name put: aRoom.
 !
+
 METHOD GameRegistry
 getReactor: aString
 	^ reactors at: aString ifAbsent: [ nil ].
@@ -86,11 +87,43 @@ METHOD GameRegistry
 getRoom: aString
 	^ rooms at: aString ifAbsent: [ nil ].
 !
-
+METHOD GameRegistry
+getInventory
+	^ inventory.
+!
 METHOD GameRegistry
 switchToRoom: aString
     self class javaObject invoke: #switchToRoom with: aString asJavaObject.
 !
+
+METHOD GameRegistry
+getSelectedItem
+	| anItem |
+	anItem := javaObject invoke: #getSelectedItem.
+	anItem printString = 'JavaObject<null>'
+	    ifTrue: [ ^ nil ]
+	    ifFalse: [ 
+	        ^ (Item new javaObjectKeepListener: anItem) name: (anItem invoke: #getName) asSmallString ].
+!
+METHOD GameRegistry
+setSelectedItem: anItem
+    javaObject invoke: #setSelectedItem with: anItem javaObject.
+!
+METHOD GameRegistry
+clearSelectedItem
+    javaObject invoke: #clearSelectedItem.
+!
+METHOD GameRegistry
+addToInventory: anItem
+    javaObject invoke: #addToInventory with: anItem javaObject.
+"    inventory add: anItem."
+!
+METHOD GameRegistry
+removeItem: aJavaObject
+"    javaObject invoke: #removeItem with: aJavaObject."
+    inventory remove: aJavaObject.
+!
+
 METHOD GameRegistry
 winGame
     self class javaObject invoke: #winGame.

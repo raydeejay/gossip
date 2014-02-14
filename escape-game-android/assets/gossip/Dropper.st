@@ -10,13 +10,13 @@ initialize
     default := State new.
     default name: #default.
     default onClick: [ 
-        selectedItem := GameRegistry getSelectedItem.
+        selectedItem := GameRegistry instance getSelectedItem.
     
         selectedItem isNil
             ifTrue: [ self. "Do nothing" ]
             ifFalse: [
                 selectedItem name = reactTo ifTrue: [
-    	            GameRegistry removeItem: selectedItem javaObject.
+    	            GameRegistry instance removeItem: selectedItem javaObject.
     	            
     	            newDrop := GameRegistry instance getReactor: dropItem.
     	            newDrop setX: dropAtX Y: dropAtY.

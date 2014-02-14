@@ -33,8 +33,8 @@ public class Inventory {
 		this.screen = screen;
 	}
 
-	public void addItem(Item anItem) {
-		this.items.add(anItem);
+	public void addItem(Reactor anItem) {
+		this.items.add((Item) anItem);
 
 	}
 
