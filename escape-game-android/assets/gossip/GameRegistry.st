@@ -55,7 +55,7 @@ getSelectedItem
 	anItem := self javaObject invoke: #getSelectedItem.
 	anItem printString = 'JavaObject<null>'
 	    ifTrue: [ ^ nil ]
-	    ifFalse: [ ^ (Item forJavaObject: anItem) name: (anItem invoke: #getName) asSmallString ].
+	    ifFalse: [ ^ (Item new javaObjectKeepListener: anItem) name: (anItem invoke: #getName) asSmallString ].
 !
 META GameRegistry
 clearSelectedItem

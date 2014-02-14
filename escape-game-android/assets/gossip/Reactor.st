@@ -11,6 +11,10 @@ javaObject: aJavaObject
     self installClickListener.
 !
 METHOD Reactor
+javaObjectKeepListener: aJavaObject
+	javaObject := aJavaObject.
+!
+METHOD Reactor
 installClickListener
     <150 javaObject [ currentState clicked. ]>.
 !
