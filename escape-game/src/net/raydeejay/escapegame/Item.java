@@ -1,7 +1,5 @@
-package net.raydeejay.escapegame.reactors;
+package net.raydeejay.escapegame;
 
-import net.raydeejay.escapegame.GameRegistry;
-import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 import com.badlogic.gdx.graphics.Color;

@@ -1,6 +1,5 @@
 package net.raydeejay.escapegame;
 
-import net.raydeejay.escapegame.reactors.Item;
 
 public class State {
 	private String name;

@@ -3,7 +3,6 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 import net.raydeejay.escapegame.screens.MainMenuScreen;
 

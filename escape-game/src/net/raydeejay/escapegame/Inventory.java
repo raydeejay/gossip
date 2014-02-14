@@ -2,7 +2,6 @@ package net.raydeejay.escapegame;
 
 import java.util.ArrayList;
 
-import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 
 public class Inventory {

@@ -10,10 +10,10 @@ import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.EscapeGame;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.escapegame.Inventory;
+import net.raydeejay.escapegame.Item;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import net.raydeejay.escapegame.State;
-import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 import com.badlogic.gdx.Gdx;
