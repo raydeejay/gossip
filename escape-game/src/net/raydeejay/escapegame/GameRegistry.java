@@ -3,13 +3,11 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-
-import net.raydeejay.escapegame.reactors.Door;
 import net.raydeejay.escapegame.reactors.Item;
 import net.raydeejay.escapegame.screens.GameScreen;
 import net.raydeejay.escapegame.screens.MainMenuScreen;
+
+import com.badlogic.gdx.Gdx;
 
 public class GameRegistry {
 	private Map<String, Reactor> objects = new HashMap<String, Reactor>();

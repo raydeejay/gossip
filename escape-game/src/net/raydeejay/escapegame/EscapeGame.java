@@ -1,6 +1,6 @@
 package net.raydeejay.escapegame;
 
-import net.raydeejay.escapegame.screens.MainMenuScreen;
+import net.raydeejay.escapegame.screens.GameScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +19,7 @@ public class EscapeGame extends Game {
 
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new GameScreen(this));
 	}
 
 	public void render() {
