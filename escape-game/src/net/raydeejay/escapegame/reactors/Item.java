@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Item extends Reactor {
 
+	private boolean isSelected;
+
 	public Item(Reactor aReactor, GameScreen aScreen) {
 		super(aReactor.getName() + "Item", aScreen);
 		setImageTexture(aReactor.getImage());
@@ -35,7 +37,8 @@ public class Item extends Reactor {
 		this.setY(480 - y - 48);
 
 		// add "halo" if the item is selected
-		if (this.isSelected()) {
+//		if (this.isSelected()) {
+		if (isSelected) {
 			batch.setColor(Color.rgba8888(0, 0.5f, 0.5f, 0.4f));
 		} else {
 			batch.setColor(Color.WHITE);
@@ -44,7 +47,12 @@ public class Item extends Reactor {
 		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
-	private boolean isSelected() {
-		return (GameRegistry.instance().getInventory().getSelectedItem() == this);
+	public void beSelected() {
+		isSelected = true;
 	}
+	
+	public void beUnselected() {
+		isSelected = false;
+	}
+	
 }

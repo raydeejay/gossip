@@ -120,8 +120,8 @@ addToInventory: anItem
 !
 METHOD GameRegistry
 removeItem: aJavaObject
-"    javaObject invoke: #removeItem with: aJavaObject."
-    inventory remove: aJavaObject.
+    javaObject invoke: #removeItem with: aJavaObject.
+"    inventory remove: aJavaObject."
 !
 
 METHOD GameRegistry

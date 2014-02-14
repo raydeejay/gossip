@@ -7,9 +7,7 @@ initialize
 
     openState := State new.
     openState name: #open.
-    openState onClick: [ 
-        "gr invoke: #switchToRoom with: destination asJavaObject."
-        GameRegistry instance switchToRoom: destination. ].
+    openState onClick: [ GameRegistry instance switchToRoom: destination. ].
     self addState: openState.
      
     closedState := State new.

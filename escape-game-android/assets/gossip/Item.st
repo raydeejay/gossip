@@ -20,10 +20,12 @@ removeFromInventory
 !
 METHOD Item
 beUnselected
+    self call: #beUnselected.
     GameRegistry instance clearSelectedItem.
 !
 METHOD Item
 beSelected
+    self call: #beSelected.
     GameRegistry instance setSelectedItem: self.
 !
 METHOD Item

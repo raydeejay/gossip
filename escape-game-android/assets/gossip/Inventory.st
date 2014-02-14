@@ -15,9 +15,11 @@ selected
 METHOD Inventory
 selected: anItem
     selected := anItem.
+    anItem beSelected.
 !
 METHOD Inventory
 clearSelected
+	selected beUnselected.
     selected := nil.
 !
 
