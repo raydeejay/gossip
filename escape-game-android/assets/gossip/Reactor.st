@@ -1,9 +1,10 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name room states currentState image' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name x y room states currentState image' classVariables: '')
 METHOD Reactor
 initialize
     super initialize.
 "    javaObject := (System instantiateJavaClass: 'net.raydeejay.escapegame.Reactor')."
     states := Dictionary new.
+    room := nil.
 !
 METHOD Reactor
 javaObject: aJavaObject
@@ -41,20 +42,35 @@ name
     ^ name.
 !
 METHOD Reactor
+room: aString
+    room := aString
+!
+METHOD Reactor
 room
     ^ room.
 !
 METHOD Reactor
-setX: x Y: y
-    self call: #at with: x with: y.
+setX: aX Y: aY
+    self setX: aX.
+    self setY: aY.
 !
 METHOD Reactor
-setX: x
+setX: aNumber
+    x := aNumber.
     self call: #setX with: x.
 !
 METHOD Reactor
-setY: y
+setY: aNumber
+    y := aNumber.
     self call: #setY with: y.
+!
+METHOD Reactor
+x
+    ^ x
+!
+METHOD Reactor
+y
+    ^ y
 !
 METHOD Reactor
 moveToInventory
@@ -80,4 +96,8 @@ switchToState: aStateName
 METHOD Reactor
 register
 	GameRegistry instance registerReactor: self.
+!
+METHOD Reactor
+clicked
+    currentState clicked
 !

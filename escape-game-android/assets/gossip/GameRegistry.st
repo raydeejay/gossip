@@ -15,6 +15,18 @@ initialize
     javaObject := self class javaObject.
     inventory := Inventory forJavaObject: (javaObject invoke: 'getInventory').
 !
+METHOD GameRegistry
+rooms
+    ^ rooms
+!
+METHOD GameRegistry
+reactors
+    ^ reactors
+!
+METHOD GameRegistry
+inventory
+    ^ inventory
+!
 
 META GameRegistry
 javaObject
@@ -115,6 +127,7 @@ clearSelectedItem
 !
 METHOD GameRegistry
 addToInventory: anItem
+    anItem room: nil.
     javaObject invoke: #addToInventory with: anItem javaObject.
 "    inventory add: anItem."
 !

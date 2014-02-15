@@ -31,9 +31,9 @@ initialize
     self switchToState: #default.
 !
 METHOD Dropper
-dropAtX: x Y: y item: aString type: aClass
-    dropAtX := x.
-    dropAtY := y.
+dropAtX: aX Y: aY item: aString type: aClass
+    dropAtX := aX.
+    dropAtY := aY.
     dropItem := aString.
     dropType := aClass.
 !

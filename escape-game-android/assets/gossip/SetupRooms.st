@@ -100,7 +100,7 @@ initRoom02
 !
 META SetupRooms
 initRoom03
-    | hammer knife fireplace unlit lit |
+    | hammer knife fireplace unlit lit fpX fpY |
 
     hammer := (GameRegistry newObtainable: #hammer).
     hammer setImage: 'hammer.png'.
@@ -110,21 +110,26 @@ initRoom03
     knife setX: 530 Y: 5.
     knife addToRoomNamed: #room03.
     
+    "terrible hack because there is no support for Z-ordering yet"
+    "plus it doesn't work because of flawed reasoning :D"
+    fpX := 200.
+    fpY := 82.
+    
     lit := GameRegistry newDropper: #litFire.
 	lit reactTo: #boxItem.
-	lit dropAtX: 325 Y: 85 item: #hammer type: Obtainable.
+	lit dropAtX: fpX + 125 Y: fpY + 3 item: #hammer type: Obtainable.
 	lit setImage: 'fire.png'.
 
     unlit := GameRegistry newDropper: #unlitFire.
 	unlit reactTo: #lighterItem.
-	unlit dropAtX: 325 Y: 85 item: #litFire type: Dropper.
+	unlit dropAtX: fpX + 125 Y: fpY + 3 item: #litFire type: Dropper.
 	unlit setImage: 'logs.png'.
     
     fireplace := GameRegistry newDropper: #fireplace.
 	fireplace reactTo: #logsItem.
-	fireplace dropAtX: 325 Y: 85 item: #unlitFire type: Dropper.
+	fireplace dropAtX: fpX + 125 Y: fpY + 3 item: #unlitFire type: Dropper.
 	fireplace setImage: 'fireplace.png'.
-    fireplace setX: 200 Y: 82.
+    fireplace setX: fpX Y: fpY.
     fireplace shouldStay.
 	fireplace addToRoomNamed: #room03.   
     

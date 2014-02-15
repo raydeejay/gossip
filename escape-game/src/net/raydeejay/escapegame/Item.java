@@ -35,7 +35,6 @@ public class Item extends Reactor {
 		this.setY(480 - y - 48);
 
 		// add "halo" if the item is selected
-//		if (this.isSelected()) {
 		if (isSelected) {
 			batch.setColor(Color.rgba8888(0, 0.5f, 0.5f, 0.4f));
 		} else {

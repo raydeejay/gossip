@@ -13,6 +13,11 @@ fileInWithNotification: aFileName
     self fileIn: aFileName'.
 !
 
+// Extensions to be integrated later
+EVAL File fileInWithNotification: 'gossip/Extensions.st'
+EVAL System println: 'Finished loading class extensions'
+
+
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
 EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory javaObject' classVariables: 'instance javaObject')
@@ -34,4 +39,10 @@ EVAL System println: 'Finished loading'
 // Then start the thing up
 EVAL SetupRooms setup
 EVAL System println: 'Finished setup'
+
+// Authoring tools
+EVAL File fileInWithNotification: 'gossip/GameBrowser.st'
+EVAL System println: 'Finished loading authoring tools'
+
 EVAL Transcript open
+EVAL GameBrowser open

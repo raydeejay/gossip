@@ -7,13 +7,11 @@ import net.raydeejay.escapegame.screens.GameScreen;
 public class Inventory {
 	ArrayList<Item> items;
 	private String backgroundFilename;
-	private GameScreen screen;
 	private Item selectedItem;
 
 	public Inventory(String aFilename, GameScreen gameScreen) {
 		this.items = new ArrayList<Item>();
 		this.setBackgroundFilename(aFilename);
-		this.setScreen(gameScreen);
 	}
 
 	public String getBackgroundFilename() {
@@ -24,17 +22,9 @@ public class Inventory {
 		this.backgroundFilename = backgroundFilename;
 	}
 
-	public GameScreen getScreen() {
-		return screen;
-	}
-
-	public void setScreen(GameScreen screen) {
-		this.screen = screen;
-	}
-
 	public void addItem(Reactor anItem) {
+		anItem.setRoom(null);
 		this.items.add((Item) anItem);
-
 	}
 
 	public void removeItem(Item anItem) {
