@@ -64,7 +64,7 @@
     
     <target name="dist" depends="compile">
         <jar 
-            destfile="${out.dir}/${libgdx.desktop.appname}.jar"
+            destfile="${out.dir}/${libgdx.desktop.appname}-${BUILD_NUMBER}.jar"
             basedir="${out.classes.dir}">
             <zipgroupfileset dir="${libs.dir}" includes="*.jar"/>
             <zipgroupfileset dir="${libgdx.main.libs.dir}" includes="*.jar"/>
