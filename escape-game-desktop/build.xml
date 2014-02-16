@@ -83,4 +83,7 @@
             <classpath refid="escape-game-desktop.classpath"/>
         </java>
     </target>
+    <target name="jar" description="Create the JAR file" depends="build">
+    	<jar jarfile="Gossip-${DSTAMP}.jar" includes="*.class" basedir="bin"/>
+    </target>
 </project>
