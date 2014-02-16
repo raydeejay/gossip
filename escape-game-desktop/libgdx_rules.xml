@@ -3,7 +3,10 @@
  
     <!-- The "libgdx.properties" file contains libgdx-specific properties. -->
     <property file="libgdx.properties" />
- 
+    
+    <!-- We sort of want this to acces the build number -->
+    <property environment="env" />
+     
     <!-- Make sure that the required properties were set in "libgdx.properties". -->
     <fail message="libgdx.desktop.appname is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.desktop.appname" />
     <fail message="libgdx.desktop.mainclass is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.desktop.mainclass" />
