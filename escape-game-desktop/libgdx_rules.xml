@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="libgdx_rules">
+ 
+    <!-- The "libgdx.properties" file contains libgdx-specific properties. -->
+    <property file="libgdx.properties" />
+ 
+    <!-- Make sure that the required properties were set in "libgdx.properties". -->
+    <fail message="libgdx.desktop.appname is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.desktop.appname" />
+    <fail message="libgdx.desktop.mainclass is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.desktop.mainclass" />
+    <fail message="libgdx.main.dir is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.main.dir" />
+    <fail message="libgdx.android.dir is not set. Make sure to set it in the libgdx.properties file." unless="libgdx.android.dir" />
+ 
+    <!-- Set source and libs directories for main libgdx project. -->
+    <property name="libgdx.main.src.dir" value="${libgdx.main.dir}/src" />
+    <property name="libgdx.main.libs.dir" value="${libgdx.main.dir}/libs" />
+ 
+    <!-- Set assets directory for android libgdx project. -->
+    <property name="libgdx.android.assets.dir" value="${libgdx.android.dir}/assets" />
+ 
+    <!-- Set source and libs directories for this (desktop) libgdx project. -->
+    <property name="src.dir" value="src" />
+    <property name="libs.dir" value="libs" />
+ 
+    <!-- Set output directories for this (desktop) libgdx project. -->
+    <property name="out.dir" value="bin" />
+    <property name="out.assets.dir" value="${out.dir}/assets" />
+    <property name="out.classes.dir" location="${out.dir}/classes" />
+ 
+    <target name="clean">
+        <delete dir="${out.dir}" verbose="${verbose}" />
+    </target>
+    
+    <target name="-pre-compile">
+        <mkdir dir="${out.dir}" />
+        <mkdir dir="${out.assets.dir}" />
+        <copy includeemptydirs="false" todir="${out.assets.dir}">
+            <fileset dir="${libgdx.android.assets.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${out.classes.dir}" />
+    </target>
+    
+    <target name="compile" depends="-pre-compile">
+        <path id="javac.classpath">
+            <fileset dir="${libs.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${libgdx.main.libs.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+        </path>
+        <javac 
+            srcdir="${src.dir}" 
+            destdir="${out.classes.dir}"
+            classpathref="javac.classpath"
+            includeantruntime="false"
+            debug="on"
+            verbose="${verbose}">
+            <src path="${libgdx.main.src.dir}" />
+            <src path="${out.assets.dir}" />
+        </javac>
+    </target>
+    
+    <target name="dist" depends="compile">
+        <jar 
+            destfile="${out.dir}/${libgdx.desktop.appname}.jar"
+            basedir="${out.classes.dir}">
+            <zipgroupfileset dir="${libs.dir}" includes="*.jar"/>
+            <zipgroupfileset dir="${libgdx.main.libs.dir}" includes="*.jar"/>
+            <fileset dir="${out.assets.dir}" />
+            <manifest>
+                <attribute name="Main-Class" value="${libgdx.desktop.mainclass}"/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run" depends="compile">
+        <!--
+        <java jar="${out.dir}/${libgdx.desktop.appname}.jar" fork="true"/>
+        -->
+        <path id="java.classpath">
+            <fileset dir="${libs.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${libgdx.main.libs.dir}">
+                <include name="**/*.jar" />
+            </fileset>
+            <pathelement location="${out.assets.dir}" />
+        </path>
+        <!-- <echo>${toString:java.classpath}</echo> -->
+        <java 
+            fork="true"
+            classname="${libgdx.desktop.mainclass}" 
+            classpath="${out.classes.dir}"
+            classpathref="java.classpath"/>
+    </target>
+ 
+</project>
