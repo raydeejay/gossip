@@ -70,11 +70,8 @@ defaultExecuteButton
         reactorList := (GameRegistry instance reactors allValues) select: [ :r | r room = roomName ].  
     	reactor := reactorList at: (reactorsPane getIndex).
     	
-    	reactor class compileMethod: ('doIt ' + sourcePane getText).
-    	reactor doIt.
-    	
-    	"the compilation may fail and this message below may not be sent, this should be fixed"
-    	reactor class removeMethod: #doIt.
+    	self monkeyPatch: reactor andEval: sourcePane getText.
+
     	self refresh ].
 !
 METHOD GameBrowser
@@ -86,32 +83,34 @@ defaultExecuteInvButton
         reactorList := (GameRegistry instance reactors allValues) select: [ :r | r room notNil and: [ r room = #SpecialInventoryRoom ] ].
     	reactor := reactorList at: (inventoryPane getIndex).
     	
-    	reactor class compileMethod: ('doIt ' + sourcePane getText).
-    	reactor doIt.
-    	
-    	"the compilation may fail and this message below may not be sent, this should be fixed"
-    	reactor class removeMethod: #doIt.
+    	self monkeyPatch: reactor andEval: sourcePane getText.
+
     	self refresh ].
 !
 METHOD GameBrowser
 defaultExecuteRoomlessButton
     | reactorList reactor |
     ^ Pane title: 'execute Roomless' action: [
-    	"execute the code inside the source pane in the context of the selected inventory item"
+    	"execute the code inside the source pane in the context of the selected roomless reactor"
     	
         reactorList := (GameRegistry instance reactors allValues) select: [ :r | r room isNil ].
     	reactor := reactorList at: (roomlessPane getIndex).
     	
-    	reactor class compileMethod: ('doIt ' + sourcePane getText).
-    	reactor doIt.
-    	
-    	"the compilation may fail and this message below may not be sent, this should be fixed"
-    	reactor class removeMethod: #doIt.
+    	self monkeyPatch: reactor andEval: sourcePane getText.
+
     	self refresh ].
 !
 METHOD GameBrowser
 defaultRefreshButton
     ^ Pane title: 'refresh lists' action: [ self refresh ].
+!
+METHOD GameBrowser
+monkeyPatch: aReactor andEval: aString
+    aReactor class compileMethod: ('doIt ' + aString).
+    aReactor doIt.
+    	
+    "the compilation may fail and this message below may not be sent, this should be fixed"
+    aReactor class removeMethod: #doIt.
 !
 METHOD GameBrowser
 refresh
