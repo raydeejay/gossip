@@ -1,32 +1,94 @@
 EVAL Class addNewClass: ( Object subclass: 'GameBrowser' variables: 'window roomsPane reactorsPane roomlessPane inventoryPane executeButton executeInvButton executeRoomlessButton refreshButton sourcePane' classVariables: '')
+META GameBrowser
+open
+    ^ self new open
+!
 METHOD GameBrowser
-compile: t intoClass: aClassIndex meta: aBoolean
-    | c |
+addRoom
+    | r |
+    r := (Window getString: 'Name for the new room') asSymbol.
+    (GameRegistry newRoom: r).
+    self resetRoomsPane
+!
+METHOD GameBrowser
+renameRoom
+    | r |
+    r := Window getString: 'New name for ' + (GameRegistry instance rooms allValues at: roomsPane getIndex) name.
+    "(Class classes at: classPane getIndex) name: r."
+    self resetRoomsPane
+!
+METHOD GameBrowser
+deleteRoom
+    (Window question: 'Delete ' +  (GameRegistry instance rooms allValues at: roomsPane getIndex) name + '?')
+        ifTrue: [ 
+            GameRegistry instance deleteRoom: (GameRegistry instance rooms allValues at: roomsPane getIndex) ].
+    self resetRoomsPane
+!
 
-    aBoolean
-        ifTrue: [ c <- (Class classes at: aClassIndex) class ]
-        ifFalse: [ c <- (Class classes at: aClassIndex) ].
+METHOD GameBrowser
+addReactor
+    | r |
+    r := (Window getString: 'Name for the new reactor') asSymbol.
+    (GameRegistry newReactor: r).
+    self reactorsListFor: roomsPane getIndex list: reactorsPane
+!
+METHOD GameBrowser
+renameReactor
+    | r |
+    r := Window getString: 'New name for ' + (GameRegistry instance rooms allValues at: roomsPane getIndex) name.
+    "(Class classes at: classPane getIndex) name: r."
+    self reactorsListFor: roomsPane getIndex list: reactorsPane
+!
+METHOD GameBrowser
+deleteReactor
+    (Window question: 'Delete ' +  (GameRegistry instance rooms allValues at: roomsPane getIndex) name + '?')
+        ifTrue: [ 
+            GameRegistry instance deleteRoom: (GameRegistry instance rooms allValues at: roomsPane getIndex) ].
+        self reactorsListFor: roomsPane getIndex list: reactorsPane
+!
 
-    (c compileMethod: t) ifTrue: [
-	    Window notify: 'compilation successful' ]
+METHOD GameBrowser
+addDefaultMenu
+    | m r |
+    
+    m := Menu new: 'Game'.
+   	m on: 'Name...' do: [ self setGameName ].
+    m on: 'Starting room...' do: [ self setStartingRoom ].
+    window addMenu: m.
 
+    m := Menu new: 'Room'.
+   	m on: 'Edit navigation' do: [ self editNavigation ].
+   	m on: 'Add...' do: [ self addRoom ].
+    m on: 'Rename...' do: [ self renameRoom ].
+    m on: 'Delete' do: [ self deleteRoom ].
+    window addMenu: m.
+
+    m := Menu new: 'Reactor'.
+   	m on: 'Add...' do: [ self addReactor ].
+    m on: 'Rename...' do: [ self renameReactor ].
+    m on: 'Delete' do: [ self deleteReactor ].
+    window addMenu: m.
 !
 METHOD GameBrowser
 layout
     ^ '(COLUMN 
-        (ROW weight=0.45
-            (LEAF name=rooms weight=0.25)
-            (LEAF name=reactors weight=0.25)
-            (LEAF name=inventory weight=0.25)
-            (LEAF name=roomless weight=0.25))
-        (ROW weight=0.10
-            (LEAF name=refresh weight=0.25)
-            (LEAF name=execute weight=0.25)
-            (LEAF name=executeInv weight=0.25)
-            (LEAF name=executeRoomless weight=0.25))
+        (ROW weight=0.55
+            (COLUMN weight=0.25
+                (LEAF name=rooms weight=0.90)
+                (LEAF name=refresh weight=0.10))
+            (COLUMN weight=0.25
+                (LEAF name=reactors weight=0.90)
+                (LEAF name=execute weight=0.10))
+            (COLUMN weight=0.25
+                (LEAF name=inventory weight=0.90)
+                (LEAF name=executeInv weight=0.10))
+            (COLUMN weight=0.25
+                (LEAF name=roomless weight=0.90)
+                (LEAF name=executeRoomless weight=0.10)))
         (LEAF name=source weight=0.45))
     '.
 !
+
 METHOD GameBrowser
 defaultRoomsPane
     | p rooms |
@@ -37,6 +99,11 @@ defaultRoomsPane
     ^ p
 
 !
+METHOD GameBrowser
+resetRoomsPane
+    roomsPane setList: GameRegistry instance rooms allKeys asStringArray 
+!
+
 METHOD GameBrowser
 defaultReactorsPane
     ^ Pane list: #() action: [:i |
@@ -60,6 +127,7 @@ defaultInventoryPane
                     collect: [ :x | x name ]) asArray ] value
         action: [ :i | self. "sourcePane setText: ''" ].
 !
+
 METHOD GameBrowser
 defaultExecuteButton
     | roomName reactorList reactor |
@@ -104,6 +172,16 @@ METHOD GameBrowser
 defaultRefreshButton
     ^ Pane title: 'refresh lists' action: [ self refresh ].
 !
+
+METHOD GameBrowser
+defaultSourcePane
+    | t |
+
+    t := Pane textArea.
+    t setText: ''.
+    ^ t
+!
+
 METHOD GameBrowser
 monkeyPatch: aReactor andEval: aString
     aReactor class compileMethod: ('doIt ' + aString).
@@ -123,6 +201,7 @@ refresh
     reactorList := (GameRegistry instance reactors allValues) select: [ :r | r room isNil ].
     roomlessPane setList: (reactorList collect: [ :x | x name ]) asArray.
 !
+
 METHOD GameBrowser
 reactorsListFor: aRoomIndex list: aPane
     | roomName reactorList |
@@ -137,6 +216,7 @@ METHOD GameBrowser
 statesListFor: aReactorIndex list: aPane
     self
 !
+
 METHOD GameBrowser
 open
     | pane roomName reactor reactorList |
@@ -171,25 +251,8 @@ open
     pane add: sourcePane at: 'source'.
 
     window := Window new title: 'Game Browser'.
-    window width: 400 height: 500.
+    window width: 700 height: 500.
     window setPane: pane javaObject.
+    self addDefaultMenu.
     window show
-
-!
-METHOD GameBrowser
-resetRoomsPane
-    roomsPane setList: GameRegistry instance rooms allKeys asStringArray 
-!
-META GameBrowser
-open
-    ^ self new open
-!
-METHOD GameBrowser
-defaultSourcePane
-    | t |
-
-    t <- Pane textArea.
-    t setText: ''.
-    ^ t
-
 !
