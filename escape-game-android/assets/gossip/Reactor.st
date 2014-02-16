@@ -81,6 +81,7 @@ moveToInventory
 !
 METHOD Reactor
 removeFromRoom
+    room := nil.
 	self call: #removeFromRoom.
 !
 METHOD Reactor

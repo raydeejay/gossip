@@ -127,7 +127,7 @@ clearSelectedItem
 !
 METHOD GameRegistry
 addToInventory: anItem
-    anItem room: nil.
+    anItem room: #SpecialInventoryRoom.
     javaObject invoke: #addToInventory with: anItem javaObject.
 "    inventory add: anItem."
 !
