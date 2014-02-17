@@ -28,13 +28,7 @@ public class GameScreen implements Screen {
 
 	final EscapeGame game;
 	private Stage stage;
-	private Room currentRoom;
-	final Reactor arrowLeft = new Reactor("arrowLeft", this)
-		.at(10, 240)
-		.setImage("arrowLeft.png");
-	final Reactor arrowRight = new Reactor("arrowRight", this)
-		.at(620, 240)
-		.setImage("arrowRight.png");
+	public Room currentRoom;
 
 	public GameScreen(final EscapeGame gam) {
 		this.game = gam;
@@ -42,9 +36,6 @@ public class GameScreen implements Screen {
 		GameRegistry.instance().setScreen(this);
 		GameRegistry.instance().setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
-
-		// set up the navigation buttons
-		this.createNavigationButtons();
 
 		// initialize Gossip
 		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
@@ -72,38 +63,14 @@ public class GameScreen implements Screen {
         catch(ScriptException e) { System.err.println("ERROR :" + e); }
         
 		// and go
-		this.switchToRoom("room02");
-	}
-
-	private void addRoom(Room aRoom) {
-		GameRegistry.instance().registerRoom(aRoom.getName(), aRoom);
-	}
-
-	private void createNavigationButtons() {
-		arrowLeft.addState(new State("state") {
-			@Override
-			public void whenClicked() {
-				switchToRoom(currentRoom.getExitLeft());
-			}
-
-		});
-		arrowLeft.switchToState("state");
-		arrowLeft.setVisible(false);
-
-		arrowRight.addState(new State("state") {
-			@Override
-			public void whenClicked() {
-				switchToRoom(currentRoom.getExitRight());
-			}
-
-		});
-		arrowRight.switchToState("state");
-		arrowRight.setVisible(false);
+        try {
+            System.out.println(engine.eval("GameRegistry instance switchToRoom: #room02"));
+        }
+        catch(ScriptException e) { System.err.println("ERROR :" + e); }
 	}
 
 	public void switchToRoom(String destination) {
 		this.stage.clear();
-//		this.currentRoom = this.rooms.get(destination);
 		this.currentRoom = GameRegistry.instance().getRoom(destination);
 
 		Background background = new Background(0, 0,
@@ -125,15 +92,15 @@ public class GameScreen implements Screen {
 		}
 
 		// navigation
-		this.currentRoom.addReactor(arrowLeft);
-		this.currentRoom.addReactor(arrowRight);
+		this.currentRoom.addReactor(GameRegistry.instance().getReactor("arrowLeft"));
+		this.currentRoom.addReactor(GameRegistry.instance().getReactor("arrowRight"));
 		this.updateNavigation();
 
 	}
 
 	private void updateNavigation() {
-		this.arrowLeft.setVisible(this.currentRoom.getExitLeft() != null);
-		this.arrowRight.setVisible(this.currentRoom.getExitRight() != null);
+		GameRegistry.instance().getReactor("arrowLeft").setVisible(this.currentRoom.getExitLeft() != null);
+		GameRegistry.instance().getReactor("arrowRight").setVisible(this.currentRoom.getExitRight() != null);
 	}
 
 	public void addReactor(Reactor aReactor) {
@@ -185,28 +152,14 @@ public class GameScreen implements Screen {
 		stage.dispose();
 	}
 
-/*	public static Inventory getInventory() {
-		return inventory;
-	}
-
-	public static void setInventory(Inventory anInventory) {
-		inventory = anInventory;
-	}
-*/
 	public EscapeGame getGame() {
 		return this.game;
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void pause() {	}
 
 	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resume() {	}
 
 }

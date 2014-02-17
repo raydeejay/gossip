@@ -1,6 +1,6 @@
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
-//EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory javaObject' classVariables: 'instance javaObject')
+//EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory currentRoom javaObject' classVariables: 'instance javaObject')
 
 META GameRegistry
 instance
@@ -78,6 +78,12 @@ newItemFrom: aReactor
     ^ anItem
 !
 META GameRegistry
+newHudElement: aString
+	| aReactor |
+	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
+	^ ((HudElement forJavaObject: aReactor) name: aString) register.
+!
+META GameRegistry
 switchToRoom: aString
     self javaObject invoke: #switchToRoom with: aString asJavaObject.
 !
@@ -104,8 +110,17 @@ getInventory
 	^ inventory.
 !
 METHOD GameRegistry
+currentRoom
+	^ currentRoom
+!
+METHOD GameRegistry
 switchToRoom: aString
-    self class javaObject invoke: #switchToRoom with: aString asJavaObject.
+    | room |
+    
+    room := self getRoom: aString.
+    currentRoom := room.
+    
+    self class javaObject invoke: #switchToRoom with: room name asJavaObject.
 !
 
 METHOD GameRegistry

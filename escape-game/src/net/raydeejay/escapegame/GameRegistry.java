@@ -47,6 +47,10 @@ public class GameRegistry {
         return inventory;
     }
 
+    public Room getCurrentRoom() {
+    	return gameScreen.currentRoom;
+    }
+    
     public void setInventory(Inventory i) {
         inventory = i;
     }

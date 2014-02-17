@@ -20,12 +20,13 @@ EVAL System println: 'Finished loading class extensions'
 
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
-EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory javaObject' classVariables: 'instance javaObject')
+EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory currentRoom javaObject' classVariables: 'instance javaObject')
 
 // Now load the stuff in the required order
 EVAL File fileInWithNotification: 'gossip/JavaWrapper.st'
 EVAL File fileInWithNotification: 'gossip/State.st'
 EVAL File fileInWithNotification: 'gossip/Reactor.st'
+EVAL File fileInWithNotification: 'gossip/HudElement.st'
 EVAL File fileInWithNotification: 'gossip/Inventory.st'
 EVAL File fileInWithNotification: 'gossip/Item.st' 
 EVAL File fileInWithNotification: 'gossip/Obtainable.st'

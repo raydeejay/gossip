@@ -3,12 +3,26 @@
 EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
 META SetupRooms
 setup
+    self setupNavigation.
     self createRooms.
 	self initRoom01A.
 	self initRoom01B.
 	self initRoom02.
 	self initRoom03.
 	self initRoom04.
+!
+META SetupRooms
+setupNavigation
+    | left right |
+    
+    left := (GameRegistry newHudElement: #arrowLeft) onClick: [ 
+        GameRegistry instance switchToRoom: GameRegistry instance currentRoom left ].
+    left setImage: 'arrowLeft.png'.
+    left setX: 10 Y: 240.
+    right := (GameRegistry newHudElement: #arrowRight) onClick: [ 
+        GameRegistry instance switchToRoom: GameRegistry instance currentRoom right ].
+    right setImage: 'arrowRight.png'.
+    right setX: 620 Y: 240.
 !
 META SetupRooms
 createRooms

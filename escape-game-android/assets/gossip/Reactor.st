@@ -65,6 +65,18 @@ setY: aNumber
     self call: #setY with: y.
 !
 METHOD Reactor
+setVisible: aBoolean
+    self call: #setVisible with: aBoolean.
+!
+METHOD Reactor
+beVisible
+    self setVisible: true
+!
+METHOD Reactor
+beInvisible
+    self setInvisible: false
+!
+METHOD Reactor
 x
     ^ x
 !
