@@ -150,11 +150,16 @@ public class SmallInterpreter implements Serializable {
 		set.add(ContextClass);
 		set.add(IntegerClass);
 		set.addAll(Arrays.asList(smallInts));
+		
+		set.remove(null); // does nothing?
+		
 		while (true) {
 			java.util.List<SmallObject> newList = new ArrayList<SmallObject>();
 			for (SmallObject o : set) {
-				newList.add(o.objClass);
-				newList.addAll(Arrays.asList(o.data));
+				if(o != null) {
+				    newList.add(o.objClass);
+				    newList.addAll(Arrays.asList(o.data));
+				}
 			}
 			int s1 = set.size();
 			set.addAll(newList);
@@ -180,6 +185,8 @@ public class SmallInterpreter implements Serializable {
 			}
 		}
 
+		list.remove(null);
+		
 		// Give each remaining object an id
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).id = i;
@@ -260,6 +267,8 @@ public class SmallInterpreter implements Serializable {
 						// Fix references to SmallJavaObjects, which can't be
 						// serialised yet
 						if (o2 instanceof SmallJavaObject) {
+							im.writeInt(nilObject.id);
+						} else if (o2 == null) {
 							im.writeInt(nilObject.id);
 						} else {
 							im.writeInt(o2.id);
