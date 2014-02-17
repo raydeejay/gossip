@@ -1,5 +1,6 @@
 package net.raydeejay.escapegame.screens;
 
+import java.io.File;
 import java.io.InputStream;
 
 import javax.script.ScriptEngine;
@@ -13,7 +14,6 @@ import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Item;
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
-import net.raydeejay.escapegame.State;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 import com.badlogic.gdx.Gdx;
@@ -37,8 +37,21 @@ public class GameScreen implements Screen {
 		GameRegistry.instance().setInventory(new Inventory("inventory.png", this));
 		stage = new Stage();
 
+		// if there is an image in the local directory, load from there
+		// otherwise load from internal
+		
+		boolean fromDisk = new File("gossip/Gossip.image").exists();
+		FileHandle imageFile;
+		
+		if(fromDisk) {
+			imageFile = Gdx.files.local("gossip/Gossip.image");
+			
+		} else {
+			imageFile = Gdx.files.internal("gossip/Gossip.image");
+		}		
+
 		// initialize Gossip
-		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
+//		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
 		InputStream is = null;
 		try {
 			is = imageFile.read();
@@ -50,13 +63,15 @@ public class GameScreen implements Screen {
         ScriptEngine engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
         
     	// monkeypatch Gdx file access into the image
-        try {
-			System.out.println(engine.eval("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
-		} catch (ScriptException e1) {
-			e1.printStackTrace();
+		if(! fromDisk) {
+	        try {
+				System.out.println(engine.eval("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
+			} catch (ScriptException e1) {
+				e1.printStackTrace();
+			}
 		}
-                
-    	// load code not shipped in the image
+		
+		// load code not shipped in the image
         try {
             System.out.println(engine.eval("File fileIn: 'gossip/Test.st'"));
         }
