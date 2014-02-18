@@ -27,6 +27,10 @@ public class GameRegistry {
     	gameScreen = screen;
     }
     
+    public GameScreen getScreen() {
+    	return gameScreen;
+    }
+    
     public void registerReactor(String name, Reactor aReactor) {
         objects.put(name, aReactor);
     }
@@ -57,11 +61,11 @@ public class GameRegistry {
 
     // factories
     public Room newRoom(String name) {
-        return new Room(name, gameScreen);
+        return new Room(name);
     }
 	
     public Reactor newReactor(String name) {
-        return new Reactor(name, gameScreen);
+        return new Reactor(name);
     }
 	
     // TODO - remove this once it's not necessary

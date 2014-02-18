@@ -7,7 +7,6 @@ import net.raydeejay.escapegame.screens.GameScreen;
 public class Room {
 	ArrayList<Reactor> reactors;
 	private String backgroundFilename;
-	private GameScreen screen;
 	private String name;
 
 	private String exitLeft;
@@ -19,17 +18,15 @@ public class Room {
 		return this.reactors;
 	}
 
-	public Room(String name, String aFilename, GameScreen gameScreen) {
+	public Room(String name, String aFilename) {
 		this.reactors = new ArrayList<Reactor>();
 		this.setBackgroundFilename(aFilename);
-		this.setScreen(gameScreen);
 		this.setName(name);
 		GameRegistry.instance().registerRoom(name, this);
 	}
 
-	public Room(String name, GameScreen gameScreen) {
+	public Room(String name) {
 		this.reactors = new ArrayList<Reactor>();
-		this.setScreen(gameScreen);
 		this.setName(name);
 		GameRegistry.instance().registerRoom(name, this);
 	}
@@ -46,7 +43,7 @@ public class Room {
 	public Room addReactor(Reactor aReactor) {
 		aReactor.setRoom(this);
 		this.reactors.add(aReactor);
-		this.getScreen().addReactor(aReactor);
+		GameRegistry.instance().getScreen().addReactor(aReactor);
 		return this;
 	}
 
@@ -56,7 +53,7 @@ public class Room {
 	}
 
 	public Room addToInventory(Item anItem) {
-		this.getScreen().addToInventory(anItem);
+		GameRegistry.instance().getScreen().addToInventory(anItem);
 		return this;
 	}
 
@@ -74,16 +71,7 @@ public class Room {
 		this.reactors.remove(aReactor);
 		aReactor.remove();
 		return this;
-}
-
-	public GameScreen getScreen() {
-		return screen;
-	}
-
-	public Room setScreen(GameScreen screen) {
-		this.screen = screen;
-		return this;
-	}
+    }
 
 	public String getExitLeft() {
 		return this.exitLeft;

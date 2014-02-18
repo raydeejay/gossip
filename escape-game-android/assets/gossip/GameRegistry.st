@@ -12,8 +12,12 @@ initialize
     super initialize.
     reactors := Dictionary new.
     rooms := Dictionary new.
-    javaObject := self class javaObject.
-    inventory := Inventory forJavaObject: (javaObject invoke: 'getInventory').
+    inventory := Inventory forJavaObject: (self javaObject invoke: 'getInventory').
+!
+METHOD GameRegistry
+javaObject
+    javaObject isNil ifTrue: [ javaObject := self class javaObject ].
+    ^ javaObject
 !
 METHOD GameRegistry
 rooms
@@ -120,7 +124,7 @@ switchToRoom: aString
     room := self getRoom: aString.
     currentRoom := room.
     
-    self class javaObject invoke: #switchToRoom with: room name asJavaObject.
+    self javaObject invoke: #switchToRoom with: room name asJavaObject.
 !
 
 METHOD GameRegistry
@@ -134,25 +138,25 @@ getSelectedItem
 !
 METHOD GameRegistry
 setSelectedItem: anItem
-    javaObject invoke: #setSelectedItem with: anItem javaObject.
+    self javaObject invoke: #setSelectedItem with: anItem javaObject.
 !
 METHOD GameRegistry
 clearSelectedItem
-    javaObject invoke: #clearSelectedItem.
+    self javaObject invoke: #clearSelectedItem.
 !
 METHOD GameRegistry
 addToInventory: anItem
     anItem room: #SpecialInventoryRoom.
-    javaObject invoke: #addToInventory with: anItem javaObject.
+    self javaObject invoke: #addToInventory with: anItem javaObject.
 "    inventory add: anItem."
 !
 METHOD GameRegistry
 removeItem: aJavaObject
-    javaObject invoke: #removeItem with: aJavaObject.
+    self javaObject invoke: #removeItem with: aJavaObject.
 "    inventory remove: aJavaObject."
 !
 
 METHOD GameRegistry
 winGame
-    self class javaObject invoke: #winGame.
+    self javaObject invoke: #winGame.
 !

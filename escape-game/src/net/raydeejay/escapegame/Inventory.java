@@ -9,7 +9,7 @@ public class Inventory {
 	private String backgroundFilename;
 	private Item selectedItem;
 
-	public Inventory(String aFilename, GameScreen gameScreen) {
+	public Inventory(String aFilename) {
 		this.items = new ArrayList<Item>();
 		this.setBackgroundFilename(aFilename);
 	}

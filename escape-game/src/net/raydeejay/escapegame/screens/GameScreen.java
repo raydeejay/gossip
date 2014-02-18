@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 		this.game = gam;
 
 		GameRegistry.instance().setScreen(this);
-		GameRegistry.instance().setInventory(new Inventory("inventory.png", this));
+		GameRegistry.instance().setInventory(new Inventory("inventory.png"));
 		stage = new Stage();
 
 		// if there is an image in the local directory, load from there

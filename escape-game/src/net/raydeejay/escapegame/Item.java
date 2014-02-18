@@ -1,7 +1,5 @@
 package net.raydeejay.escapegame;
 
-import net.raydeejay.escapegame.screens.GameScreen;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -13,13 +11,13 @@ public class Item extends Reactor {
 
 	private boolean isSelected;
 
-	public Item(Reactor aReactor, GameScreen aScreen) {
-		super(aReactor.getName() + "Item", aScreen);
+	public Item(Reactor aReactor) {
+		super(aReactor.getName() + "Item");
 		setImageTexture(aReactor.getImage());
 	}
 
-	public Item(String aName, GameScreen aScreen) {
-		super(aName, aScreen);
+	public Item(String aName) {
+		super(aName);
 	}
 
 	@Override
