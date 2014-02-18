@@ -13,6 +13,27 @@ fileInWithNotification: aFileName
     self fileIn: aFileName'.
 !
 
+// This has to be fixed in the image also
+META Transcript
+contents
+    ^ 'Welcome to Gossip alpha!
+
+To load the example game, open a new Workspace
+from the Tools menu and type the following:
+
+    SetupRooms setupExample.
+    SetupRooms startExample.
+
+Then select the text and click the doIt button :)
+
+To open the Game Browser:
+
+    GameBrowser open.
+    
+To exit you can use the menu, or close either
+the Transcript or the game window.'
+!
+
 // Extensions to be integrated later
 EVAL File fileInWithNotification: 'gossip/Extensions.st'
 EVAL System println: 'Finished loading class extensions'
@@ -37,13 +58,18 @@ EVAL File fileInWithNotification: 'gossip/GameRegistry.st'
 EVAL File fileInWithNotification: 'gossip/SetupRooms.st'
 EVAL System println: 'Finished loading'
 
-// Then start the thing up
-EVAL SetupRooms setup
-EVAL System println: 'Finished setup'
-
 // Authoring tools
 EVAL File fileInWithNotification: 'gossip/GameBrowser.st'
 EVAL System println: 'Finished loading authoring tools'
 
+// Then start the thing up
+EVAL System println: 'Setting things up'
+
+//EVAL SetupRooms setupExample
+EVAL SetupRooms setup
+
+//EVAL SetupRooms startExample
+EVAL SetupRooms start
+
 EVAL Transcript open
-EVAL GameBrowser open
+

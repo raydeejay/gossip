@@ -78,10 +78,10 @@ public class GameScreen implements Screen {
         catch(ScriptException e) { System.err.println("ERROR :" + e); }
         
 		// and go
-        try {
-            System.out.println(engine.eval("GameRegistry instance switchToRoom: #room02"));
-        }
-        catch(ScriptException e) { System.err.println("ERROR :" + e); }
+//        try {
+//            System.out.println(engine.eval("GameRegistry instance switchToRoom: #room02"));
+//        }
+//        catch(ScriptException e) { System.err.println("ERROR :" + e); }
 	}
 
 	public void switchToRoom(String destination) {

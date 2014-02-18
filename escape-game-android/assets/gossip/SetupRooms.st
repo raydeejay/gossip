@@ -3,19 +3,25 @@
 EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
 META SetupRooms
 setup
-    System println: 'nav'.
     self setupNavigation.
-    System println: 'rooms'.
+    (GameRegistry newRoom: #title) background: 'title.png'.
+!
+META SetupRooms
+start
+    GameRegistry instance switchToRoom: #title
+!
+META SetupRooms
+startExample
+    GameRegistry instance switchToRoom: #room02
+!
+META SetupRooms
+setupExample
+    self setupNavigation.
     self createRooms.
-    System println: '1A'.
 	self initRoom01A.
-    System println: '1B'.
 	self initRoom01B.
-    System println: '2'.
 	self initRoom02.
-    System println: '3'.
 	self initRoom03.
-    System println: '4'.
 	self initRoom04.
 !
 META SetupRooms
