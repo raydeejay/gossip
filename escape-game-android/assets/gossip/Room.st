@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Room' variables: 'name left right top bottom' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Room' variables: 'name left right up down' classVariables: '')
 METHOD Room
 initialize
     super initialize.
@@ -22,7 +22,6 @@ register
 METHOD Room
 left: aString
     left := aString.
-    self call: #setExitLeft with: aString.
 !
 METHOD Room
 left
@@ -31,27 +30,24 @@ left
 METHOD Room
 right: aString
     right := aString.
-    self call: #setExitRight with: aString.
 !
 METHOD Room
 right
     ^ right
 !
 METHOD Room
-top: aString
-    top := aString.
-    self call: #setExitTop with: aString.
+up: aString
+    up := aString.
 !
 METHOD Room
-top
-    ^ top
+up
+    ^ up
 !
 METHOD Room
-bottom: aString
-    bottom := aString.
-    self call: #setExitBottom with: aString.
+down: aString
+    down := aString.
 !
 METHOD Room
-bottom
-    ^ bottom
+down
+    ^ down
 !

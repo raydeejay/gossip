@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name x y room states currentState image' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Reactor' variables: 'name x y room states currentState image visible' classVariables: '')
 METHOD Reactor
 initialize
     super initialize.
@@ -66,15 +66,20 @@ setY: aNumber
 !
 METHOD Reactor
 setVisible: aBoolean
-    self call: #setVisible with: aBoolean.
+    "booleans can't be sent to Java?"
+    aBoolean
+        ifTrue: [ self beVisible ]
+        ifFalse: [ self beInvisible ].
 !
 METHOD Reactor
 beVisible
-    self setVisible: true
+    visible := true.
+    self call: #beVisible
 !
 METHOD Reactor
 beInvisible
-    self setInvisible: false
+    visible := false.
+    self call: #beInvisible
 !
 METHOD Reactor
 x

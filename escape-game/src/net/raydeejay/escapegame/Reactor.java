@@ -92,4 +92,13 @@ public class Reactor extends Actor {
 		setY(y);
 		return this;
 	}
+	
+	// hack because you can't pass Booleans to Java (?)
+	public void beVisible() {
+		this.setVisible(true);
+	}
+	
+	public void beInvisible() {
+		this.setVisible(false);
+	}
 }

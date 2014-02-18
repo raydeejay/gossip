@@ -107,15 +107,9 @@ public class GameScreen implements Screen {
 		}
 
 		// navigation
-		this.currentRoom.addReactor(GameRegistry.instance().getReactor("arrowLeft"));
-		this.currentRoom.addReactor(GameRegistry.instance().getReactor("arrowRight"));
-		this.updateNavigation();
+		this.stage.addActor(GameRegistry.instance().getReactor("arrowLeft"));
+		this.stage.addActor(GameRegistry.instance().getReactor("arrowRight"));
 
-	}
-
-	private void updateNavigation() {
-		GameRegistry.instance().getReactor("arrowLeft").setVisible(this.currentRoom.getExitLeft() != null);
-		GameRegistry.instance().getReactor("arrowRight").setVisible(this.currentRoom.getExitRight() != null);
 	}
 
 	public void addReactor(Reactor aReactor) {

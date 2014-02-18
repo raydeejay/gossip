@@ -2,8 +2,6 @@ package net.raydeejay.escapegame;
 
 import java.util.ArrayList;
 
-import net.raydeejay.escapegame.screens.GameScreen;
-
 public class Inventory {
 	ArrayList<Item> items;
 	private String backgroundFilename;

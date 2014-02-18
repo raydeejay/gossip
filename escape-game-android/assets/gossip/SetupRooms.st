@@ -3,12 +3,19 @@
 EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
 META SetupRooms
 setup
+    System println: 'nav'.
     self setupNavigation.
+    System println: 'rooms'.
     self createRooms.
+    System println: '1A'.
 	self initRoom01A.
+    System println: '1B'.
 	self initRoom01B.
+    System println: '2'.
 	self initRoom02.
+    System println: '3'.
 	self initRoom03.
+    System println: '4'.
 	self initRoom04.
 !
 META SetupRooms

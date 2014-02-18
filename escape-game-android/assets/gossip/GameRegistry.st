@@ -124,6 +124,11 @@ switchToRoom: aString
     room := self getRoom: aString.
     currentRoom := room.
     
+    (self getReactor: #arrowLeft) setVisible: room left notNil. 
+    (self getReactor: #arrowRight) setVisible: room right notNil. 
+"    (self getReactor: #arrowUp) setVisible: room up notNil." 
+"    (self getReactor: #arrowDown) setVisible: room down notNil."
+ 
     self javaObject invoke: #switchToRoom with: room name asJavaObject.
 !
 

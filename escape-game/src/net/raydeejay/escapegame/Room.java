@@ -2,17 +2,10 @@ package net.raydeejay.escapegame;
 
 import java.util.ArrayList;
 
-import net.raydeejay.escapegame.screens.GameScreen;
-
 public class Room {
 	ArrayList<Reactor> reactors;
 	private String backgroundFilename;
 	private String name;
-
-	private String exitLeft;
-	private String exitRight;
-	private String exitTop;
-	private String exitBottom;
 
 	public ArrayList<Reactor> getReactors() {
 		return this.reactors;
@@ -72,41 +65,5 @@ public class Room {
 		aReactor.remove();
 		return this;
     }
-
-	public String getExitLeft() {
-		return this.exitLeft;
-	}
-
-	public Room setExitLeft(String exitLeft) {
-		this.exitLeft = exitLeft;
-		return this;
-	}
-
-	public String getExitRight() {
-		return this.exitRight;
-	}
-
-	public Room setExitRight(String exitRight) {
-		this.exitRight = exitRight;
-		return this;
-	}
-
-	public String getExitTop() {
-		return this.exitTop;
-	}
-
-	public Room setExitTop(String exitTop) {
-		this.exitTop = exitTop;
-		return this;
-	}
-
-	public String getExitBottom() {
-		return this.exitBottom;
-	}
-
-	public Room setExitBottom(String exitBottom) {
-		this.exitBottom = exitBottom;
-		return this;
-	}
 
 }
