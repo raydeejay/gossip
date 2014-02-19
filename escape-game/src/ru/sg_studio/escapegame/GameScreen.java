@@ -73,10 +73,10 @@ public abstract class GameScreen {
 		}
 		
 //
-//		// inventory
-//		for (Item i : GameRegistry.instance().getInventory().getItems()) {
-//			this.stage.addActor(i);
-//		}
+		// inventory
+		for (Item i : GameRegistry.instance().getInventory().getItems()) {
+			depot.addReactor(i);
+		}
 //
 		// navigation
 		depot.addReactor(GameRegistry.instance().getReactor("arrowLeft"));
@@ -88,6 +88,12 @@ public abstract class GameScreen {
 		pushDepot(depot);
 	}
 
+	
+	protected Reactor checkForZombifiedReactors(){
+		Reactor zombie = depot.check();
+		return zombie;
+	}
+	
 	
 	public abstract void shutDown();
 	

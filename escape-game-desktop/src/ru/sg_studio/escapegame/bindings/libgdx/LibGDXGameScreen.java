@@ -60,6 +60,10 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
+		Reactor zombie = checkForZombifiedReactors();
+		HandleZombie(zombie);
+		
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
@@ -69,6 +73,14 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 
 	
 	
+	private void HandleZombie(Reactor zombie) {
+		if(zombie!=null){
+			Actor actor = ((Actor)zombie.getCommonBindedProxy());
+			actor.remove();
+		}
+	}
+
+
 	//What the hell this does there? %_%
 	@Override
 	public void resize(int width, int height) {
@@ -142,6 +154,13 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 		for(Reactor r : depot.getReactors()){
 			this.stage.addActor((LibGDXReactor)r.getCommonBindedProxy());//EXPLICIT
 		}
+	}
+
+
+	@Override
+	public void addToInventory(Item anItem) {
+		super.addToInventory(anItem);
+		this.stage.addActor((Actor) anItem.getCommonBindedProxy());
 	}
 
 

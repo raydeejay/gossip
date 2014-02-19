@@ -1,5 +1,7 @@
 package net.raydeejay.escapegame;
 
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
@@ -70,7 +72,9 @@ public class Reactor extends GraphicalEntity {
 
 	// CONVERSION
 	public Item asItem() {
-		return new Item(this);
+		//return new Item(this);
+		remove();
+		return (Item) ContextedFactory.instance().getContextedItem(ObjectPrototype.Item, this).getBinded();
 	}
 	
 	// ROOM

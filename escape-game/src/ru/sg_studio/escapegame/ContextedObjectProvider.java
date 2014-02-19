@@ -19,6 +19,7 @@ public abstract class ContextedObjectProvider {
 	public enum ObjectPrototype{
 		Reactor,
 		Background,
+		Item,
 		
 		
 		EventListener

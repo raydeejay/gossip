@@ -7,6 +7,9 @@ public class GraphicalEntity extends RootObject {
 	
 	private boolean markedForEviction=false;
 	
+	public boolean isMarkedForEviction() {
+		return this.markedForEviction;
+	}
 	public void remove(){
 		markedForEviction=true;
 	}
