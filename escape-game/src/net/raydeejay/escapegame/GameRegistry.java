@@ -80,7 +80,7 @@ public class GameRegistry {
     }
 	
     public void setSelectedItem(Reactor anItem) {
-    	//inventory.setSelectedItem((Item) anItem);
+    	inventory.setSelectedItem((Item) anItem);
     }
 	
     public void clearSelectedItem() {

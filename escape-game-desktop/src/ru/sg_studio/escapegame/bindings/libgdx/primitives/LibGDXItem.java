@@ -18,7 +18,7 @@ public class LibGDXItem extends LibGDXReactor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		// calculate coordinates
-		int index = GameRegistry.instance().getInventory().getItems().indexOf(this);
+		int index = GameRegistry.instance().getInventory().getItems().indexOf(this.coreObject);
 		int x = 2 + (48 * (index % 2));
 		int y = 6 + (60 * (index / 2));
 
