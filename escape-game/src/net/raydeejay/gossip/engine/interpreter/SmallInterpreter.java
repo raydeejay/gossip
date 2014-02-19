@@ -57,8 +57,15 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
+import net.raydeejay.escapegame.Reactor;
+
 import org.jdesktop.swingx.MultiSplitLayout;
 import org.jdesktop.swingx.MultiSplitPane;
+
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
+import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -2081,45 +2088,61 @@ public class SmallInterpreter implements Serializable {
 					}
 						break;
 
-					// [PRIMITIVE 142] (GDX) open file for input <br>
+					// [PRIMITIVE 142] open file for input <br>
 					case 142: {
-						try {
-							InputStream of = Gdx.files.internal(stack[--stackTop].toString()).read();
-							DataInput ps = new DataInputStream(of);
-							returnedValue = new SmallJavaObject(
-									stack[--stackTop], ps);
-						} catch (GdxRuntimeException e) {
-							throw new SmallException("I/O exception " + e,
-									context);
-						}
+						
+						
+						InputStream of = SmallInterpreterInterfacer.ReadInjarFile(stack[--stackTop].toString());
+						DataInput ps = new DataInputStream(of);
+						returnedValue = new SmallJavaObject(stack[--stackTop], ps);	
+						
+						
+//						try {
+//							InputStream of = Gdx.files.internal(stack[--stackTop].toString()).read();
+//							DataInput ps = new DataInputStream(of);
+//							returnedValue = new SmallJavaObject(
+//									stack[--stackTop], ps);
+//						} catch (GdxRuntimeException e) {
+//							throw new SmallException("I/O exception " + e,
+//									context);
+//						}
 					}
 						break;
 
-					// [PRIMITIVE 150] <GDX> Attach an InputListener to a Reactor
+					// [PRIMITIVE 150] Attach an InputListener to a Reactor
 					case 150: {
-						try {
+						
 							final SmallObject action = stack[--stackTop];
-							Actor reactor = (Actor) ((SmallJavaObject) stack[--stackTop]).value;
-
-							// we only want one listener attached at a time
-							Array<EventListener> listeners = reactor.getListeners();
-							for( EventListener e : listeners) {
-								reactor.removeListener(e);
-							}
-
-							reactor.addListener(new InputListener() {
-								@Override
-								public boolean touchDown(InputEvent event, float x, float y,
-										int pointer, int button) {
-									new ActionThread(action, myThread).start();
-									return true;
-								}
-							});
+							Reactor reactor =  (Reactor) ((SmallJavaObject) stack[--stackTop]).value;						
+						
+							ActionThread thread = new ActionThread(action, myThread);
 							
-						} catch (Exception e) {
-							throw new SmallException("Exception: "
-									+ e.toString(), context);
-						}
+							ContextedFactory.instance().getContextedItem(ObjectPrototype.EventListener, EventType.onClick, (Reactor)reactor,(ActionThread)thread);
+						
+						
+//						try {
+//							final SmallObject action = stack[--stackTop];
+//							Actor reactor = (Actor) ((Reactor)((SmallJavaObject) stack[--stackTop]).value).getCommonBindedProxy();
+//
+//							// we only want one listener attached at a time
+//							Array<EventListener> listeners = reactor.getListeners();
+//							for( EventListener e : listeners) {
+//								reactor.removeListener(e);
+//							}
+//
+//							reactor.addListener(new InputListener() {
+//								@Override
+//								public boolean touchDown(InputEvent event, float x, float y,
+//										int pointer, int button) {
+//									new ActionThread(action, myThread).start();
+//									return true;
+//								}
+//							});
+//							
+//						} catch (Exception e) {
+//							throw new SmallException("Exception: "
+//									+ e.toString(), context);
+//						}
 					}
 						break;
 
@@ -2239,7 +2262,7 @@ public class SmallInterpreter implements Serializable {
 		}
 	} // end of outer loop
 
-	private class ActionThread extends Thread {
+	public class ActionThread extends Thread {
 		public ActionThread(SmallObject block, Thread myT) {
 			myThread = myT;
 			action = new SmallObject(ContextClass, 10);

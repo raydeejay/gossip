@@ -1,30 +1,42 @@
 package net.raydeejay.escapegame;
 
+import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.primitives.GraphicalEntity;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Reactor extends Actor {
+public class Reactor extends GraphicalEntity {
+	
+	private IProxiedObject bindedProxy;
+	public IProxiedObject getCommonBindedProxy(){
+		return bindedProxy;
+	}
+	
 	private Texture image;
 	private Room room;
 
-	public Reactor() { super(); }
+	//public Reactor() { super(); }
 
-	public Reactor(String name) {
+	public Reactor(String name, IProxiedObject bindedProxy) {
+		
+		this.bindedProxy=bindedProxy;
+		
 		this.setName(name);
 
 		GameRegistry.instance().registerReactor(name, this);
 	}
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		if(getImage() != null) {
-			batch.setColor(Color.WHITE);
-			batch.draw(this.getImage(), this.getX(), this.getY());
-		}
-	}
+//	@Override
+//	public void draw(Batch batch, float parentAlpha) {
+//		if(getImage() != null) {
+//			batch.setColor(Color.WHITE);
+//			batch.draw(this.getImage(), this.getX(), this.getY());
+//		}
+//	}
 
 	// IMAGE
 	public Texture getImage() {

@@ -3,10 +3,12 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.raydeejay.escapegame.screens.GameScreen;
-import net.raydeejay.escapegame.screens.MainMenuScreen;
-
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.GameScreen;
 import com.badlogic.gdx.Gdx;
+
+//Total mess... Needs total rewrite...
 
 public class GameRegistry {
 	private Map<String, Reactor> objects = new HashMap<String, Reactor>();
@@ -24,7 +26,9 @@ public class GameRegistry {
 	}
 	
     public void setScreen(GameScreen screen) {
+    	System.out.println("Setting Screen: "+screen);
     	gameScreen = screen;
+    	gameScreen.registerInPipeline();
     }
     
     public GameScreen getScreen() {
@@ -65,7 +69,9 @@ public class GameRegistry {
     }
 	
     public Reactor newReactor(String name) {
-        return new Reactor(name);
+        //return new Reactor(name);
+    	System.out.println("Instancing new reactor: "+name);
+    	return ((Reactor) (ContextedFactory.instance().getContextedItem(ObjectPrototype.Reactor,name)).getBinded());
     }
 	
     // TODO - remove this once it's not necessary
@@ -74,7 +80,7 @@ public class GameRegistry {
     }
 	
     public void setSelectedItem(Reactor anItem) {
-    	inventory.setSelectedItem((Item) anItem);
+    	//inventory.setSelectedItem((Item) anItem);
     }
 	
     public void clearSelectedItem() {
@@ -105,8 +111,8 @@ public class GameRegistry {
 	}
 	
 	public void winGame() {
-		EscapeGame game = gameScreen.getGame();
-		game.setScreen(new MainMenuScreen(game));
-		gameScreen.dispose();
+		//EscapeGame game = gameScreen.getGame();
+		//game.setScreen(new MainMenuScreen(game));
+		gameScreen.shutDown();
 	}
 }
