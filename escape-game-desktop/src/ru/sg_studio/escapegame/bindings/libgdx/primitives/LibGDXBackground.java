@@ -7,6 +7,8 @@ public class LibGDXBackground extends LibGDXReactor {
 	public LibGDXBackground(String name, int x, int y, String texname) {
 		super();
 		coreObject = new Background(name, x, y, texname, this);
+		
+		trySyncGraphicalObject();
 	}
 
 }

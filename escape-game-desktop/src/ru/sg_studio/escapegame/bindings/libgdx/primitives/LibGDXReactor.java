@@ -21,6 +21,8 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 	public LibGDXReactor(String name){
 		this();//DO NOT REMOVE! THIS IS IMPORTANT!
 		coreObject = new Reactor(name, this);
+		
+		trySyncGraphicalObject();
 	}
 	
 	public LibGDXReactor(){
@@ -43,6 +45,7 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 
 	@Override
 	public void trySyncGraphicalObject() {
+		if(getBinded()==null){return;}//Bad syncable
 		this.setX(getBinded().getX());
 		this.setY(getBinded().getY());
 		

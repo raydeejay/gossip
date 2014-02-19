@@ -19,6 +19,9 @@ public class Background extends Reactor {
 		this.setImage(aTexture);
 		//this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
 
+		setX(x);
+		setY(y);
+		
 	}
 
 	public Texture getImage() {

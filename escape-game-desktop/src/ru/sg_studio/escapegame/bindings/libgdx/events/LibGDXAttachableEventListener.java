@@ -32,7 +32,6 @@ public class LibGDXAttachableEventListener extends CommonEventHandler implements
 
 	@Override
 	public boolean handle(Event event) {
-		System.out.println("Event!");
 		if(getType()==EventType.onClick){
 			if(event instanceof InputEvent){
 				
