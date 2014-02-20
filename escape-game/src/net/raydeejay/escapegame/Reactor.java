@@ -109,6 +109,14 @@ public class Reactor extends GraphicalEntity {
 		this.setVisible(false);
 	}
 
+	
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
 	@Override
 	public void setX(int x) {
 		super.setX(x);

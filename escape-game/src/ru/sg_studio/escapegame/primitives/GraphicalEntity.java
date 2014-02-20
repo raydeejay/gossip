@@ -14,7 +14,7 @@ public class GraphicalEntity extends RootObject {
 		markedForEviction=true;
 	}
 	
-	private boolean visible;
+	private boolean visible=true;
 	
 	public boolean isVisible() {
 		return this.visible;

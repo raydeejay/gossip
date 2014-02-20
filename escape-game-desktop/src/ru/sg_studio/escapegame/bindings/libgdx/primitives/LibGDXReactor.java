@@ -55,6 +55,8 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 		
 		this.setWidth(getBinded().getWidth());
 		this.setHeight(getBinded().getHeight());
+		
+		this.setVisible(getBinded().isVisible());
 	}
 
 
