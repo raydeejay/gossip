@@ -28,6 +28,16 @@ add: anItem
     javaObject invoke: #addItem with: anItem javaObject.
 !
 METHOD Inventory
+clear
+    javaObject invoke: #clearInventory.
+!
+META Inventory
+getAndClear
+	| inv |
+	inv := GameRegistry instance getInventory.
+	inv clear.
+!
+METHOD Inventory
 remove: aJavaObject
     javaObject invoke: #removeItem with: aJavaObject.
 !

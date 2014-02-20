@@ -1,64 +1,71 @@
 package net.raydeejay.escapegame;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
+import ru.sg_studio.escapegame.primitives.GraphicalEntity;
+import ru.sg_studio.escapegame.rendering.Texture;
 
-public class Reactor extends Actor {
-	private Texture image;
+public class Reactor extends GraphicalEntity {
+	
+	private IProxiedObject bindedProxy;
+	public IProxiedObject getCommonBindedProxy(){
+		return bindedProxy;
+	}
+	
 	private Room room;
 
-	public Reactor() { super(); }
+	//public Reactor() { super(); }
 
-	public Reactor(String name) {
+	public Reactor(String name, IProxiedObject bindedProxy) {
+		
+		this.bindedProxy=bindedProxy;
+		
 		this.setName(name);
 
 		GameRegistry.instance().registerReactor(name, this);
 	}
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		if(getImage() != null) {
-			batch.setColor(Color.WHITE);
-			batch.draw(this.getImage(), this.getX(), this.getY());
-		}
-	}
+//	@Override
+//	public void draw(Batch batch, float parentAlpha) {
+//		if(getImage() != null) {
+//			batch.setColor(Color.WHITE);
+//			batch.draw(this.getImage(), this.getX(), this.getY());
+//		}
+//	}
 
 	// IMAGE
 	public Texture getImage() {
-		return image;
+		return texture;
 	}
 
-	public Reactor setImageTexture(Texture aTexture) {
-		this.image = aTexture;
-		this.setWidth(aTexture.getWidth());
-		this.setHeight(aTexture.getHeight());
-		return this;
-	}
+//	public Reactor setImageTexture(Texture aTexture) {
+//		this.image = aTexture;
+//		this.setWidth(aTexture.getWidth());
+//		this.setHeight(aTexture.getHeight());
+//		return this;
+//	}
 
+	protected Texture texture;
+	
+	public Texture getClonedTexture(){
+		return texture.cloneMeta();
+	}
+	
 	public Reactor setImage(final String aFilename) {
-		final Reactor thisReactor = this;
-		new Thread(new Runnable() {
-			   @Override
-			   public void run() {
-			      // post a Runnable to the rendering thread
-			      Gdx.app.postRunnable(new Runnable() {
-			         @Override
-			         public void run() {
-			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-			    		thisReactor.setImageTexture(aTexture);
-			         }
-			      });
-			   }
-			}).start();
+		//final Reactor thisReactor = this;
+		texture = new Texture(aFilename);
+		SmallInterpreterInterfacer.RefreshTextureMetadataFor(this);
+
+		
 		return this;
 	}
 
 	// CONVERSION
 	public Item asItem() {
-		return new Item(this);
+		remove();
+		return (Item) ContextedFactory.instance().getContextedItem(ObjectPrototype.Item, this).getBinded();
 	}
 	
 	// ROOM
@@ -101,4 +108,46 @@ public class Reactor extends Actor {
 	public void beInvisible() {
 		this.setVisible(false);
 	}
+
+	
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
+	@Override
+	public void setX(int x) {
+		super.setX(x);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
+	@Override
+	public void setY(int y) {
+		super.setY(y);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
+	@Override
+	public void setWidth(int width) {
+		super.setWidth(width);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
+	@Override
+	public void setHeight(int height) {
+		super.setHeight(height);
+		bindedProxy.trySyncGraphicalObject();
+	}
+
+	public Texture swapTexture(Texture master) {
+		Texture slave = texture;
+		texture = master;
+		return slave;
+	}
+
+	
+	
+	
 }

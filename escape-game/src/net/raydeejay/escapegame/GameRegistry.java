@@ -3,10 +3,14 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.raydeejay.escapegame.screens.GameScreen;
-import net.raydeejay.escapegame.screens.MainMenuScreen;
+import javax.script.ScriptException;
 
-import com.badlogic.gdx.Gdx;
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.GameScreen;
+import ru.sg_studio.escapegame.GossipVM;
+
+//Total mess... Needs total rewrite...
 
 public class GameRegistry {
 	private Map<String, Reactor> objects = new HashMap<String, Reactor>();
@@ -24,7 +28,9 @@ public class GameRegistry {
 	}
 	
     public void setScreen(GameScreen screen) {
+    	System.out.println("Setting Screen: "+screen);
     	gameScreen = screen;
+    	gameScreen.registerInPipeline();
     }
     
     public GameScreen getScreen() {
@@ -65,7 +71,9 @@ public class GameRegistry {
     }
 	
     public Reactor newReactor(String name) {
-        return new Reactor(name);
+        //return new Reactor(name);
+    	System.out.println("Instancing new reactor: "+name);
+    	return ((Reactor) (ContextedFactory.instance().getContextedItem(ObjectPrototype.Reactor,name)).getBinded());
     }
 	
     // TODO - remove this once it's not necessary
@@ -90,23 +98,25 @@ public class GameRegistry {
     }
 	
 	public void switchToRoom(final String aRoomName) {
-		new Thread(new Runnable() {
+		//Broken
+		//gameScreen.getHost().getMessagePipe().push(new Runnable() {
+		GossipVM.GetLastCreated().getMessagePipe().push(new Runnable() {
 			@Override
 			public void run() {
-				// post a Runnable to the rendering thread
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						gameScreen.switchToRoom(aRoomName);
-					}
-				});
-			}
-		}).start();
+				gameScreen.switchToRoom(aRoomName);
+			};
+		});
+
+
 	}
 	
 	public void winGame() {
-		EscapeGame game = gameScreen.getGame();
-		game.setScreen(new MainMenuScreen(game));
-		gameScreen.dispose();
+		try {
+			GossipVM.GetLastCreated().directEvaluation("File fileIn: 'gossip/WinGame.st'");
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }

@@ -1,16 +1,23 @@
 package net.raydeejay.escapegame;
 
+import ru.sg_studio.escapegame.ContextedFactory;
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXGameContext;
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXObjectProvider;
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXWindow;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
 	public static void main(String[] args) {
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "escape-game";
-		cfg.useGL20 = false;
-		cfg.width = 800;
-		cfg.height = 480;
+
+		ContextedFactory.instance().setContextedObjectProvider(new LibGDXObjectProvider());
 		
-		new LwjglApplication(new EscapeGame(), cfg);
+		LibGDXWindow window = new LibGDXWindow(800, 480,"escape-game");
+		LibGDXGameContext context = new LibGDXGameContext(window);
+		window.configure(false,context);
+		window.run();
+		
+		
 	}
 }

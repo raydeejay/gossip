@@ -1,7 +1,6 @@
 package net.raydeejay.escapegame;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import ru.sg_studio.escapegame.IProxiedObject;
 
 /*
  * An Item is a Reactor in an Inventory, or something like that.
@@ -9,39 +8,31 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Item extends Reactor {
 
-	private boolean isSelected;
+	protected boolean isSelected;
 
-	public Item(Reactor aReactor) {
-		super(aReactor.getName() + "Item");
-		setImageTexture(aReactor.getImage());
+	/*
+	 * This method creates an item from Reactor(an Obtainable basically)
+	 */
+	public Item(Reactor aReactor, IProxiedObject proxied) {
+		super(aReactor.getName() + "Item", proxied);
+		texture = aReactor.getClonedTexture();
 	}
 
-	public Item(String aName) {
-		super(aName);
-	}
-
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		// calculate coordinates
-		int index = GameRegistry.instance().getInventory().getItems().indexOf(this);
-		int x = 2 + (48 * (index % 2));
-		int y = 6 + (60 * (index / 2));
-
-		// set them, with the appropriate offsets
-		// TODO - this is extremely ugly, refactor it
-		this.setX(700 + x);
-		this.setY(480 - y - 48);
-
-		// add "halo" if the item is selected
-		if (isSelected) {
-			batch.setColor(Color.rgba8888(0, 0.5f, 0.5f, 0.4f));
-		} else {
-			batch.setColor(Color.WHITE);
-		}
+	/*
+	 * This method creates item from sratch
+	 */
+	public Item(String aName, IProxiedObject proxied) {
+		super(aName,proxied);
 		
-		batch.draw(this.getImage(), this.getX(), this.getY(), 48, 48);
 	}
 
+
+	
+
+
+	public boolean getIsSelected(){
+		return isSelected;
+	}
 	public void beSelected() {
 		isSelected = true;
 	}
