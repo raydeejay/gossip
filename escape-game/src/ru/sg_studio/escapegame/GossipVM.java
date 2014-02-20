@@ -26,6 +26,11 @@ public final class GossipVM {
 		initImage();
 	}
 	
+	ScriptEngine engine;
+	public String directEvaluation(String command) throws ScriptException{
+		return (String) engine.eval(command);
+	}
+	
 	private void initImage(){
 		// if there is an image in the local directory, load from there
 		// otherwise load from internal
@@ -52,7 +57,7 @@ public final class GossipVM {
 
 		
 		ScriptEngineFactory factory = new GossipScriptFactory();
-        ScriptEngine engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
+        engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
         
     	// monkeypatch Gdx file access into the image
 		if(! fromDisk) {

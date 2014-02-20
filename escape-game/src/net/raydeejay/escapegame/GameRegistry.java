@@ -3,6 +3,8 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.script.ScriptException;
+
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
@@ -109,9 +111,12 @@ public class GameRegistry {
 	}
 	
 	public void winGame() {
-		//TODO: FIXME
-		//EscapeGame game = gameScreen.getGame();
-		//game.setScreen(new MainMenuScreen(game));
-		gameScreen.shutDown();
+		try {
+			GossipVM.GetLastCreated().directEvaluation("File fileIn: 'gossip/WinGame.st'");
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
