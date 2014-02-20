@@ -1,5 +1,7 @@
 package ru.sg_studio.escapegame.bindings.libgdx.primitives;
 
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureWrapper;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -34,8 +36,8 @@ public class LibGDXItem extends LibGDXReactor {
 		} else {
 			batch.setColor(Color.WHITE);
 		}
-		
-		batch.draw(getImage(), this.getX(), this.getY(), 48, 48);
+		//TODO: Ugly large
+		batch.draw(((LibGDXTextureWrapper)((Reactor)getBinded()).getImage()).getGdxTexture(), this.getX(), this.getY(), 48, 48);
 	}	
 	
 	

@@ -91,5 +91,12 @@ public final class GossipVM {
 	public MessagingQueue getMessagePipe() {
 		return queue;
 	}
+	public void runQueue(){
+		Runnable r = queue.pop();
+		if(r!=null){
+			r.run();
+		}
+	}
+	
 	
 }

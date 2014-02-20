@@ -145,6 +145,12 @@ public class Reactor extends GraphicalEntity {
 		super.setHeight(height);
 		bindedProxy.trySyncGraphicalObject();
 	}
+
+	public Texture swapTexture(Texture master) {
+		Texture slave = texture;
+		texture = master;
+		return slave;
+	}
 	
 	
 	

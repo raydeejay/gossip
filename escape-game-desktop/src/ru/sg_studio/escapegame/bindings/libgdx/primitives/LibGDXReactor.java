@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureUtilities;
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureWrapper;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
 public class LibGDXReactor extends Actor implements IProxiedObject {
@@ -34,11 +36,13 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if(getImage() != null) {
+		LibGDXTextureUtilities.checkLibGDXTexture((Reactor)getBinded());
+		if(((Reactor)getBinded()).getImage() != null) {
 			batch.setColor(Color.WHITE);
 
 			//batch.draw(coreObject.getImage(), coreObject.getX(), coreObject.getY());
-			batch.draw(getImage(), getX(),getY());
+			//TODO: Ugly large...
+			batch.draw(((LibGDXTextureWrapper)((Reactor)getBinded()).getImage()).getGdxTexture(), getX(),getY());
 		}
 	}
 

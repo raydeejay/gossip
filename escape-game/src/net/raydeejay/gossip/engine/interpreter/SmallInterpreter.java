@@ -2103,7 +2103,7 @@ public class SmallInterpreter implements Serializable {
 
 					// [PRIMITIVE 150] Attach an InputListener to a Reactor
 					case 150: {
-						
+							
 							final SmallObject action = stack[--stackTop];
 							Reactor reactor =  (Reactor) ((SmallJavaObject) stack[--stackTop]).value;						
 						

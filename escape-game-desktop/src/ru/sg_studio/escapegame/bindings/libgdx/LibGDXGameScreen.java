@@ -60,6 +60,8 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
+		getHost().runQueue();
+		
 		Reactor zombie = checkForZombifiedReactors();
 		HandleZombie(zombie);
 		

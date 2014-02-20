@@ -23,7 +23,7 @@ public class Texture {
 	/*
 	 * Nice way to clone object textures meta
 	 */
-	private Texture(Texture origin){
+	protected Texture(Texture origin){
 		filename=origin.filename;
 		width=origin.width;
 		height=origin.height;
