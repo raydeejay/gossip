@@ -38,22 +38,13 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 	
 	public LibGDXGameScreen() {
 		super();
-		//this.game = gam;
 
-		//GameRegistry.instance().setScreen(this);
-		//GameRegistry.instance().setInventory(new Inventory("inventory.png"));
 		stage = new Stage();
 
 		
 		postInit();
 		
-		//Removed gossip image loader	
-		
-		// and go
-//        try {
-//            System.out.println(engine.eval("GameRegistry instance switchToRoom: #room02"));
-//        }
-//        catch(ScriptException e) { System.err.println("ERROR :" + e); }
+
 	}
 	
 	

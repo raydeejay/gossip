@@ -105,22 +105,11 @@ public class GameRegistry {
 			};
 		});
 
-		
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				// post a Runnable to the rendering thread
-//				Gdx.app.postRunnable(new Runnable() {
-//					@Override
-//					public void run() {
-//						gameScreen.switchToRoom(aRoomName);
-//					}
-//				});
-//			}
-//		}).start();
+
 	}
 	
 	public void winGame() {
+		//TODO: FIXME
 		//EscapeGame game = gameScreen.getGame();
 		//game.setScreen(new MainMenuScreen(game));
 		gameScreen.shutDown();

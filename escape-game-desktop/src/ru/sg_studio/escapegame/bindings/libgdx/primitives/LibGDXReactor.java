@@ -58,22 +58,7 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 	}
 
 
-//	@Override
-//	public float getX() {
-//		return getBinded().getX();
-//	}
-//	@Override
-//	public float getY() {
-//		return getBinded().getY();
-//	}
-//	@Override
-//	public float getWidth() {
-//		return getBinded().getWidth();
-//	}
-//	@Override
-//	public float getHeight() {
-//		return getBinded().getHeight();
-//	}
+
 	
 	
 	

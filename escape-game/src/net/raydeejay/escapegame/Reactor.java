@@ -57,26 +57,13 @@ public class Reactor extends GraphicalEntity {
 		//final Reactor thisReactor = this;
 		texture = new Texture(aFilename);
 		SmallInterpreterInterfacer.RefreshTextureMetadataFor(this);
-//		new Thread(new Runnable() {
-//			   @Override
-//			   public void run() {
-//			      // post a Runnable to the rendering thread
-//			      Gdx.app.postRunnable(new Runnable() {
-//			         @Override
-//			         public void run() {
-//			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-//			    		thisReactor.setImageTexture(aTexture);
-//			         }
-//			      });
-//			   }
-//			}).start();
+
 		
 		return this;
 	}
 
 	// CONVERSION
 	public Item asItem() {
-		//return new Item(this);
 		remove();
 		return (Item) ContextedFactory.instance().getContextedItem(ObjectPrototype.Item, this).getBinded();
 	}
@@ -151,15 +138,7 @@ public class Reactor extends GraphicalEntity {
 		texture = master;
 		return slave;
 	}
-	
-	
-	
-	
-	//messaging pipeline
-	
-	
-	
-	
+
 	
 	
 	

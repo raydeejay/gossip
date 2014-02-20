@@ -15,7 +15,6 @@ public class Item extends Reactor {
 	 */
 	public Item(Reactor aReactor, IProxiedObject proxied) {
 		super(aReactor.getName() + "Item", proxied);
-		//setImageTexture(aReactor.getImage());
 		texture = aReactor.getClonedTexture();
 	}
 

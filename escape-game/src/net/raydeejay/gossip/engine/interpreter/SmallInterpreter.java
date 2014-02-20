@@ -2088,16 +2088,7 @@ public class SmallInterpreter implements Serializable {
 						DataInput ps = new DataInputStream(of);
 						returnedValue = new SmallJavaObject(stack[--stackTop], ps);	
 						
-						
-//						try {
-//							InputStream of = Gdx.files.internal(stack[--stackTop].toString()).read();
-//							DataInput ps = new DataInputStream(of);
-//							returnedValue = new SmallJavaObject(
-//									stack[--stackTop], ps);
-//						} catch (GdxRuntimeException e) {
-//							throw new SmallException("I/O exception " + e,
-//									context);
-//						}
+
 					}
 						break;
 
@@ -2111,30 +2102,6 @@ public class SmallInterpreter implements Serializable {
 							
 							ContextedFactory.instance().getContextedItem(ObjectPrototype.EventListener, EventType.onClick, (Reactor)reactor,(ActionThread)thread);
 						
-						
-//						try {
-//							final SmallObject action = stack[--stackTop];
-//							Actor reactor = (Actor) ((Reactor)((SmallJavaObject) stack[--stackTop]).value).getCommonBindedProxy();
-//
-//							// we only want one listener attached at a time
-//							Array<EventListener> listeners = reactor.getListeners();
-//							for( EventListener e : listeners) {
-//								reactor.removeListener(e);
-//							}
-//
-//							reactor.addListener(new InputListener() {
-//								@Override
-//								public boolean touchDown(InputEvent event, float x, float y,
-//										int pointer, int button) {
-//									new ActionThread(action, myThread).start();
-//									return true;
-//								}
-//							});
-//							
-//						} catch (Exception e) {
-//							throw new SmallException("Exception: "
-//									+ e.toString(), context);
-//						}
 					}
 						break;
 

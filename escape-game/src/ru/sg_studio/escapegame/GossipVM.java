@@ -36,8 +36,7 @@ public final class GossipVM {
 		InputStream is = null;
 		if(fromDisk) {
 			System.out.println("Out-of-jar operation mode!");
-			//imageFile = Gdx.files.local("gossip/Gossip.image");
-			//^___________^
+
 			try {
 				is = new FileInputStream(image);
 			} catch (FileNotFoundException e) {
@@ -46,19 +45,11 @@ public final class GossipVM {
 			}
 		} else {
 			System.out.println("In-jar operation mode!");
-			//imageFile = Gdx.files.internal("gossip/Gossip.image");
-			//^___________^
+
 			is = SmallInterpreterInterfacer.class.getResourceAsStream(GOSSIP_IMAGE);
 		}
 		
-		// initialize Gossip
-//		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
-		
-		//try {
-		//	is = imageFile.read();
-		//} catch (Exception e1) {
-		//	e1.printStackTrace();
-		//}
+
 		
 		ScriptEngineFactory factory = new GossipScriptFactory();
         ScriptEngine engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
