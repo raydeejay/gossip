@@ -23,6 +23,9 @@ public class LibGDXItem extends LibGDXReactor {
 		LibGDXTextureUtilities.checkLibGDXTexture((Reactor)getBinded());
 		// calculate coordinates
 		int index = GameRegistry.instance().getInventory().getItems().indexOf(this.coreObject);
+		if(index==-1){//bad guy
+			remove();return;
+		}
 		int x = 2 + (48 * (index % 2));
 		int y = 6 + (60 * (index / 2));
 
