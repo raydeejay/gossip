@@ -95,18 +95,27 @@ public class GameRegistry {
     }
 	
 	public void switchToRoom(final String aRoomName) {
-		new Thread(new Runnable() {
+		
+		gameScreen.getHost().getMessagePipe().push(new Runnable() {
 			@Override
 			public void run() {
-				// post a Runnable to the rendering thread
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						gameScreen.switchToRoom(aRoomName);
-					}
-				});
-			}
-		}).start();
+				gameScreen.switchToRoom(aRoomName);
+			};
+		});
+
+		
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				// post a Runnable to the rendering thread
+//				Gdx.app.postRunnable(new Runnable() {
+//					@Override
+//					public void run() {
+//						gameScreen.switchToRoom(aRoomName);
+//					}
+//				});
+//			}
+//		}).start();
 	}
 	
 	public void winGame() {

@@ -3,7 +3,9 @@ package net.raydeejay.escapegame;
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
+import ru.sg_studio.escapegame.rendering.Texture;
 
 public class Reactor extends GraphicalEntity {
 	
@@ -12,7 +14,6 @@ public class Reactor extends GraphicalEntity {
 		return bindedProxy;
 	}
 	
-	private Texture image;
 	private Room room;
 
 	//public Reactor() { super(); }
@@ -36,18 +37,26 @@ public class Reactor extends GraphicalEntity {
 
 	// IMAGE
 	public Texture getImage() {
-		return image;
+		return texture;
 	}
 
-	public Reactor setImageTexture(Texture aTexture) {
-		this.image = aTexture;
-		this.setWidth(aTexture.getWidth());
-		this.setHeight(aTexture.getHeight());
-		return this;
-	}
+//	public Reactor setImageTexture(Texture aTexture) {
+//		this.image = aTexture;
+//		this.setWidth(aTexture.getWidth());
+//		this.setHeight(aTexture.getHeight());
+//		return this;
+//	}
 
+	protected Texture texture;
+	
+	public Texture getClonedTexture(){
+		return texture.cloneMeta();
+	}
+	
 	public Reactor setImage(final String aFilename) {
-		final Reactor thisReactor = this;
+		//final Reactor thisReactor = this;
+		texture = new Texture(aFilename);
+		SmallInterpreterInterfacer.RefreshTextureMetadataFor(this);
 //		new Thread(new Runnable() {
 //			   @Override
 //			   public void run() {

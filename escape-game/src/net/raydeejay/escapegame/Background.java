@@ -4,13 +4,15 @@ import ru.sg_studio.escapegame.IProxiedObject;
 
 
 public class Background extends Reactor {
-	private Texture image;
+
 
 	public Background(String name,int x, int y, String aFilename, IProxiedObject bindedProxy){
 		super(name,bindedProxy);
-		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
+		//Texture aTexture = new Texture(Gdx.files.internal(aFilename));
 
-		this.setImage(aTexture);
+		setImage(aFilename);
+		
+		//this.setImage(aTexture);
 		//this.setBounds(x, y, aTexture.getWidth(), aTexture.getHeight());
 
 		setX(x);
@@ -18,15 +20,13 @@ public class Background extends Reactor {
 		
 	}
 
-	public Texture getImage() {
-		return image;
-	}
 
-	public void setImage(Texture aTexture) {
-		this.image = aTexture;
-		this.setWidth(aTexture.getWidth());
-		this.setHeight(aTexture.getHeight());
-	}
+
+//	public void setImage(Texture aTexture) {
+//		this.image = aTexture;
+//		this.setWidth(aTexture.getWidth());
+//		this.setHeight(aTexture.getHeight());
+//	}
 
 	//public void setImage(String aFilename) {
 	//	Texture aTexture = new Texture(Gdx.files.internal(aFilename));

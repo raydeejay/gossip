@@ -112,6 +112,14 @@ public abstract class GameScreen {
 
 	protected abstract void pushDepot(ReactorDepot depot);
 	
+	private GossipVM host;
+	public void registerVMHost(GossipVM gossipVM) {
+		host=gossipVM;
+	}
+	public GossipVM getHost(){
+		return host;
+	}
+	
 	//public EscapeGame getGame() {
 		//TODO: is this called?
 		//return this.game;

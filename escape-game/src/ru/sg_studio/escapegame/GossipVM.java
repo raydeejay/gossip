@@ -1,6 +1,8 @@
 package ru.sg_studio.escapegame;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.script.ScriptEngine;
@@ -12,9 +14,11 @@ import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 public final class GossipVM {
 
-	//TODO: Decouple GDX
 	
 	
+	
+	private static final String GOSSIP_IMAGE = "/gossip/Gossip.image";
+
 	public void load(){
 		initImage();
 	}
@@ -23,26 +27,35 @@ public final class GossipVM {
 		// if there is an image in the local directory, load from there
 		// otherwise load from internal
 		
-		boolean fromDisk = new File("gossip/Gossip.image").exists();
-		FileHandle imageFile;
-		
+		File image = new File(GOSSIP_IMAGE);
+		boolean fromDisk = image.exists();
+		//FileHandle imageFile;
+		InputStream is = null;
 		if(fromDisk) {
 			System.out.println("Out-of-jar operation mode!");
-			imageFile = Gdx.files.local("gossip/Gossip.image");
-			
+			//imageFile = Gdx.files.local("gossip/Gossip.image");
+			//^___________^
+			try {
+				is = new FileInputStream(image);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("In-jar operation mode!");
-			imageFile = Gdx.files.internal("gossip/Gossip.image");
+			//imageFile = Gdx.files.internal("gossip/Gossip.image");
+			//^___________^
+			is = SmallInterpreterInterfacer.class.getResourceAsStream(GOSSIP_IMAGE);
 		}
 		
 		// initialize Gossip
 //		FileHandle imageFile = Gdx.files.internal("gossip/Gossip.image");
-		InputStream is = null;
-		try {
-			is = imageFile.read();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		
+		//try {
+		//	is = imageFile.read();
+		//} catch (Exception e1) {
+		//	e1.printStackTrace();
+		//}
 		
 		ScriptEngineFactory factory = new GossipScriptFactory();
         ScriptEngine engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
@@ -68,9 +81,15 @@ public final class GossipVM {
 	}
 
 	public void provideInitialScreen(GameScreen screen) {
-		
+		screen.registerVMHost(this);
 		GameRegistry.instance().setScreen(screen);
 		
+	}
+
+	MessagingQueue queue = new MessagingQueue();
+	
+	public MessagingQueue getMessagePipe() {
+		return queue;
 	}
 	
 }
