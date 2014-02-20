@@ -1,5 +1,6 @@
 package ru.sg_studio.escapegame.bindings.libgdx.primitives;
 
+import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureUtilities;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureWrapper;
 
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +20,7 @@ public class LibGDXItem extends LibGDXReactor {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		LibGDXTextureUtilities.checkLibGDXTexture((Reactor)getBinded());
 		// calculate coordinates
 		int index = GameRegistry.instance().getInventory().getItems().indexOf(this.coreObject);
 		int x = 2 + (48 * (index % 2));

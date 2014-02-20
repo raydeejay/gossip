@@ -6,6 +6,7 @@ import java.util.Map;
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
+import ru.sg_studio.escapegame.GossipVM;
 
 //Total mess... Needs total rewrite...
 
@@ -95,8 +96,9 @@ public class GameRegistry {
     }
 	
 	public void switchToRoom(final String aRoomName) {
-		
-		gameScreen.getHost().getMessagePipe().push(new Runnable() {
+		//Broken
+		//gameScreen.getHost().getMessagePipe().push(new Runnable() {
+		GossipVM.GetLastCreated().getMessagePipe().push(new Runnable() {
 			@Override
 			public void run() {
 				gameScreen.switchToRoom(aRoomName);

@@ -22,18 +22,25 @@ public class SmallInterpreterInterfacer {
 	}
 
 	public static void RefreshTextureMetadataFor(Reactor reactor) {
+		//if(true){return;}
 		ImageInputStream in = null;
 		try {
+			System.out.println("Presetting Reactor for texture: "+reactor.getImage().getFilename());
 		in = ImageIO.createImageInputStream(reactor.getImage().getFilename());
+		if(in==null){
+			in = ImageIO.createImageInputStream(SmallInterpreterInterfacer.class.getResourceAsStream("/"+reactor.getImage().getFilename()));
+		}
 		
-		    final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
+
+			final Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("png");
+		   // final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
 		    if (readers.hasNext()) {
 		        ImageReader reader = readers.next();
 		        try {
 		            reader.setInput(in);
 		            reactor.setWidth(reader.getWidth(0));
 		            reactor.setHeight(reader.getHeight(0));
-		            return ;
+		           //return ;
 		        } finally {
 		            reader.dispose();
 		        }

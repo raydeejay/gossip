@@ -14,7 +14,10 @@ import net.raydeejay.gossip.engine.GossipScriptFactory;
 
 public final class GossipVM {
 
-	
+	private static GossipVM me;
+	public GossipVM(){
+		me=this;
+	}
 	
 	
 	private static final String GOSSIP_IMAGE = "/gossip/Gossip.image";
@@ -96,6 +99,10 @@ public final class GossipVM {
 		if(r!=null){
 			r.run();
 		}
+	}
+
+	public static GossipVM GetLastCreated() {
+		return me;
 	}
 	
 	
