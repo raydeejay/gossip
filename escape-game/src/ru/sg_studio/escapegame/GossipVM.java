@@ -10,9 +10,6 @@ import javax.script.ScriptException;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-
 public final class GossipVM {
 
 	//TODO: Decouple GDX

@@ -34,11 +34,11 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if(coreObject.getImage() != null) {
+		if(getImage() != null) {
 			batch.setColor(Color.WHITE);
 
 			//batch.draw(coreObject.getImage(), coreObject.getX(), coreObject.getY());
-			batch.draw(coreObject.getImage(), getX(),getY());
+			batch.draw(getImage(), getX(),getY());
 		}
 	}
 

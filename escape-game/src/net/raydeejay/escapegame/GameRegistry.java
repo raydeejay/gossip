@@ -6,7 +6,6 @@ import java.util.Map;
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
-import com.badlogic.gdx.Gdx;
 
 //Total mess... Needs total rewrite...
 

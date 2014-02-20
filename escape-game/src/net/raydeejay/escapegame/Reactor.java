@@ -5,12 +5,6 @@ import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 public class Reactor extends GraphicalEntity {
 	
 	private IProxiedObject bindedProxy;
@@ -54,19 +48,20 @@ public class Reactor extends GraphicalEntity {
 
 	public Reactor setImage(final String aFilename) {
 		final Reactor thisReactor = this;
-		new Thread(new Runnable() {
-			   @Override
-			   public void run() {
-			      // post a Runnable to the rendering thread
-			      Gdx.app.postRunnable(new Runnable() {
-			         @Override
-			         public void run() {
-			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
-			    		thisReactor.setImageTexture(aTexture);
-			         }
-			      });
-			   }
-			}).start();
+//		new Thread(new Runnable() {
+//			   @Override
+//			   public void run() {
+//			      // post a Runnable to the rendering thread
+//			      Gdx.app.postRunnable(new Runnable() {
+//			         @Override
+//			         public void run() {
+//			     		Texture aTexture = new Texture(Gdx.files.internal(aFilename));
+//			    		thisReactor.setImageTexture(aTexture);
+//			         }
+//			      });
+//			   }
+//			}).start();
+		
 		return this;
 	}
 

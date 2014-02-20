@@ -1,8 +1,6 @@
 package net.raydeejay.escapegame;
 
 import ru.sg_studio.escapegame.IProxiedObject;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 
 /*
  * An Item is a Reactor in an Inventory, or something like that.

@@ -35,7 +35,7 @@ public class LibGDXItem extends LibGDXReactor {
 			batch.setColor(Color.WHITE);
 		}
 		
-		batch.draw(coreObject.getImage(), this.getX(), this.getY(), 48, 48);
+		batch.draw(getImage(), this.getX(), this.getY(), 48, 48);
 	}	
 	
 	
