@@ -9,6 +9,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 
+import ru.sg_studio.reports.Reporter;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 
@@ -28,7 +29,12 @@ public final class GossipVM {
 	
 	ScriptEngine engine;
 	public String directEvaluation(String command) throws ScriptException{
-		return (String) engine.eval(command);
+		try{
+			return (String) engine.eval(command);
+		}catch(Exception e){
+			//TODO: Add debugging facilities
+			return "------CRITICAL SCRIPT ENGINE FAILURE------\n"+e+"\n------------------------------------------";
+		}
 	}
 	
 	private void initImage(){
@@ -63,7 +69,7 @@ public final class GossipVM {
 		if(! fromDisk) {
 			System.out.println("Patching reading...");
 	        try {
-				System.out.println(engine.eval("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
+				System.out.println(directEvaluation("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
 			} catch (ScriptException e1) {
 				e1.printStackTrace();
 			}
@@ -72,7 +78,7 @@ public final class GossipVM {
 		// load code not shipped in the image
 		System.out.println("Loading additional script...");
         try {
-            System.out.println(engine.eval("File fileIn: 'gossip/Test.st'"));
+            System.out.println(directEvaluation("File fileIn: 'gossip/Test.st'"));
         }
         catch(ScriptException e) { System.err.println("ERROR :" + e); }		
 		
