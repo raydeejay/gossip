@@ -40,7 +40,7 @@ public class VMExecCycler {
 
 		public LooperThread(){
 			super();
-			looper.setDaemon(true);
+			setDaemon(true);
 		}
 		private boolean isExecuting=true;
 		
@@ -48,6 +48,7 @@ public class VMExecCycler {
 		public void run() {
 			while(isExecuting){
 				try {
+					System.out.println("debug: looper iteration");
 					if(isThrottledDown){
 						sleep(ONESECOND/BASIC_FRAMERATE);
 					}else{
@@ -65,6 +66,9 @@ public class VMExecCycler {
 	
 	
 	private class DeltaUpdatersContainer{
+		public DeltaUpdatersContainer(){
+			rebake();
+		}
 		private boolean freezed;
 		private DeltaUpdateHandler[] bakedHandlers;
 		private ArrayList<DeltaUpdateHandler> handlers = new ArrayList<DeltaUpdateHandler>();

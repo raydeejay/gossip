@@ -31,7 +31,7 @@ public final class GossipVM {
 
 	public void load(){
 		initImage();
-		cycler.initCycler(this)
+		cycler.initCycler(this);
 	}
 	
 	ScriptEngine engine;
