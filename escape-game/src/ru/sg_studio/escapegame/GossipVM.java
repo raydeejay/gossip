@@ -30,7 +30,7 @@ public final class GossipVM {
 	ScriptEngine engine;
 	public String directEvaluation(String command) throws ScriptException{
 		try{
-			return (String) engine.eval(command);
+			return engine.eval(command).toString();
 		}catch(Exception e){
 			//TODO: Add debugging facilities
 			return "------CRITICAL SCRIPT ENGINE FAILURE------\n"+e+"\n------------------------------------------";
