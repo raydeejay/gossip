@@ -13,7 +13,8 @@ allValues
 // This has to be fixed in the image also
 META Transcript
 contents
-    ^ 'Welcome to Gossip alpha!
+    contents isNil ifTrue: [ contents :=  
+    'Welcome to Gossip alpha!
 
 To load the example game, open a new Workspace
 from the Tools menu and type the following:
@@ -28,7 +29,8 @@ To open the Game Browser:
     GameBrowser open.
     
 To exit you can use the menu, or close either
-the Transcript or the game window.'
+the Transcript or the game window.' ].
+    ^ contents
 !
 
  
