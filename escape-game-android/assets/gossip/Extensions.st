@@ -38,6 +38,9 @@ the Transcript or the game window.' ].
 !
 EVAL Transcript reset
 
+
+// Keystroke support for text panes
+
 METHOD Pane
 keystroke: aString action: aBlock
     <134 self aString aBlock>
