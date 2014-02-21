@@ -37,6 +37,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -51,6 +53,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -64,8 +67,8 @@ import org.jdesktop.swingx.MultiSplitPane;
 
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
-import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
 import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
+import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
 
 /**
  * Athena interpreter.
@@ -2067,41 +2070,63 @@ public class SmallInterpreter implements Serializable {
 					}
 						break;
 
-					// [PRIMITIVE 132] <SWING> Quit without saving
-					case 132: { // Quit without saving!
+					// [PRIMITIVE 132] Quit without saving
+					case 132: {
 						System.exit(0);
 					}
 						break;
 
-					// [PRIMITIVE 133] <SWING> get current value of the millisecond clock
-					case 133: { // Millisecond clock
+					// [PRIMITIVE 133] get current value of the millisecond clock
+					case 133: {
 						returnedValue = newInteger((int) java.lang.System
 								.currentTimeMillis());
 					}
 						break;
 
+					// [PRIMITIVE 134] Attach an action to a keystroke
+					// <134 self "control D" [ self doIt ]>
+					case 134: {
+						final SmallObject action = stack[--stackTop];
+						String keyStrokeAndKey = stack[--stackTop].toString();
+
+						SmallJavaObject jt = (SmallJavaObject) stack[--stackTop];
+						Object jo = jt.value;
+
+						if (jo instanceof JScrollPane)
+							jo = ((JScrollPane) jo).getViewport().getView();
+						
+						if (jo instanceof JTextComponent) {
+								JTextComponent component = (JTextComponent) jo;
+								Action javaAction = new AbstractAction() {
+									private static final long serialVersionUID = 6271727413361133775L;
+
+									@Override
+									public void actionPerformed(ActionEvent e) {
+											new ActionThread(action, myThread).start();										
+									} };
+									
+								KeyStroke keyStroke = KeyStroke.getKeyStroke(keyStrokeAndKey);
+								component.getInputMap().put(keyStroke, keyStrokeAndKey);
+								component.getActionMap().put(keyStrokeAndKey, javaAction);
+						}
+					}
+						break;
+
 					// [PRIMITIVE 142] open file for input <br>
 					case 142: {
-						
-						
 						InputStream of = SmallInterpreterInterfacer.ReadInjarFile(stack[--stackTop].toString());
 						DataInput ps = new DataInputStream(of);
 						returnedValue = new SmallJavaObject(stack[--stackTop], ps);	
-						
-
 					}
 						break;
 
 					// [PRIMITIVE 150] Attach an InputListener to a Reactor
 					case 150: {
-							
 							final SmallObject action = stack[--stackTop];
 							Reactor reactor =  (Reactor) ((SmallJavaObject) stack[--stackTop]).value;						
 						
 							ActionThread thread = new ActionThread(action, myThread);
-							
 							ContextedFactory.instance().getContextedItem(ObjectPrototype.EventListener, EventType.onClick, (Reactor)reactor,(ActionThread)thread);
-						
 					}
 						break;
 
@@ -2113,9 +2138,8 @@ public class SmallInterpreter implements Serializable {
 					
 					stack[stackTop++] = returnedValue;
 					break;
-					
-					
 
+					
 				// [BYTECODE 14] PushClassVariable
 				case 14:
 					if (arguments == null)
