@@ -16,9 +16,12 @@ import net.raydeejay.gossip.engine.GossipScriptFactory;
 public final class GossipVM {
 
 	private static GossipVM me;
-	public GossipVM(){
+	public GossipVM(boolean imageOnlyMode){
 		me=this;
+		this.imageOnlyMode = imageOnlyMode;
 	}
+	
+	private boolean imageOnlyMode=false;
 	
 	
 	private static final String GOSSIP_IMAGE = "/gossip/Gossip.image";
@@ -65,23 +68,31 @@ public final class GossipVM {
 		ScriptEngineFactory factory = new GossipScriptFactory();
         engine = ((GossipScriptFactory) factory).getScriptEngineWithImage(is);
         
-    	// monkeypatch Gdx file access into the image
-		if(! fromDisk) {
-			System.out.println("Patching reading...");
-	        try {
-				System.out.println(directEvaluation("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
-			} catch (ScriptException e1) {
-				e1.printStackTrace();
+        if(!imageOnlyMode){
+	        
+	    	// monkeypatch Gdx file access into the image
+			if(! fromDisk) {
+				System.out.println("Patching reading...");
+		        try {
+					System.out.println(directEvaluation("File class compileMethod: 'openRead: aName ^ <142 self (aName printString)>'"));
+				} catch (ScriptException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
-		
-		// load code not shipped in the image
-		System.out.println("Loading additional script...");
-        try {
-            System.out.println(directEvaluation("File fileIn: 'gossip/Test.st'"));
+			
+			// load code not shipped in the image
+			System.out.println("Loading additional script...");
+	        try {
+	            System.out.println(directEvaluation("File fileIn: 'gossip/Test.st'"));
+	        }
+	        catch(ScriptException e) { System.err.println("ERROR :" + e); }		
+        }else{
+        	System.out.println("Executing overriden editor initializers...");
+ 	        try {
+	            System.out.println(directEvaluation("Transcript open"));
+	        }
+	        catch(ScriptException e) { System.err.println("ERROR :" + e); }	       	
         }
-        catch(ScriptException e) { System.err.println("ERROR :" + e); }		
-		
 		
 	}
 
