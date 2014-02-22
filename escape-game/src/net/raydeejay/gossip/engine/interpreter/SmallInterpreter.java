@@ -1066,7 +1066,7 @@ public class SmallInterpreter implements Serializable {
 					case 41: {
 						try {
 							FileOutputStream of = new FileOutputStream(
-									stack[--stackTop].toString());
+									stack[--stackTop].toString()+".st");
 							PrintStream ps = new PrintStream(of);
 							returnedValue = new SmallJavaObject(
 									stack[--stackTop], ps);
