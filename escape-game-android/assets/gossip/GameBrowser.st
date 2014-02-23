@@ -184,11 +184,11 @@ defaultSourcePane
 
 METHOD GameBrowser
 monkeyPatch: aReactor andEval: aString
-    aReactor class compileMethod: ('doIt ' + aString).
+    aReactor class compileMethod: ('XXXdoItXXX ' , aString).
     aReactor doIt.
     	
     "the compilation may fail and this message below may not be sent, this should be fixed"
-    aReactor class removeMethod: #doIt.
+    aReactor class removeMethod: #XXXdoItXXX.
 !
 METHOD GameBrowser
 refresh
