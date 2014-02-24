@@ -9,13 +9,16 @@ public class CycleUpdateHandler {
 	//By default CUH is linked to Schedule, so there is no subset yet available
 	
 	public void run(GossipVM myHost) {
-		// TODO hook to VM execute()
-		//Thread marshalling is not requared here
-		try {
-			myHost.directEvaluation(cachedJob);
-		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		passed++;
+		if(passed>delay){
+			passed=0;			
+			
+			try {
+				myHost.directEvaluation(cachedJob);
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -24,6 +27,11 @@ public class CycleUpdateHandler {
 	public void setCallID(int callID){
 		this.callID=callID;
 		cachedJob = "Schedule call: "+this.callID;
+	}
+	private int delay;
+	private int passed;
+	public void setCyclesDelay(int delay){
+		this.delay=delay;
 	}
 	
 

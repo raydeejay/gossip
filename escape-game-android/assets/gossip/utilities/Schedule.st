@@ -30,6 +30,7 @@ METHOD Schedule
 initializeCUH
 	javaObject := (System instantiateJavaClass: 'ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler').
 	javaObject invoke: 'setCallID' with: mycallid asJavaObject.
+	javaObject invoke: 'setCyclesDelay' with: cycles asJavaObject.
 	<151 javaObject>.
 !
 
