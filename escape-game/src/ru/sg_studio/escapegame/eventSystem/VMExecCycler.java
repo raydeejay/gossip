@@ -18,12 +18,12 @@ public class VMExecCycler {
 	private DeltaUpdatersContainer deltas = new DeltaUpdatersContainer();
 	
 	private void executeDeltas(){
-		for(DeltaUpdateHandler duh : deltas.getHandlers()){
+		for(CycleUpdateHandler duh : deltas.getHandlers()){
 			duh.run(myHost);
 		}
 	}
 	
-	public void addDUH(DeltaUpdateHandler handler){
+	public void addCUH(CycleUpdateHandler handler){
 		deltas.addHandler(handler);
 	}
 	
@@ -74,9 +74,9 @@ public class VMExecCycler {
 			rebake();
 		}
 		private boolean freezed;
-		private DeltaUpdateHandler[] bakedHandlers;
-		private ArrayList<DeltaUpdateHandler> handlers = new ArrayList<DeltaUpdateHandler>();
-		synchronized public void addHandler(DeltaUpdateHandler handler){
+		private CycleUpdateHandler[] bakedHandlers;
+		private ArrayList<CycleUpdateHandler> handlers = new ArrayList<CycleUpdateHandler>();
+		synchronized public void addHandler(CycleUpdateHandler handler){
 			handlers.add(handler);
 			rebake();
 		}
@@ -86,13 +86,13 @@ public class VMExecCycler {
 			while(freezed){;}//Kill me please. Much room for improvements
 			freezed = true;
 			try{
-				bakedHandlers = new DeltaUpdateHandler[handlers.size()];
+				bakedHandlers = new CycleUpdateHandler[handlers.size()];
 				bakedHandlers = handlers.toArray(bakedHandlers);
 			}finally{
 				freezed = false;
 			}
 		}
-		public DeltaUpdateHandler[] getHandlers(){
+		public CycleUpdateHandler[] getHandlers(){
 			while(freezed){;}//Kill me please. Much room for improvements
 			return bakedHandlers;
 		}

@@ -28,7 +28,7 @@ setCycling: aCycles do: aBlock
 
 METHOD Schedule
 initializeCUH
-	javaObject := (System instantiateJavaClass: 'ru.sg_studio.escapegame.eventSystem.DeltaUpdateHandler').
+	javaObject := (System instantiateJavaClass: 'ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler').
 	<151 javaObject>.
 !
 

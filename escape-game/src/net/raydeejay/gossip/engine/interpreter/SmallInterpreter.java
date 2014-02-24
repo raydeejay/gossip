@@ -70,7 +70,7 @@ import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
-import ru.sg_studio.escapegame.eventSystem.DeltaUpdateHandler;
+import ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler;
 
 /**
  * Athena interpreter.
@@ -2133,8 +2133,8 @@ public class SmallInterpreter implements Serializable {
 						break;
 						// [PRIMITIVE 151] Register own DUH\CUH
 					case 151: {
-						final DeltaUpdateHandler commoner = (DeltaUpdateHandler) ((SmallJavaObject) stack[--stackTop]).value;
-						GossipVM.GetLastCreated().getLooper().addDUH(commoner);
+						final CycleUpdateHandler commoner = (CycleUpdateHandler) ((SmallJavaObject) stack[--stackTop]).value;
+						GossipVM.GetLastCreated().getLooper().addCUH(commoner);
 					}
 					break;
 
