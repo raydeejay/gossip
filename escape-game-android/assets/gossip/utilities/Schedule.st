@@ -4,7 +4,7 @@
 
 //TODO: need a way to handle deletions and a way to handle empty spaces
 
-EVAL Class addNewClass: (Object subclass: 'Schedule' variables: 'javaObject cycles block isRegistered' classVariables: 'list isInit order')
+EVAL Class addNewClass: (Object subclass: 'Schedule' variables: 'mycallid javaObject cycles block isRegistered' classVariables: 'list isInit order')
 
 
 META Schedule
@@ -29,6 +29,7 @@ setCycling: aCycles do: aBlock
 METHOD Schedule
 initializeCUH
 	javaObject := (System instantiateJavaClass: 'ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler').
+	javaObject invoke: 'setCallID' with: mycallid asJavaObject.
 	<151 javaObject>.
 !
 
@@ -74,6 +75,7 @@ check
 METHOD Schedule
 register
 	list insert:self at:order .
+	mycallid :=order.
 	isRegistered := true.
 	Schedule incrementOrder.
 !
