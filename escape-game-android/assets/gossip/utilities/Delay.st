@@ -4,18 +4,18 @@ EVAL Class addNewClass: (Object subclass: 'Delay' variables: 'millisecs' classVa
 
 
 META Delay
-forMilliseconds: aMillisecs
+forMilliseconds: aNumber
 	| aMe |
 	aMe := self new.
-	aMe setMillisecs: aMillisecs.
+	aMe setMillisecs: aNumber.
 	^aMe.
 !
 
 
 
 METHOD Delay
-setMillisecs: aMillisecs
-	millisecs := aMillisecs.
+setMillisecs: aNumber
+	millisecs := aNumber.
 !
 
 
