@@ -48,7 +48,7 @@ public class VMExecCycler {
 		public void run() {
 			while(isExecuting){
 				try {
-					System.out.println("debug: looper iteration");
+					//System.out.println("debug: looper iteration");
 					if(isThrottledDown){
 						sleep(ONESECOND/BASIC_FRAMERATE);
 					}else{
