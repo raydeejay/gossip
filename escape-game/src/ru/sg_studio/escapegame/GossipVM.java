@@ -44,6 +44,10 @@ public final class GossipVM {
 		}
 	}
 	
+	public VMExecCycler getLooper(){
+		return cycler;
+	}
+	
 	private void initImage(){
 		// if there is an image in the local directory, load from there
 		// otherwise load from internal

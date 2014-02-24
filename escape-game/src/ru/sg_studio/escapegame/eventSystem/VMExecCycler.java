@@ -23,6 +23,10 @@ public class VMExecCycler {
 		}
 	}
 	
+	public void addDUH(DeltaUpdateHandler handler){
+		deltas.addHandler(handler);
+	}
+	
 	public void initCycler(GossipVM directExecutionProvider) {
 		myHost = directExecutionProvider;
 		looper = new LooperThread();

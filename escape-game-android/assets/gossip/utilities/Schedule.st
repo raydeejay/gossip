@@ -2,7 +2,9 @@
 //This is far superior then cyclic delayer concept in terms of performance if cycletime is BIG
 //Author: Semion "Itaros" Nadezhdin
 
-EVAL Class addNewClass: (Object subclass: 'Schedule' variables: 'cycles block isRegistered' classVariables: 'list isInit order')
+//TODO: need a way to handle deletions and a way to handle empty spaces
+
+EVAL Class addNewClass: (Object subclass: 'Schedule' variables: 'javaObject cycles block isRegistered' classVariables: 'list isInit order')
 
 
 META Schedule
@@ -20,7 +22,14 @@ setCycling: aCycles do: aBlock
 	instance setBlock: aBlock.
 	instance setIsRegistered: false.
 	instance register.
+	instance initializeCUH.
 	^instance.
+!
+
+METHOD Schedule
+initializeCUH
+	javaObject := (System instantiateJavaClass: 'ru.sg_studio.escapegame.eventSystem.DeltaUpdateHandler').
+	<151 javaObject>.
 !
 
 META Schedule

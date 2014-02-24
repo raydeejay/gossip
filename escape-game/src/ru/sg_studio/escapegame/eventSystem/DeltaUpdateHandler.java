@@ -7,6 +7,7 @@ public class DeltaUpdateHandler {
 	public void run(GossipVM myHost) {
 		// TODO hook to VM execute()
 		//Thread marshalling is not requared here
+		System.out.println("DUH!");
 	}
 
 }
