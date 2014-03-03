@@ -67,8 +67,10 @@ import org.jdesktop.swingx.MultiSplitPane;
 
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
+import ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler;
 
 /**
  * Athena interpreter.
@@ -2129,6 +2131,12 @@ public class SmallInterpreter implements Serializable {
 							ContextedFactory.instance().getContextedItem(ObjectPrototype.EventListener, EventType.onClick, (Reactor)reactor,(ActionThread)thread);
 					}
 						break;
+						// [PRIMITIVE 151] Register own DUH\CUH
+					case 151: {
+						final CycleUpdateHandler commoner = (CycleUpdateHandler) ((SmallJavaObject) stack[--stackTop]).value;
+						GossipVM.GetLastCreated().getLooper().addCUH(commoner);
+					}
+					break;
 
     				// END OF PRIMITIVES
 					default:

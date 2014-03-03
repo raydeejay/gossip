@@ -22,6 +22,8 @@ EVAL System println: 'Finished loading class extensions'
 // methods can't be defined yet, because they reference all the other classes
 EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory currentRoom javaObject' classVariables: 'instance javaObject')
 
+EVAL File fileInWithNotification: 'gossip/utilities/UtilityLoader.st'
+
 // Now load the stuff in the required order
 EVAL File fileInWithNotification: 'gossip/JavaWrapper.st'
 EVAL File fileInWithNotification: 'gossip/State.st'
