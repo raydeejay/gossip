@@ -46,12 +46,12 @@ EVAL System println: 'Finished loading authoring tools'
 // Then start the thing up
 EVAL System println: 'Setting things up'
 
-EVAL SetupRooms setupExample
-//EVAL SetupRooms setup
+EVAL SetupRooms setup
+//EVAL SetupRooms setupExample
 
 EVAL System println: 'Starting things up'
-EVAL SetupRooms startExample
-//EVAL SetupRooms start
+EVAL SetupRooms start
+//EVAL SetupRooms startExample
 
 EVAL System println: 'Opening Transcript up'
 EVAL Transcript open
