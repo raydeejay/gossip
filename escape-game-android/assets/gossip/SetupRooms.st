@@ -4,7 +4,7 @@ EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariab
 META SetupRooms
 setup
     self setupNavigation.
-    (GameRegistry newRoom: #title) background: 'title.png'.
+    (GameRegistry newRoom: #title) background: 'demo/backgrounds/title.png'.
 !
 META SetupRooms
 start
@@ -30,11 +30,11 @@ setupNavigation
     
     left := (GameRegistry newHudElement: #arrowLeft) onClick: [ 
         GameRegistry instance switchToRoom: GameRegistry instance currentRoom left ].
-    left setImage: 'arrowLeft.png'.
+    left setImage: 'demo/sprites/arrowLeft.png'.
     left setX: 10 Y: 240.
     right := (GameRegistry newHudElement: #arrowRight) onClick: [ 
         GameRegistry instance switchToRoom: GameRegistry instance currentRoom right ].
-    right setImage: 'arrowRight.png'.
+    right setImage: 'demo/sprites/arrowRight.png'.
     right setX: 620 Y: 240.
 !
 META SetupRooms
@@ -42,19 +42,19 @@ createRooms
     | r1 r2 r3 r4 |
 
     r1 := GameRegistry newRoom: #room01.
-    r1 background: 'room01.png'.
+    r1 background: 'demo/backgrounds/room01.png'.
     
     r2 := GameRegistry newRoom: #room02.
-    r2 background: 'room02.png'.
+    r2 background: 'demo/backgrounds/room02.png'.
     r2 right: #room03.
     
     r3 := GameRegistry newRoom: #room03.
-    r3 background: 'room03.png'.
+    r3 background: 'demo/backgrounds/room03.png'.
     r3 left: #room02.
     r3 right: #room04.
     
     r4 := GameRegistry newRoom: #room04.
-    r4 background: 'room04.png'.
+    r4 background: 'demo/backgrounds/room04.png'.
     r4 left: #room03.
 !
 META SetupRooms
@@ -62,20 +62,20 @@ initRoom01A
     | box door01 paper default |
      
     box := (GameRegistry newObtainable: #box).
-    box setImage: 'box.png'.
+    box setImage: 'demo/sprites/box.png'.
     box setX: 100 Y: 20.
     box addToRoomNamed: #room01.
     
     door01 := (GameRegistry newDoor: #door01).
     door01 destination: #room02.
     door01 setX: 270 Y: 82.
-    door01 imageForOpen: 'door2open.png'.
-    door01 imageForClosed: 'door2.png'.
+    door01 imageForOpen: 'demo/sprites/door2open.png'.
+    door01 imageForClosed: 'demo/sprites/door2.png'.
     door01 close.
     door01 addToRoomNamed: #room01.
 
     paper := (GameRegistry newReactor: #paper).
-    paper setImage: 'paper.png'.
+    paper setImage: 'demo/sprites/paper.png'.
     default := State new name: #default.
     default onClick: [ GameRegistry instance winGame ].
     paper addState: default.
@@ -86,7 +86,7 @@ initRoom01B
 	| vase state1 state2 state3 |
     vase := (GameRegistry newDropper: #vase).
     vase setX: 200 Y: 30.
-    vase setImage: 'vase.png'.
+    vase setImage: 'demo/sprites/vase.png'.
     vase reactTo: #hammerItem.
     vase dropAtX: 600 Y: 30 item: #paper type: Reactor.
     
@@ -111,16 +111,16 @@ initRoom02
     | key door02 |
          
     key := (GameRegistry newObtainable: #key).
-    key setImage: 'key.png'.
+    key setImage: 'demo/sprites/key.png'.
     key setX: 200 Y: 20.
     key addToRoomNamed: #room02.
 
     door02 := (GameRegistry newDoor: #door02).
     door02 destination: #room01.
     door02 setX: 270 Y: 82.
-    door02 imageForOpen: 'door2open.png'.
-    door02 imageForClosed: 'door2.png'.
-    door02 imageForLocked: 'door2.png'.
+    door02 imageForOpen: 'demo/sprites/door2open.png'.
+    door02 imageForClosed: 'demo/sprites/door2.png'.
+    door02 imageForLocked: 'demo/sprites/door2.png'.
     door02 key: #keyItem.
     door02 lock.
     door02 addToRoomNamed: #room02.
@@ -130,10 +130,10 @@ initRoom03
     | hammer knife fireplace unlit lit fpX fpY |
 
     hammer := (GameRegistry newObtainable: #hammer).
-    hammer setImage: 'hammer.png'.
+    hammer setImage: 'demo/sprites/hammer.png'.
 
     knife := (GameRegistry newObtainable: #knife).
-    knife setImage: 'knife.png'.
+    knife setImage: 'demo/sprites/knife.png'.
     knife setX: 530 Y: 5.
     knife addToRoomNamed: #room03.
     
@@ -145,17 +145,17 @@ initRoom03
     lit := GameRegistry newDropper: #litFire.
 	lit reactTo: #boxItem.
 	lit dropAtX: fpX + 125 Y: fpY + 3 item: #hammer type: Obtainable.
-	lit setImage: 'fire.png'.
+	lit setImage: 'demo/sprites/fire.png'.
 
     unlit := GameRegistry newDropper: #unlitFire.
 	unlit reactTo: #lighterItem.
 	unlit dropAtX: fpX + 125 Y: fpY + 3 item: #litFire type: Dropper.
-	unlit setImage: 'logs.png'.
+	unlit setImage: 'demo/sprites/logs.png'.
     
     fireplace := GameRegistry newDropper: #fireplace.
 	fireplace reactTo: #logsItem.
 	fireplace dropAtX: fpX + 125 Y: fpY + 3 item: #unlitFire type: Dropper.
-	fireplace setImage: 'fireplace.png'.
+	fireplace setImage: 'demo/sprites/fireplace.png'.
     fireplace setX: fpX Y: fpY.
     fireplace shouldStay.
 	fireplace addToRoomNamed: #room03.   
@@ -166,22 +166,22 @@ initRoom04
     | axe lighter logs tree |
 
     axe := (GameRegistry newObtainable: #axe).
-    axe setImage: 'axe.png'.
+    axe setImage: 'demo/sprites/axe.png'.
     axe setX: 100 Y: 40.
     axe addToRoomNamed: #room04.
 
     lighter := (GameRegistry newObtainable: #lighter).
-    lighter setImage: 'lighter.png'.
+    lighter setImage: 'demo/sprites/lighter.png'.
     lighter setX: 200 Y: 40.
     lighter addToRoomNamed: #room04.
 
     logs := (GameRegistry newObtainable: #logs).
-    logs setImage: 'logs.png'.
+    logs setImage: 'demo/sprites/logs.png'.
     
     tree := GameRegistry newDropper: #tree.
 	tree reactTo: #axeItem.
 	tree dropAtX: 480 Y: 20 item: #logs type: Obtainable.
-	tree setImage: 'tree.png'.
+	tree setImage: 'demo/sprites/tree.png'.
     tree setX: 480 Y: 20.
 	tree addToRoomNamed: #room04.   
 !

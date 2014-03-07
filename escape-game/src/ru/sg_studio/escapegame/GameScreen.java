@@ -25,7 +25,7 @@ public abstract class GameScreen {
 	}
 	protected void postInit(){
 		GameRegistry.instance().setScreen(this);
-		GameRegistry.instance().setInventory(new Inventory("inventory.png"));		
+		GameRegistry.instance().setInventory(new Inventory("demo/sprites/inventory.png"));		
 	}
 
 	public void switchToRoom(String destination) {
