@@ -52,7 +52,7 @@ public final class GossipVM {
 		// if there is an image in the local directory, load from there
 		// otherwise load from internal
 		
-		File image = new File(GOSSIP_IMAGE);
+		File image = new File("./" + GOSSIP_IMAGE);
 		boolean fromDisk = image.exists();
 		//FileHandle imageFile;
 		InputStream is = null;
