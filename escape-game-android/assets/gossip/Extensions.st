@@ -10,6 +10,11 @@ allValues
     ^ (allEntries collect: [ :e | e at: 2 ]) asArray
 !
 
+// This is pretty useful
+METHOD JavaObject
+isNull
+    ^ self printString = 'JavaObject<null>'
+
 // This has to be fixed in the image also
 META Transcript
 clear
