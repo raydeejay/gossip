@@ -91,7 +91,7 @@ public final class GossipVM {
 			// load code not shipped in the image
 			System.out.println("Loading additional script...");
 	        try {
-	            System.out.println(directEvaluation("File fileIn: 'gossip/Test.st'"));
+	            System.out.println(directEvaluation("File fileIn: 'gossip/startup.st'"));
 	        }
 	        catch(ScriptException e) { System.err.println("ERROR :" + e); }		
         }else{
