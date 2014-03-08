@@ -1,4 +1,7 @@
-Demo escape game using Gossip (https://github.com/raydeejay/gossip).
+Gossip is a Smalltalk running in the JVM, tailored for making games.
+
+It is based on Athena and the related implementations of Little Smalltalk in Java.
+
 
 Latest build at:
 
