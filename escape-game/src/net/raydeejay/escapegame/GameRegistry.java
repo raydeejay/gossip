@@ -110,13 +110,13 @@ public class GameRegistry {
 
 	}
 	
-	public void winGame() {
-		try {
-			GossipVM.GetLastCreated().directEvaluation("File fileIn: 'gossip/WinGame.st'");
-		} catch (ScriptException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	public void winGame() {
+//		try {
+//			GossipVM.GetLastCreated().directEvaluation("File fileIn: 'gossip/WinGame.st'");
+//		} catch (ScriptException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 }

@@ -1,21 +1,19 @@
-// tests with moving all the game to the Gossip side
+// Demo game using the escape-game framework
 
-EVAL Class addNewClass: (Object subclass: 'SetupRooms' variables: '' classVariables: '')
-META SetupRooms
-setup
-    self setupNavigation.
-    (GameRegistry newRoom: #title) background: 'demo/backgrounds/title.png'.
-!
-META SetupRooms
+// Load the framework
+EVAL File fileInWithNotification: 'escape/Item.st' 
+EVAL File fileInWithNotification: 'escape/Obtainable.st'
+EVAL File fileInWithNotification: 'escape/Dropper.st'
+EVAL File fileInWithNotification: 'escape/Door.st'
+
+// Create the game classes
+EVAL Class addNewClass: (Object subclass: 'DemoGame' variables: '' classVariables: '')
+META DemoGame
 start
-    GameRegistry instance switchToRoom: #title
-!
-META SetupRooms
-startExample
     GameRegistry instance switchToRoom: #room02
 !
-META SetupRooms
-setupExample
+META DemoGame
+setup
     self setupNavigation.
     self createRooms.
 	self initRoom01A.
@@ -24,7 +22,7 @@ setupExample
 	self initRoom03.
 	self initRoom04.
 !
-META SetupRooms
+META DemoGame
 setupNavigation
     | left right |
     
@@ -37,7 +35,7 @@ setupNavigation
     right setImage: 'demo/sprites/arrowRight.png'.
     right setX: 620 Y: 240.
 !
-META SetupRooms
+META DemoGame
 createRooms
     | r1 r2 r3 r4 |
 
@@ -57,7 +55,7 @@ createRooms
     r4 background: 'demo/backgrounds/room04.png'.
     r4 left: #room03.
 !
-META SetupRooms
+META DemoGame
 initRoom01A
     | box door01 paper default |
      
@@ -81,7 +79,7 @@ initRoom01A
     paper addState: default.
     paper switchToState: #default.
 !
-META SetupRooms
+META DemoGame
 initRoom01B
 	| vase state1 state2 state3 |
     vase := (GameRegistry newDropper: #vase).
@@ -106,7 +104,7 @@ initRoom01B
     vase switchToState: #state1.
     vase addToRoomNamed: #room01.
 !
-META SetupRooms
+META DemoGame
 initRoom02
     | key door02 |
          
@@ -125,7 +123,7 @@ initRoom02
     door02 lock.
     door02 addToRoomNamed: #room02.
 !
-META SetupRooms
+META DemoGame
 initRoom03
     | hammer knife fireplace unlit lit fpX fpY |
 
@@ -161,7 +159,7 @@ initRoom03
 	fireplace addToRoomNamed: #room03.   
     
 !
-META SetupRooms
+META DemoGame
 initRoom04
     | axe lighter logs tree |
 

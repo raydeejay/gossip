@@ -53,3 +53,10 @@ METHOD Dropper
 shouldNotStay: aBoolean
     self shouldStay: false.
 !
+
+META GameRegistry
+newDropper: aString
+	| aReactor |
+	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
+	^ ((Dropper forJavaObject: aReactor) name: aString) register.
+!

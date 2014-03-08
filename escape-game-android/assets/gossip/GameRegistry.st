@@ -50,38 +50,6 @@ newRoom: aString
 	^ ((Room forJavaObject: aRoom) name: aString) register.
 !
 META GameRegistry
-newDoor: aString
-	| aReactor |
-	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
-	^ ((Door forJavaObject: aReactor) name: aString) register.
-!
-META GameRegistry
-newObtainable: aString
-	| aReactor |
-	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
-	^ ((Obtainable forJavaObject: aReactor) name: aString) register.
-!
-META GameRegistry
-newDropper: aString
-	| aReactor |
-	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
-	^ ((Dropper forJavaObject: aReactor) name: aString) register.
-!
-META GameRegistry
-newItemFrom: aReactor
-    | anItem anItemJO aString |
-
-    aString := (aReactor name + 'Item').
-    anItemJO := (aReactor javaObject invoke: 'asItem').
-
-"    anItem := Item new javaObjectKeepListener: anItemJO."
-    anItem := Item forJavaObject: anItemJO.
-    anItem name: aString.
-    anItem setImage: aReactor getImage.
-    anItem register.
-    ^ anItem
-!
-META GameRegistry
 newHudElement: aString
 	| aReactor |
 	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
@@ -133,23 +101,6 @@ switchToRoom: aString
 !
 
 METHOD GameRegistry
-getSelectedItem
-	| anItem |
-	anItem := javaObject invoke: #getSelectedItem.
-	anItem printString = 'JavaObject<null>'
-	    ifTrue: [ ^ nil ]
-	    ifFalse: [ 
-	        ^ (Item new javaObjectKeepListener: anItem) name: (anItem invoke: #getName) asSmallString ].
-!
-METHOD GameRegistry
-setSelectedItem: anItem
-    self javaObject invoke: #setSelectedItem with: anItem javaObject.
-!
-METHOD GameRegistry
-clearSelectedItem
-    self javaObject invoke: #clearSelectedItem.
-!
-METHOD GameRegistry
 addToInventory: anItem
     anItem room: #SpecialInventoryRoom.
     self javaObject invoke: #addToInventory with: anItem javaObject.
@@ -163,5 +114,6 @@ removeItem: aJavaObject
 
 METHOD GameRegistry
 winGame
-    self javaObject invoke: #winGame.
+    "This is not exactly right, but it avoids having to reference DemoGame here"
+    File fileIn: 'demo/WinGame.st'.
 !

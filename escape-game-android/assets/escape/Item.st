@@ -47,3 +47,35 @@ clicked
                 ifTrue: [ self beSelected ]
                 ifFalse: [ self "combine items" ] ].
 !
+
+META GameRegistry
+newItemFrom: aReactor
+    | anItem anItemJO aString |
+
+    aString := (aReactor name + 'Item').
+    anItemJO := (aReactor javaObject invoke: 'asItem').
+
+"    anItem := Item new javaObjectKeepListener: anItemJO."
+    anItem := Item forJavaObject: anItemJO.
+    anItem name: aString.
+    anItem setImage: aReactor getImage.
+    anItem register.
+    ^ anItem
+!
+METHOD GameRegistry
+getSelectedItem
+	| anItem |
+	anItem := javaObject invoke: #getSelectedItem.
+	anItem printString = 'JavaObject<null>'
+	    ifTrue: [ ^ nil ]
+	    ifFalse: [ 
+	        ^ (Item new javaObjectKeepListener: anItem) name: (anItem invoke: #getName) asSmallString ].
+!
+METHOD GameRegistry
+setSelectedItem: anItem
+    self javaObject invoke: #setSelectedItem with: anItem javaObject.
+!
+METHOD GameRegistry
+clearSelectedItem
+    self javaObject invoke: #clearSelectedItem.
+!

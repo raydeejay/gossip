@@ -13,8 +13,11 @@ fileInWithNotification: aFileName
     self fileIn: aFileName'.
 !
 
+
 // Extensions to be integrated later
 EVAL File fileInWithNotification: 'gossip/Extensions.st'
+EVAL File fileInWithNotification: 'gossip/Delay.st'
+EVAL File fileInWithNotification: 'gossip/Schedule.st'
 EVAL System println: 'Finished loading class extensions'
 
 
@@ -22,7 +25,6 @@ EVAL System println: 'Finished loading class extensions'
 // methods can't be defined yet, because they reference all the other classes
 EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory currentRoom javaObject' classVariables: 'instance javaObject')
 
-EVAL File fileInWithNotification: 'gossip/utilities/UtilityLoader.st'
 
 // Now load the stuff in the required order
 EVAL File fileInWithNotification: 'gossip/JavaWrapper.st'
@@ -30,29 +32,21 @@ EVAL File fileInWithNotification: 'gossip/State.st'
 EVAL File fileInWithNotification: 'gossip/Reactor.st'
 EVAL File fileInWithNotification: 'gossip/HudElement.st'
 EVAL File fileInWithNotification: 'gossip/Inventory.st'
-EVAL File fileInWithNotification: 'gossip/Item.st' 
-EVAL File fileInWithNotification: 'gossip/Obtainable.st'
-EVAL File fileInWithNotification: 'gossip/Dropper.st'
-EVAL File fileInWithNotification: 'gossip/Door.st'
 EVAL File fileInWithNotification: 'gossip/Room.st'
 EVAL File fileInWithNotification: 'gossip/GameRegistry.st'
-EVAL File fileInWithNotification: 'gossip/SetupRooms.st'
+EVAL File fileInWithNotification: 'gossip/SetupGossip.st'
 EVAL System println: 'Finished loading'
+
 
 // Authoring tools
 EVAL File fileInWithNotification: 'gossip/GameBrowser.st'
 EVAL System println: 'Finished loading authoring tools'
 
+
 // Then start the thing up
 EVAL System println: 'Setting things up'
-
-EVAL SetupRooms setup
-//EVAL SetupRooms setupExample
-
+EVAL SetupGossip setup
 EVAL System println: 'Starting things up'
-EVAL SetupRooms start
-//EVAL SetupRooms startExample
-
-EVAL System println: 'Opening Transcript up'
+EVAL SetupGossip start
+EVAL System println: 'Opening Transcript. up'
 EVAL Transcript open
-

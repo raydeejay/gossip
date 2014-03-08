@@ -70,3 +70,10 @@ METHOD Door
 unlock
 	self close.
 !
+
+META GameRegistry
+newDoor: aString
+	| aReactor |
+	aReactor := (self javaObject invoke: 'newReactor' with: aString asJavaObject).
+	^ ((Door forJavaObject: aReactor) name: aString) register.
+!

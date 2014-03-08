@@ -20,20 +20,22 @@ contents
     contents isNil ifTrue: [ contents :=  
     'Welcome to Gossip alpha!
 
-To load the example game, open a new Workspace
-from the Tools menu and type the following:
+To execute code in the Workspace, select it and press
+the doIt button, or press Ctrl-d.
 
-    SetupRooms setupExample.
-    SetupRooms startExample.
+To load the example game execute the following:
+    File fileIn: ''demo/DemoGame.st''. 
 
-Then select the text and click the doIt button :)
+Then, once the file is loaded you can execute:
+    DemoGame setup.
+    DemoGame start.
 
-To open the Game Browser:
-
+To open the Game Browser (work in progress):
     GameBrowser open.
     
 To exit you can use the menu, or close either
-the Transcript or the game window.' ].
+the Transcript or the game window.
+' ].
     ^ contents
 !
 EVAL Transcript reset

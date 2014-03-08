@@ -9,7 +9,6 @@
 
 EVAL Inventory getAndClear
 
-EVAL SetupRooms setupExample
-
-EVAL SetupRooms startExample
+EVAL DemoGame setup
+EVAL DemoGame start
 
