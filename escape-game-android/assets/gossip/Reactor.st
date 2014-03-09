@@ -82,6 +82,10 @@ beInvisible
     self call: #beInvisible
 !
 METHOD Reactor
+visible
+    ^ visible
+!
+METHOD Reactor
 x
     ^ x
 !
