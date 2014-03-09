@@ -56,3 +56,8 @@ METHOD Room
 down
     ^ down
 !
+METHOD Room
+recreateJavaObject
+    self javaObject: (GameRegistry newJavaRoom: self name).
+    self background: self background.
+!
