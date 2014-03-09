@@ -1,35 +1,42 @@
 EVAL Class addNewClass: (Reactor subclass: 'Door' variables: 'key destination imageForOpen imageForClosed imageForLocked' classVariables: '')
 METHOD Door
 initialize
-    | openState closedState lockedState gr selectedItem itemName |
+    | openState closedState lockedState |
     super initialize.
-    gr := (System getJavaClass: 'net.raydeejay.escapegame.GameRegistry') invokeStatic: 'instance'.
 
     openState := State new.
     openState name: #open.
-    openState onClick: [ GameRegistry instance switchToRoom: destination. ].
     self addState: openState.
      
     closedState := State new.
     closedState name: #closed.
-    closedState onClick: [ self open. ].
     self addState: closedState.
      
     lockedState := State new.
     lockedState name: #locked.
-    lockedState onClick: [ 
-        selectedItem := gr invoke: #getSelectedItem.
-        selectedItem printString = 'JavaObject<null>'
-            ifTrue: [ self. "System println: 'nil'" ]
-            ifFalse: [
-                itemName := (selectedItem invoke: #getName) asSmallString.
-    	        itemName = key ifTrue: [
-    	            gr invoke: #removeItem with: selectedItem. 
-    	            self close. ].
-    	    ]. ].
     self addState: lockedState.
-    
+
+    self installListeners.    
     self switchToState: #closed.
+!
+METHOD Door
+installListeners
+    | selectedItem |
+    (self getState: #open)
+        onClick: [ GameRegistry instance switchToRoom: destination ].
+        
+    (self getState: #closed)
+        onClick: [ self open ].
+        
+    (self getState: #locked)
+        onClick: [ 
+            selectedItem := GameRegistry instance getSelectedItem.
+            selectedItem notNil
+                ifTrue: [
+                    (selectedItem name = key)
+                        ifTrue: [
+                            GameRegistry instance removeItem: selectedItem javaObject. 
+    	                    self unlock ] ] ].
 !
 METHOD Door
 key: aReactorName
