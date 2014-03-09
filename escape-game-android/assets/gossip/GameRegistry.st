@@ -73,6 +73,7 @@ switchToRoom: aString
     self javaObject invoke: #switchToRoom with: aString asJavaObject.
 !
 
+
 METHOD GameRegistry
 registerReactor: aReactor
     reactors at: aReactor name put: aReactor.
@@ -81,6 +82,7 @@ METHOD GameRegistry
 registerRoom: aRoom
     rooms at: aRoom name put: aRoom.
 !
+
 
 METHOD GameRegistry
 getReactor: aString
