@@ -126,3 +126,13 @@ winGame
     "This is not exactly right, but it avoids having to reference DemoGame here"
     File fileIn: 'demo/WinGame.st'.
 !
+
+METHOD GameRegistry
+recreateJavaObjects
+    System println: 'Recreating rooms'.
+    rooms allValues do: [ :e | e recreateJavaObject ].
+    System println: 'Recreating reactors'.
+    reactors allValues do: [ :e | e recreateJavaObject ].
+    System println: 'Recreating inventory?'.
+    "inventory do: [ :e | e recreateJavaObject ]."
+!
