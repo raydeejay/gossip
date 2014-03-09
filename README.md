@@ -5,5 +5,5 @@ It is based on Athena and the related implementations of Little Smalltalk in Jav
 
 Latest build at:
 
-http://remote.raydeejay.net:8080/job/escape-game/lastSuccessfulBuild/artifact/escape-game-desktop/bin/
+http://remote.raydeejay.net:8080/job/gossip/lastSuccessfulBuild/
 
