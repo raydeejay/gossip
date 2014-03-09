@@ -14,6 +14,7 @@ allValues
 METHOD JavaObject
 isNull
     ^ self printString = 'JavaObject<null>'
+!
 
 // This has to be fixed in the image also
 META Transcript
