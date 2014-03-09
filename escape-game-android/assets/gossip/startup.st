@@ -42,6 +42,9 @@ EVAL System println: 'Finished loading'
 EVAL File fileInWithNotification: 'gossip/GameBrowser.st'
 EVAL System println: 'Finished loading authoring tools'
 
+// Recreate javaObjects
+EVAL GameRegistry instance recreateJavaObjects
+
 
 // Then start the thing up
 EVAL System println: 'Setting things up'

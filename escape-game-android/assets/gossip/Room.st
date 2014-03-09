@@ -1,11 +1,16 @@
-EVAL Class addNewClass: (JavaWrapper subclass: 'Room' variables: 'name left right up down' classVariables: '')
+EVAL Class addNewClass: (JavaWrapper subclass: 'Room' variables: 'name left right up down background' classVariables: '')
 METHOD Room
 initialize
     super initialize.
 !
 METHOD Room
 background: aString
+    background := aString.
     self call: #setBackgroundFilename with: aString.
+!
+METHOD Room
+background
+    ^ background
 !
 METHOD Room
 name: aString
@@ -50,4 +55,9 @@ down: aString
 METHOD Room
 down
     ^ down
+!
+METHOD Room
+recreateJavaObject
+    self javaObject: (GameRegistry newJavaRoom: self name).
+    self background: self background.
 !

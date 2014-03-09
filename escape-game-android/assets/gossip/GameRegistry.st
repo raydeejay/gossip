@@ -12,7 +12,6 @@ initialize
     super initialize.
     reactors := Dictionary new.
     rooms := Dictionary new.
-    inventory := Inventory forJavaObject: (self javaObject invoke: 'getInventory').
 !
 METHOD GameRegistry
 javaObject
@@ -29,6 +28,8 @@ reactors
 !
 METHOD GameRegistry
 inventory
+    inventory isNil
+        ifTrue: [ inventory := Inventory forJavaObject: (self javaObject invoke: 'getInventory') ].
     ^ inventory
 !
 
@@ -49,6 +50,18 @@ newRoom: aString
 	aRoom := (self javaObject invoke: 'newRoom' with: aString asJavaObject).
 	^ ((Room forJavaObject: aRoom) name: aString) register.
 !
+
+
+META GameRegistry
+newJavaReactor: aString
+	^ self javaObject invoke: 'newReactor' with: aString asJavaObject
+!
+META GameRegistry
+newJavaRoom: aString
+	^ self javaObject invoke: 'newRoom' with: aString asJavaObject
+!
+
+
 META GameRegistry
 newHudElement: aString
 	| aReactor |
@@ -60,6 +73,7 @@ switchToRoom: aString
     self javaObject invoke: #switchToRoom with: aString asJavaObject.
 !
 
+
 METHOD GameRegistry
 registerReactor: aReactor
     reactors at: aReactor name put: aReactor.
@@ -69,6 +83,7 @@ registerRoom: aRoom
     rooms at: aRoom name put: aRoom.
 !
 
+
 METHOD GameRegistry
 getReactor: aString
 	^ reactors at: aString ifAbsent: [ nil ].
@@ -76,10 +91,6 @@ getReactor: aString
 METHOD GameRegistry
 getRoom: aString
 	^ rooms at: aString ifAbsent: [ nil ].
-!
-METHOD GameRegistry
-getInventory
-	^ inventory.
 !
 METHOD GameRegistry
 currentRoom
@@ -116,4 +127,14 @@ METHOD GameRegistry
 winGame
     "This is not exactly right, but it avoids having to reference DemoGame here"
     File fileIn: 'demo/WinGame.st'.
+!
+
+METHOD GameRegistry
+recreateJavaObjects
+    System println: 'Recreating rooms'.
+    rooms allValues do: [ :e | e recreateJavaObject ].
+    System println: 'Recreating reactors'.
+    reactors allValues do: [ :e | e recreateJavaObject ].
+    System println: 'Recreating inventory?'.
+    "inventory do: [ :e | e recreateJavaObject ]."
 !

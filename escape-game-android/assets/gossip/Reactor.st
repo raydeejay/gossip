@@ -82,6 +82,10 @@ beInvisible
     self call: #beInvisible
 !
 METHOD Reactor
+visible
+    ^ visible
+!
+METHOD Reactor
 x
     ^ x
 !
@@ -106,6 +110,10 @@ addState: aState
     states at: aState name put: aState.
 !
 METHOD Reactor
+getState: aString
+    ^ states at: aString ifAbsent: [ nil ]
+!
+METHOD Reactor
 switchToState: aStateName
     currentState notNil ifTrue: [ currentState exit. ].
     currentState := (states at: aStateName).
@@ -118,4 +126,16 @@ register
 METHOD Reactor
 clicked
     currentState clicked
+!
+METHOD Reactor
+recreateJavaObject
+    self javaObject: (GameRegistry newJavaReactor: name).
+    self setImage: image.
+    self setVisible: visible.
+    
+    room notNil
+        ifTrue: [ self addToRoomNamed: room ].
+    
+    ((x notNil) and: [y notNil])
+        ifTrue: [ self setX: x Y: y ].
 !
