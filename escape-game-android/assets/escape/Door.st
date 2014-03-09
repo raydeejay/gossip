@@ -70,8 +70,8 @@ close
 !
 METHOD Door
 lock
-        self switchToState: #locked.
-        self setImage: imageForLocked.
+    self switchToState: #locked.
+    self setImage: imageForLocked.
 !
 METHOD Door
 unlock
