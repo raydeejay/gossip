@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////
 
 
-EVAL Inventory getAndClear
+EVAL GameRegistry clearInventory
 
 EVAL DemoGame setup
 EVAL DemoGame start

@@ -12,7 +12,6 @@ initialize
     super initialize.
     reactors := Dictionary new.
     rooms := Dictionary new.
-    inventory := Inventory forJavaObject: (self javaObject invoke: 'getInventory').
 !
 METHOD GameRegistry
 javaObject
@@ -29,6 +28,8 @@ reactors
 !
 METHOD GameRegistry
 inventory
+    inventory isNil
+        ifTrue: [ inventory := Inventory forJavaObject: (self javaObject invoke: 'getInventory') ].
     ^ inventory
 !
 
@@ -76,10 +77,6 @@ getReactor: aString
 METHOD GameRegistry
 getRoom: aString
 	^ rooms at: aString ifAbsent: [ nil ].
-!
-METHOD GameRegistry
-getInventory
-	^ inventory.
 !
 METHOD GameRegistry
 currentRoom
