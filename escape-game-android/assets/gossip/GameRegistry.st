@@ -50,6 +50,18 @@ newRoom: aString
 	aRoom := (self javaObject invoke: 'newRoom' with: aString asJavaObject).
 	^ ((Room forJavaObject: aRoom) name: aString) register.
 !
+
+
+META GameRegistry
+newJavaReactor: aString
+	^ self javaObject invoke: 'newReactor' with: aString asJavaObject
+!
+META GameRegistry
+newJavaRoom: aString
+	^ self javaObject invoke: 'newRoom' with: aString asJavaObject
+!
+
+
 META GameRegistry
 newHudElement: aString
 	| aReactor |
