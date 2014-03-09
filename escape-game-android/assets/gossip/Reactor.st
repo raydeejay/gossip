@@ -106,6 +106,10 @@ addState: aState
     states at: aState name put: aState.
 !
 METHOD Reactor
+getState: aString
+    ^ states at: aString ifAbsent: [ nil ]
+!
+METHOD Reactor
 switchToState: aStateName
     currentState notNil ifTrue: [ currentState exit. ].
     currentState := (states at: aStateName).
