@@ -49,6 +49,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -1659,6 +1660,57 @@ public class SmallInterpreter implements Serializable {
 							}
 						});
 						menu.add(ji);
+					}
+						break;
+
+					// [PRIMITIVE 92] <SWING> New popup menu
+					case 92: {
+						SmallObject smallTitle = stack[--stackTop]; // text
+						SmallObject smallClass = stack[--stackTop]; // class
+
+						JPopupMenu menu = new JPopupMenu(smallTitle.toString());
+
+						returnedValue = new SmallJavaObject(smallClass, menu);
+					}
+						break;
+
+					// [PRIMITIVE 93] <SWING> New popup menu item
+					case 93: {
+						final SmallObject action = stack[--stackTop];
+						final SmallObject text = stack[--stackTop];
+						returnedValue = stack[--stackTop];
+
+						SmallJavaObject mo = (SmallJavaObject) returnedValue;
+						JPopupMenu menu = (JPopupMenu) mo.value;
+						JMenuItem ji = new JMenuItem(text.toString());
+
+						ji.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								new ActionThread(action, myThread).start();
+							}
+						});
+
+						menu.add(ji);
+					}
+						break;
+
+					// [PRIMITIVE 94] <SWING> Attach a popup menu to a JComponent
+					case 94: {
+						SmallJavaObject smallMenu = (SmallJavaObject) stack[--stackTop];
+						SmallJavaObject smallComponent = (SmallJavaObject) stack[--stackTop];
+
+						JPopupMenu menu = (JPopupMenu) smallMenu.value;
+						JComponent component = (JComponent) smallComponent.value;
+
+						if (component instanceof JScrollPane)
+							component = (JComponent) ((JScrollPane) component).getViewport().getView();
+
+						if (component instanceof JComponent)
+						    component.setComponentPopupMenu(menu);
+//						else
+//							// fail the primitive?
+
+						returnedValue = smallComponent;
 					}
 						break;
 

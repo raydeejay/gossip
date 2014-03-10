@@ -18,6 +18,7 @@ fileInWithNotification: aFileName
 EVAL File fileInWithNotification: 'gossip/Extensions.st'
 EVAL File fileInWithNotification: 'gossip/Delay.st'
 EVAL File fileInWithNotification: 'gossip/Schedule.st'
+EVAL File fileInWithNotification: 'gossip/PopupMenu.st'
 EVAL System println: 'Finished loading class extensions'
 
 
