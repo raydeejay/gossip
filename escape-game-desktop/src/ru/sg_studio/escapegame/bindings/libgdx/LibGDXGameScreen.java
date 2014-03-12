@@ -1,27 +1,14 @@
 package ru.sg_studio.escapegame.bindings.libgdx;
 
-import java.io.File;
-import java.io.InputStream;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptException;
-
 import ru.sg_studio.escapegame.GameScreen;
-import ru.sg_studio.escapegame.ReactorDepot;
+import ru.sg_studio.escapegame.RenderableDepot;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
+import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 import ru.sg_studio.escapegame.rendering.RenderingWindow;
-import net.raydeejay.escapegame.Background;
-import net.raydeejay.escapegame.GameRegistry;
-import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Item;
 import net.raydeejay.escapegame.Reactor;
-import net.raydeejay.escapegame.Room;
-import net.raydeejay.gossip.engine.GossipScriptFactory;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -53,7 +40,7 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 
 		getHost().runQueue();
 		
-		Reactor zombie = checkForZombifiedReactors();
+		GraphicalEntity zombie = checkForZombifiedReactors();
 		HandleZombie(zombie);
 		
 		
@@ -66,7 +53,7 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 
 	
 	
-	private void HandleZombie(Reactor zombie) {
+	private void HandleZombie(GraphicalEntity zombie) {
 		if(zombie!=null){
 			Actor actor = ((Actor)zombie.getCommonBindedProxy());
 			actor.remove();
@@ -142,9 +129,9 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 
 
 	@Override
-	protected void pushDepot(ReactorDepot depot) {
+	protected void pushDepot(RenderableDepot depot) {
 		this.stage.clear();
-		for(Reactor r : depot.getReactors()){
+		for(GraphicalEntity r : depot.getGraphical()){
 			this.stage.addActor((LibGDXReactor)r.getCommonBindedProxy());//EXPLICIT
 		}
 	}
