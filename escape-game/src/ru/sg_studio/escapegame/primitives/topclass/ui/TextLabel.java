@@ -7,7 +7,7 @@ import javax.script.ScriptException;
 import ru.sg_studio.RootObject;
 import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.IProxiedObject;
-import ru.sg_studio.escapegame.exceptions.CriticalOperationFailure;
+
 import ru.sg_studio.escapegame.primitives.topclass.Overlay;
 import ru.sg_studio.gossip.ErrorDescriptor.ErrorTypeMaster;
 import ru.sg_studio.gossip.ErrorDescriptor.ErrorTypeSlave;
