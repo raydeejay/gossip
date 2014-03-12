@@ -78,3 +78,55 @@ open
                 (Pane west: p east: nil)))  center: textPane south: nil).
     window show.
 !
+
+// fix for filingOut classes with nils (parentClass, vars...)
+
+METHOD Class
+fileDefinitionTo: aFile
+    | myParent myVars myClassVars |
+
+    parentClass isNil
+        ifTrue: [ myParent := #UndefinedObject ]
+        ifFalse: [ myParent := parentClass name ].
+
+    variables isNil
+        ifTrue: [ myVars := '' ]
+        ifFalse: [ myVars := variables asString ].
+
+    parentClass isNil
+        ifTrue: [ myClassVars := '' ]
+        ifFalse: [ myClassVars := self class variables asString ].
+
+    aFile write:
+        'EVAL Class addNewClass: ( ' ,
+        myParent , ' subclass: ' , $' asString , name , $' asString ,
+        ' variables: ' , $' asString , myVars , $' asString ,
+        ' classVariables: ' ,$' asString , myClassVars , $' asString ,
+        ')' , Char newline asString
+!
+METHOD Class
+fileMethodsTo: aFile
+    methods do: [ :m | aFile write:
+        'METHOD ' , name , Char newline asString ,
+        m text , Char newline asString ,
+        '!' , Char newline asString ].
+
+    self class methods do: [ :m | aFile write:
+        'META ' , name , Char newline asString ,
+        m text , Char newline asString ,
+        '!' , Char newline asString ].
+
+!
+METHOD Class
+fileOut
+    "File out myself"
+    |filename|
+
+    filename := name , '.st'.
+    self fileTo: (File openWrite: filename)
+!
+METHOD Class
+fileTo: aFile
+    self fileDefinitionTo: aFile.
+    self fileMethodsTo: aFile
+!
