@@ -1,9 +1,15 @@
 package ru.sg_studio.escapegame.primitives;
 
 import ru.sg_studio.RootObject;
+import ru.sg_studio.escapegame.IProxiedObject;
 
 public class GraphicalEntity extends RootObject {
 
+	
+	protected IProxiedObject bindedProxy;
+	public IProxiedObject getCommonBindedProxy(){
+		return bindedProxy;
+	}
 	
 	private boolean markedForEviction=false;
 	
