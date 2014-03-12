@@ -78,3 +78,13 @@ open
                 (Pane west: p east: nil)))  center: textPane south: nil).
     window show.
 !
+
+META Transcript
+showError: aString
+    aString = '' ifTrue:[^self.].
+    contents := aString+ '
+' + self contents.
+    pane setText: contents.
+    window repaint.
+!
+

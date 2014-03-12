@@ -36,6 +36,7 @@ EVAL File fileInWithNotification: 'gossip/Inventory.st'
 EVAL File fileInWithNotification: 'gossip/Room.st'
 
 EVAL File fileInWithNotification: 'gossip/bitfonts/TextLabel.st'
+EVAL File fileInWithNotification: 'gossip/bitfonts/ErrorHandlerHelper.st'
 
 EVAL File fileInWithNotification: 'gossip/GameRegistry.st'
 EVAL File fileInWithNotification: 'gossip/SetupGossip.st'

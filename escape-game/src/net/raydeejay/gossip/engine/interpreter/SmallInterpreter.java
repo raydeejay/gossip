@@ -66,12 +66,14 @@ import net.raydeejay.escapegame.Reactor;
 import org.jdesktop.swingx.MultiSplitLayout;
 import org.jdesktop.swingx.MultiSplitPane;
 
+import ru.sg_studio.RootObject;
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
 import ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler;
+import ru.sg_studio.sense.StringHelper;
 
 /**
  * Athena interpreter.
@@ -2189,6 +2191,25 @@ public class SmallInterpreter implements Serializable {
 						GossipVM.GetLastCreated().getLooper().addCUH(commoner);
 					}
 					break;
+					
+					
+					// [PRIMITIVE 170] Check if Errored
+					case 170:{
+						SmallJavaObject rootobject = ((SmallJavaObject)stack[--stackTop]);
+						RootObject ro = (RootObject)rootobject.value;
+						
+						returnedValue = stack[--stackTop]; // class
+						
+						String answer;
+						if(ro.isErrored()){
+							answer = ro.getErrorAsString();
+						}else{
+							 answer = StringHelper.EMPTY;
+						}
+						returnedValue = new SmallByteArray(returnedValue,answer);
+					}
+					break;
+					
 
     				// END OF PRIMITIVES
 					default:
