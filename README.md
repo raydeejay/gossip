@@ -5,5 +5,5 @@ It is based on Athena and the related implementations of Little Smalltalk in Jav
 
 Latest build at:
 
-http://remote.raydeejay.net:8080/job/gossip/lastSuccessfulBuild/
+http://ci.raydeejay.net/job/gossip/lastSuccessfulBuild/
 
