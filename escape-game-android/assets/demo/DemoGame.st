@@ -106,7 +106,7 @@ initRoom01B
 !
 META DemoGame
 initRoom02
-    | key door02 |
+    | key door02 itaros|
          
     key := (GameRegistry newObtainable: #key).
     key setImage: 'demo/sprites/key.png'.
@@ -122,6 +122,16 @@ initRoom02
     door02 key: #keyItem.
     door02 lock.
     door02 addToRoomNamed: #room02.
+    
+    
+    itaros := GameRegistry newUITextLabel: 'god'.
+    itaros addToRoomNamed: #room02.
+    itaros setFontPath: 'fonts/Klaudia_colored'.
+    itaros setX: 10.
+    itaros setY: 400.
+    itaros setText: 'Itaros was here'.
+    ErrorHandlerHelper check: itaros.
+
 !
 META DemoGame
 initRoom03
