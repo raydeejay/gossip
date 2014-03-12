@@ -3,6 +3,7 @@ package ru.sg_studio.escapegame.bindings.libgdx;
 import ru.sg_studio.escapegame.GameScreen;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.RenderableDepot;
+import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXProto;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 import ru.sg_studio.escapegame.rendering.RenderingWindow;
@@ -134,7 +135,7 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 	protected void pushDepot(RenderableDepot depot) {
 		this.stage.clear();
 		for(GraphicalEntity r : depot.getGraphical()){
-			this.stage.addActor((LibGDXReactor)r.getCommonBindedProxy());//EXPLICIT
+			this.stage.addActor((LibGDXProto)r.getCommonBindedProxy());//EXPLICIT
 		}
 	}
 

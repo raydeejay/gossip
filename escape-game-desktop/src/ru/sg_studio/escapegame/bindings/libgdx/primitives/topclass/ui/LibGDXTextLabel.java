@@ -3,12 +3,15 @@ package ru.sg_studio.escapegame.bindings.libgdx.primitives.topclass.ui;
 
 import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXProto;
 import ru.sg_studio.escapegame.primitives.topclass.ui.TextLabel;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class LibGDXTextLabel extends Actor implements IProxiedObject {
+public class LibGDXTextLabel extends LibGDXProto implements IProxiedObject {
 
 	protected TextLabel coreobject;
 
@@ -19,15 +22,13 @@ public class LibGDXTextLabel extends Actor implements IProxiedObject {
 	}
 
 	public LibGDXTextLabel(String name){
-		this();//DO NOT REMOVE! THIS IS IMPORTANT!
+		super();//DO NOT REMOVE! THIS IS IMPORTANT!
 		coreobject = new TextLabel(name, this);
 		
-		trySyncGraphicalObject();
+		
 	}
 
-	public LibGDXTextLabel(){
-		//TODO: Should be moved to LibGDXProto
-	}	
+
 	
 	
 	@Override
@@ -43,17 +44,57 @@ public class LibGDXTextLabel extends Actor implements IProxiedObject {
 		this.setVisible(getBinded().isVisible());
 	}
 
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		if(checkContextLoading()){
+			checkDatapipe();
+			
+			font.draw(batch, seq, getX(), getY());
+		}
+		//System.err.println("Something wrong");
 		
-		System.err.println("Something wrong");
+		//super.draw(batch, parentAlpha);
+	}
+	
+	CharSequence seq = "initial";
+	private void checkDatapipe() {
+		if(coreobject.isTextChanged()){
+			coreobject.setTextSynced();
+			seq = coreobject.getTextToRender();
+		}	
+	}
+
+
+	private boolean isLoaded=false;
+	
+	private boolean checkContextLoading(){
+		if(isLoaded){return true;}else{
+			return load();
+		}
+	}
+	private boolean load(){
+		if(coreobject.isReadyToBeLoadedIntoContext()){
+			System.out.println("Attempting to load...");
+			return fontload();
+		}else{
+			return false;
+		}
+	}
+
+	private boolean fontload() {
+		//TODO: IRRATIONAL!
+		//TODO: Crash protection
+		String fontpath = coreobject.getFontpath();
+		font = new BitmapFont(Gdx.files.internal(fontpath+".fnt"),
+		         Gdx.files.internal(fontpath+".png"), false);
+		if(font!=null){isLoaded=true;return true;}else{return false;}
 		
-		super.draw(batch, parentAlpha);
 	}
 	
 	
-	
-	
+	//Local context data
+	BitmapFont font;
 	
 	
 

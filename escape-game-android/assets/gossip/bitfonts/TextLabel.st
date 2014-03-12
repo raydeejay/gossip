@@ -37,4 +37,27 @@ addToRoomNamed: aString
     self call: #addToRoomNamed with: aString.
 !
 
+METHOD TextLabel
+setFontPath: aString
+	self call: #setFontPath with: aString.
+!
+
+
+METHOD TextLabel
+setText: aString
+	self call: #setText with: aString.
+!
+
+
+METHOD TextLabel
+setX: aNumber
+    x := aNumber.
+    self call: #setX with: x.
+!
+METHOD TextLabel
+setY: aNumber
+    y := aNumber.
+    self call: #setY with: y.
+!
+
 

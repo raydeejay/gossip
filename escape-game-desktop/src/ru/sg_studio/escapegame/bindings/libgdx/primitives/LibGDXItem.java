@@ -13,6 +13,7 @@ import net.raydeejay.escapegame.Reactor;
 public class LibGDXItem extends LibGDXReactor {
 
 	public LibGDXItem(Reactor reactor){
+		super(reactor.getName());
 		coreObject = new Item(reactor,this);
 		
 		trySyncGraphicalObject();
