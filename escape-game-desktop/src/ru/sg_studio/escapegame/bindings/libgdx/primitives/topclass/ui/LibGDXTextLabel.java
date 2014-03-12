@@ -3,6 +3,7 @@ package ru.sg_studio.escapegame.bindings.libgdx.primitives.topclass.ui;
 
 import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.bindings.libgdx.helpers.LibGDXFontDictionary;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXProto;
 import ru.sg_studio.escapegame.primitives.topclass.ui.TextLabel;
 
@@ -86,8 +87,7 @@ public class LibGDXTextLabel extends LibGDXProto implements IProxiedObject {
 		//TODO: IRRATIONAL!
 		//TODO: Crash protection
 		String fontpath = coreobject.getFontpath();
-		font = new BitmapFont(Gdx.files.internal(fontpath+".fnt"),
-		         Gdx.files.internal(fontpath+".png"), false);
+		font = LibGDXFontDictionary.pop(fontpath);
 		if(font!=null){isLoaded=true;return true;}else{return false;}
 		
 	}
