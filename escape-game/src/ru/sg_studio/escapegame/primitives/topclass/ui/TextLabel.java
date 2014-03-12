@@ -1,7 +1,16 @@
 package ru.sg_studio.escapegame.primitives.topclass.ui;
 
+import java.net.URL;
+
+import javax.script.ScriptException;
+
+import ru.sg_studio.RootObject;
+import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.IProxiedObject;
+import ru.sg_studio.escapegame.exceptions.CriticalOperationFailure;
 import ru.sg_studio.escapegame.primitives.topclass.Overlay;
+import ru.sg_studio.gossip.ErrorDescriptor.ErrorTypeMaster;
+import ru.sg_studio.gossip.ErrorDescriptor.ErrorTypeSlave;
 import ru.sg_studio.sense.StringHelper;
 
 public class TextLabel extends Overlay {
@@ -65,10 +74,35 @@ public class TextLabel extends Overlay {
 	}
 	
 	public TextLabel setFontPath(String filepath){
+		//Is this valid?
+		
+		filepath = validateFontFiles(filepath);
+		//Ok
 		fontpath = filepath;
 		checkState();
 		return this;//ST style...
+		
 	}
+
+
+	private String validateFontFiles(String filepath) {
+		URL orly = RootObject.class.getResource("/"+filepath+".png");
+		URL orly2 = RootObject.class.getResource("/"+filepath+".fnt");
+		if(orly==null && orly2==null){
+			setError(ErrorTypeMaster.FontNotAvailable, ErrorTypeSlave.FileNotFound);
+			filepath=StringHelper.GOSSIP_DEFFONT;//DEFAULT
+		}else
+			if(orly==null || orly2==null){
+				setError(ErrorTypeMaster.FontNotAvailable, ErrorTypeSlave.FilesArePartiallyAvailable);
+				filepath=StringHelper.GOSSIP_DEFFONT;//DEFAULT
+			}
+		
+		
+		
+		return filepath;
+	}
+	
+	
 	
 	
 	private void checkState(){
