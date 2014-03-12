@@ -1,6 +1,7 @@
 package ru.sg_studio.escapegame;
 
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
+import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.escapegame.Inventory;
@@ -11,7 +12,7 @@ import net.raydeejay.escapegame.Room;
 
 public abstract class GameScreen {
 
-	ReactorDepot depot;
+	RenderableDepot depot;
 	
 	//final EscapeGame game;
 
@@ -19,7 +20,7 @@ public abstract class GameScreen {
 
 	public GameScreen() {
 
-		depot = new ReactorDepot();
+		depot = new RenderableDepot();
 
 
 	}
@@ -41,31 +42,31 @@ public abstract class GameScreen {
 		
 		Reactor invBackground = ((Reactor)ContextedFactory.instance().getContextedItem(ObjectPrototype.Background,
 				"inventoryBackground",700, 0, GameRegistry.instance().getInventory().getBackgroundFilename()).getBinded());
-		depot.addReactor(invBackground);		
+		depot.addGraphical(invBackground);		
 		
 		Reactor background = ((Reactor) (ContextedFactory.instance().getContextedItem(ObjectPrototype.Background,
 				destination+"Background",0, 0,this.currentRoom.getBackgroundFilename()
 				)).getBinded());
-		depot.addReactor(background);		
+		depot.addGraphical(background);		
 		
 		// room
 		
 		if(this.currentRoom!=null){
-			for (Reactor r : this.currentRoom.getReactors()) {
+			for (GraphicalEntity ge : this.currentRoom.getReactors()) {
 				//this.stage.addActor(r);
-				depot.addReactor(r);
+				depot.addGraphical(ge);
 			}
 		}
 		
 //
 		// inventory
 		for (Item i : GameRegistry.instance().getInventory().getItems()) {
-			depot.addReactor(i);
+			depot.addGraphical(i);
 		}
 //
 		// navigation
-		depot.addReactor(GameRegistry.instance().getReactor("arrowLeft"));
-		depot.addReactor(GameRegistry.instance().getReactor("arrowRight"));
+		depot.addGraphical(GameRegistry.instance().getReactor("arrowLeft"));
+		depot.addGraphical(GameRegistry.instance().getReactor("arrowRight"));
 
 
 		
@@ -73,19 +74,32 @@ public abstract class GameScreen {
 	}
 
 	
-	protected Reactor checkForZombifiedReactors(){
-		Reactor zombie = depot.check();
+	protected GraphicalEntity checkForZombifiedReactors(){
+		GraphicalEntity zombie = depot.check();
 		return zombie;
 	}
 	
 	
 	public abstract void shutDown();
 	
+	@Deprecated
 	public void addReactor(Reactor aReactor) {
 		System.out.println("Adding "+aReactor.getName());
-		depot.addReactor(aReactor);
+		depot.addGraphical(aReactor);
+	}
+	public void addGraphical(GraphicalEntity ge){
+		System.out.println("Adding "+ge.getName());
+		depot.addGraphical(ge);
+		
+		//TODO: need more general way to handle rooms and DONT sync OOS
+		uploadProxyIncremental(ge);
 	}
 
+	/*
+	 * Important stuff needed to upload GFX to binding on the fly
+	 */
+	protected abstract void uploadProxyIncremental(GraphicalEntity ge);
+	
 	public void addToInventory(Item anItem) {
 		//TODO: FIXME
 		GameRegistry.instance().getInventory().addItem(anItem);
@@ -93,7 +107,7 @@ public abstract class GameScreen {
 
 	public abstract void registerInPipeline();
 
-	protected abstract void pushDepot(ReactorDepot depot);
+	protected abstract void pushDepot(RenderableDepot depot);
 	
 	private GossipVM host;
 	public void registerVMHost(GossipVM gossipVM) {

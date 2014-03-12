@@ -9,6 +9,7 @@ import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
 import ru.sg_studio.escapegame.GossipVM;
+import ru.sg_studio.escapegame.primitives.topclass.ui.TextLabel;
 
 //Total mess... Needs total rewrite...
 
@@ -74,6 +75,10 @@ public class GameRegistry {
         //return new Reactor(name);
     	System.out.println("Instancing new reactor: "+name);
     	return ((Reactor) (ContextedFactory.instance().getContextedItem(ObjectPrototype.Reactor,name)).getBinded());
+    }
+    public TextLabel newUITextLabel(String name){
+    	System.out.println("Instancing new UITextLabel: "+name);
+    	return ((TextLabel) (ContextedFactory.instance().getContextedItem(ObjectPrototype.UITextLabel,name)).getBinded());
     }
 	
     // TODO - remove this once it's not necessary

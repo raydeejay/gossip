@@ -22,7 +22,9 @@ public abstract class ContextedObjectProvider {
 		Item,
 		
 		
-		EventListener
+		EventListener, 
+		
+		UITextLabel
 	}
 	
 }

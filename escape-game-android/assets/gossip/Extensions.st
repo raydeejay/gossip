@@ -130,3 +130,12 @@ fileTo: aFile
     self fileDefinitionTo: aFile.
     self fileMethodsTo: aFile
 !
+
+META Transcript
+showError: aString
+    aString = '' ifTrue:[^self.].
+    contents := aString+ '
+' + self contents.
+    pane setText: contents.
+    window repaint.
+!

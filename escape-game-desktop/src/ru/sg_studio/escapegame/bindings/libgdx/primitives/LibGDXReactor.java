@@ -10,7 +10,7 @@ import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureUtilities;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureWrapper;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
-public class LibGDXReactor extends Actor implements IProxiedObject {
+public class LibGDXReactor extends LibGDXProto implements IProxiedObject {
 
 	protected Reactor coreObject;
 
@@ -21,15 +21,13 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 	
 	
 	public LibGDXReactor(String name){
-		this();//DO NOT REMOVE! THIS IS IMPORTANT!
+		super();//DO NOT REMOVE! THIS IS IMPORTANT!
 		coreObject = new Reactor(name, this);
 		
-		trySyncGraphicalObject();
+		
 	}
 	
-	public LibGDXReactor(){
-		//TODO: Should be moved to LibGDXProto
-	}
+
 	
 	
 	
@@ -49,6 +47,7 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 
 	@Override
 	public void trySyncGraphicalObject() {
+		//TODO: Should be moved to LibGDXProto
 		if(getBinded()==null){return;}//Bad syncable
 		this.setX(getBinded().getX());
 		this.setY(getBinded().getY());

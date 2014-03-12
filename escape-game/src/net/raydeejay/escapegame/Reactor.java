@@ -9,10 +9,7 @@ import ru.sg_studio.escapegame.rendering.Texture;
 
 public class Reactor extends GraphicalEntity {
 	
-	private IProxiedObject bindedProxy;
-	public IProxiedObject getCommonBindedProxy(){
-		return bindedProxy;
-	}
+
 	
 	private Room room;
 
