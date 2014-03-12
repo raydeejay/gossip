@@ -1,12 +1,14 @@
 package ru.sg_studio.escapegame.bindings.libgdx;
 
 import ru.sg_studio.escapegame.GameScreen;
+import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.RenderableDepot;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 import ru.sg_studio.escapegame.rendering.RenderingWindow;
 import net.raydeejay.escapegame.Item;
 import net.raydeejay.escapegame.Reactor;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -141,6 +143,13 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 	public void addToInventory(Item anItem) {
 		super.addToInventory(anItem);
 		this.stage.addActor((Actor) anItem.getCommonBindedProxy());
+	}
+
+
+	@Override
+	protected void uploadProxyIncremental(GraphicalEntity ge) {
+		IProxiedObject ipo = ge.getCommonBindedProxy();
+		this.stage.addActor((Actor)ipo);
 	}
 
 

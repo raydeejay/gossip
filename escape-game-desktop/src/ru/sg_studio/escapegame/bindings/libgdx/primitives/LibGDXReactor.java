@@ -49,6 +49,7 @@ public class LibGDXReactor extends Actor implements IProxiedObject {
 
 	@Override
 	public void trySyncGraphicalObject() {
+		//TODO: Should be moved to LibGDXProto
 		if(getBinded()==null){return;}//Bad syncable
 		this.setX(getBinded().getX());
 		this.setY(getBinded().getY());

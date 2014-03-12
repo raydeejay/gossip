@@ -8,6 +8,7 @@ import ru.sg_studio.escapegame.bindings.libgdx.events.LibGDXAttachableEventListe
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXBackground;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXItem;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
+import ru.sg_studio.escapegame.bindings.libgdx.primitives.topclass.ui.LibGDXTextLabel;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
@@ -27,6 +28,8 @@ public class LibGDXObjectProvider extends ContextedObjectProvider {
 			}else{
 				System.out.println("Not Implemented");
 			}
+		case UITextLabel:
+			return new LibGDXTextLabel((String)params[0]);
 		case EventListener:
 			return  new LibGDXAttachableEventListener((EventType)params[0], (LibGDXReactor)((Reactor)params[1]).getCommonBindedProxy(),(ActionThread)params[2]);
 		default:

@@ -52,9 +52,9 @@ public abstract class GameScreen {
 		// room
 		
 		if(this.currentRoom!=null){
-			for (Reactor r : this.currentRoom.getReactors()) {
+			for (GraphicalEntity ge : this.currentRoom.getReactors()) {
 				//this.stage.addActor(r);
-				depot.addGraphical(r);
+				depot.addGraphical(ge);
 			}
 		}
 		
@@ -82,11 +82,24 @@ public abstract class GameScreen {
 	
 	public abstract void shutDown();
 	
+	@Deprecated
 	public void addReactor(Reactor aReactor) {
 		System.out.println("Adding "+aReactor.getName());
 		depot.addGraphical(aReactor);
 	}
+	public void addGraphical(GraphicalEntity ge){
+		System.out.println("Adding "+ge.getName());
+		depot.addGraphical(ge);
+		
+		//TODO: need more general way to handle rooms and DONT sync OOS
+		uploadProxyIncremental(ge);
+	}
 
+	/*
+	 * Important stuff needed to upload GFX to binding on the fly
+	 */
+	protected abstract void uploadProxyIncremental(GraphicalEntity ge);
+	
 	public void addToInventory(Item anItem) {
 		//TODO: FIXME
 		GameRegistry.instance().getInventory().addItem(anItem);

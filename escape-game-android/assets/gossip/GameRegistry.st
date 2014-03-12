@@ -53,6 +53,18 @@ newRoom: aString
 
 
 META GameRegistry
+newUITextLabel: aString
+	| aTextLabel |
+	aTextLabel := (self javaObject invoke: 'newUITextLabel' with: aString asJavaObject).
+	^ ((TextLabel forJavaObject: aTextLabel) name: aString) register.
+!
+META GameRegistry
+newJavaUITextLabel: aString
+	^ self javaObject invoke: 'newUITextLabel' with: aString asJavaObject
+!
+
+
+META GameRegistry
 newJavaReactor: aString
 	^ self javaObject invoke: 'newReactor' with: aString asJavaObject
 !
@@ -74,6 +86,11 @@ switchToRoom: aString
 !
 
 
+METHOD GameRegistry
+registerUITextLabel: aTextLabel
+    "ah... It does nothing apparently. We need some kind of GraphicalEntity registry for reactors and non-reactors"
+    ^self.
+!
 METHOD GameRegistry
 registerReactor: aReactor
     reactors at: aReactor name put: aReactor.
