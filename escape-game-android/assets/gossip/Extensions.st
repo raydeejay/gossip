@@ -170,3 +170,29 @@ addDefaultMenu
 
     window addMenu: m
 !
+
+METHOD File
+fileIn
+    | line cls |
+
+    [ (line := self readLine) notNil ] whileTrue: [
+        ((line from: 1 to: 4) = 'EVAL')
+            ifTrue: [ (line from: 6 to: line size) doIt ].
+
+        ((line from: 1 to: 7) = 'COMMENT') ifTrue: [
+            line := line from: 9 to: line size.
+            cls := Class at: line ifAbsent: [ self error: 'unknown name in fileIn ' , line ].
+            Documentation for: cls setTo: (self readTo: '!') ].
+
+        ((line from: 1 to: 6) = 'METHOD') ifTrue: [
+            line := line from: 8 to: line size.
+            cls := Class at: line ifAbsent: [ self error: 'unknown name in fileIn ' , line ].
+            cls compileMethod: (self readTo: '!') ].
+
+        ((line from: 1 to: 4) = 'META') ifTrue: [
+            line := line from: 6 to: line size.
+            cls := Class at: line ifAbsent: [ self error: 'unknown name in fileIn ' , line ].
+            cls class compileMethod: (self readTo: '!') ] ].
+
+    ^ 'File In Successful'
+!
