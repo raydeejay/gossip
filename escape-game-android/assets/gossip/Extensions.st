@@ -139,3 +139,34 @@ showError: aString
     pane setText: contents.
     window repaint.
 !
+
+METHOD ClassBrowser2
+addDefaultMenu
+    | m r |
+
+    m := Menu new: 'Class'.
+    m on: 'New subclass of...' do: [
+        Class addNewClass: (Class classes at: classPane getIndex) subclass.
+        self resetClassPane ].
+
+    m on: 'Rename...' do: [
+        r := Window getString: 'New name for ' , (Class classes at: classPane getIndex) name.
+        (Class classes at: classPane getIndex) name: r.
+        self resetClassPane ].
+
+    m on: 'Delete' do: [
+        (Window question: 'Delete ' ,  (Class classes at: classPane getIndex) name , '?')
+            ifTrue: [
+                Class removeClass: (Class classes at: classPane getIndex).
+                self resetClassPane ] ].
+    window addMenu: m.
+
+    m := Menu new: 'Method'.
+    m on: 'Delete' do: [
+        (Class classes at: classPane getIndex) removeMethod:
+            ((Class classes at: classPane getIndex) methods at:
+                methodPane getIndex) name.
+        self methodListFor: classPane getIndex meta: meta list: methodPane ].
+
+    window addMenu: m
+!
