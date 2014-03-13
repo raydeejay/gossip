@@ -2,7 +2,6 @@ package ru.sg_studio.escapegame;
 
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
-import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Item;

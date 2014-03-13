@@ -1,7 +1,6 @@
 package ru.sg_studio.escapegame;
 
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
-import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
 public class ContextedFactory {
 

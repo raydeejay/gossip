@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
-import ru.sg_studio.escapegame.primitives.topclass.Overlay;
 
 
 public class Room {

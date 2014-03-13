@@ -1,16 +1,13 @@
 package ru.sg_studio.escapegame.bindings.libgdx.primitives.topclass.ui;
 
 
-import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.bindings.libgdx.helpers.LibGDXFontDictionary;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXProto;
 import ru.sg_studio.escapegame.primitives.topclass.ui.TextLabel;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LibGDXTextLabel extends LibGDXProto implements IProxiedObject {
 

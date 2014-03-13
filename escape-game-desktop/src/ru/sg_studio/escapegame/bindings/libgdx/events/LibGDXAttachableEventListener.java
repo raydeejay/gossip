@@ -7,8 +7,6 @@ import com.badlogic.gdx.utils.Array;
 
 import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.gossip.engine.interpreter.SmallInterpreter.ActionThread;
-import ru.sg_studio.RootObject;
-import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler;
 
