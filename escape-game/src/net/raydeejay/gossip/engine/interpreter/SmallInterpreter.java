@@ -461,7 +461,11 @@ public class SmallInterpreter implements Serializable {
 		SmallObject[] selectorCache = new SmallObject[197];
 		SmallObject[] classCache = new SmallObject[197];
 		SmallObject[] methodCache = new SmallObject[197];
+		
+		//They are convenience methods and don't need to be directly used in all cases
+		@SuppressWarnings("unused")
 		int lookup = 0;
+		@SuppressWarnings("unused")
 		int cached = 0;
 
 		SmallObject[] contextData = context.data;
@@ -475,6 +479,8 @@ public class SmallInterpreter implements Serializable {
 			SmallObject[] stack = contextData[3].data;
 			int stackTop = ((SmallInt) contextData[5]).value;
 			SmallObject returnedValue = null;
+			//This SmallObject is temporar and doesn't need to be used in all cases
+			@SuppressWarnings("unused")
 			SmallObject temp;
 			SmallObject[] tempa;
 
