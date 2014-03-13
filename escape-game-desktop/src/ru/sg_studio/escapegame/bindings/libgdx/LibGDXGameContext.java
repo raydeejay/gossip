@@ -3,8 +3,6 @@ package ru.sg_studio.escapegame.bindings.libgdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-
 import ru.sg_studio.escapegame.CommonResourceProvider;
 import ru.sg_studio.escapegame.GameScreen;
 import ru.sg_studio.escapegame.rendering.IGameRenderingContext;
@@ -14,7 +12,7 @@ import ru.sg_studio.escapegame.rendering.RenderingWindow;
 
 public final class LibGDXGameContext extends Game implements IGameRenderingContext{
 
-	private BitmapFont font;
+
 
 	public static void registerScreenInMainContext(GameScreen screen){
 		mainContext.setScreen((Screen) screen);
@@ -39,8 +37,6 @@ public final class LibGDXGameContext extends Game implements IGameRenderingConte
 		// we want to load non-power-of-two textures easily
 		Texture.setEnforcePotImages(false); 
 
-		// Use LibGDX's default Arial font.
-		font = new BitmapFont();
 	}
 
 	@Override
