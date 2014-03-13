@@ -8,8 +8,6 @@ import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 import ru.sg_studio.escapegame.rendering.RenderingWindow;
 import net.raydeejay.escapegame.Item;
-import net.raydeejay.escapegame.Reactor;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -124,10 +122,10 @@ public class LibGDXGameScreen extends GameScreen implements Screen {
 
 
 	@Override
-	public void addReactor(Reactor aReactor) {
-		super.addReactor(aReactor);
-		System.out.println("Attempting to add libGDX actor: "+aReactor.getName());
-		this.stage.addActor((LibGDXReactor)aReactor.getCommonBindedProxy());//EXPLICIT
+	public void addGraphical(GraphicalEntity aGraphical) {
+		super.addGraphical(aGraphical);
+		System.out.println("Attempting to add libGDX actor: "+aGraphical.getName());
+		this.stage.addActor((LibGDXReactor)aGraphical.getCommonBindedProxy());//EXPLICIT
 	}
 
 

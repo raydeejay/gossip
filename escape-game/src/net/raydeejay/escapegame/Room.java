@@ -52,20 +52,9 @@ public class Room {
 		return this;//ST everywhere...
 	}
 	
-	@Deprecated
-	public Room addReactor(Reactor aReactor) {
-		aReactor.setRoom(this);
-		this.graphicals.add(aReactor);
-		GameRegistry.instance().getScreen().addReactor(aReactor);
-		return this;
-	}
+
 	
 
-	@Deprecated
-	public Room addReactorNamed(String aName) {
-		Reactor aReactor = GameRegistry.instance().getReactor(aName);
-		return this.addReactor(aReactor);
-	}
 
 	public Room addToInventory(Item anItem) {
 		GameRegistry.instance().getScreen().addToInventory(anItem);

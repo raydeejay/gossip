@@ -81,11 +81,6 @@ public abstract class GameScreen {
 	
 	public abstract void shutDown();
 	
-	@Deprecated
-	public void addReactor(Reactor aReactor) {
-		System.out.println("Adding "+aReactor.getName());
-		depot.addGraphical(aReactor);
-	}
 	public void addGraphical(GraphicalEntity ge){
 		System.out.println("Adding "+ge.getName());
 		depot.addGraphical(ge);
