@@ -5,9 +5,6 @@ import ru.sg_studio.escapegame.bindings.libgdx.LibGDXGameContext;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXObjectProvider;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXWindow;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-
 public class Main {
 	public static void main(String[] args) {
 

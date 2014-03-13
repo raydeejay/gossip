@@ -39,7 +39,9 @@ public class LibGDXWindow extends RenderingWindow {
 	}
 	
 	private LwjglApplicationConfiguration cfg;
+	@SuppressWarnings("unused")
 	private LwjglApplication app;
+	//Unused but okay. This is for sake of binding example.
 	
 	private void bind(){
 		cfg= new LwjglApplicationConfiguration();

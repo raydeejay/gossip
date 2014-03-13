@@ -10,7 +10,6 @@ import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXItem;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.LibGDXReactor;
 import ru.sg_studio.escapegame.bindings.libgdx.primitives.topclass.ui.LibGDXTextLabel;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
-import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
 public class LibGDXObjectProvider extends ContextedObjectProvider {
 

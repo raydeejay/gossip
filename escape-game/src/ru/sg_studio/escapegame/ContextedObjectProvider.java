@@ -1,7 +1,6 @@
 package ru.sg_studio.escapegame;
 
 import ru.sg_studio.escapegame.exceptions.CriticalNonDefinedContextedEntityException;
-import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
 public abstract class ContextedObjectProvider {
 

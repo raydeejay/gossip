@@ -10,7 +10,6 @@ import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 
 import ru.sg_studio.escapegame.eventSystem.VMExecCycler;
-import ru.sg_studio.reports.Reporter;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.gossip.engine.GossipScriptFactory;
 

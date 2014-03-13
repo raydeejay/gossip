@@ -461,7 +461,11 @@ public class SmallInterpreter implements Serializable {
 		SmallObject[] selectorCache = new SmallObject[197];
 		SmallObject[] classCache = new SmallObject[197];
 		SmallObject[] methodCache = new SmallObject[197];
+		
+		//They are convenience methods and don't need to be directly used in all cases
+		@SuppressWarnings("unused")
 		int lookup = 0;
+		@SuppressWarnings("unused")
 		int cached = 0;
 
 		SmallObject[] contextData = context.data;
@@ -475,6 +479,8 @@ public class SmallInterpreter implements Serializable {
 			SmallObject[] stack = contextData[3].data;
 			int stackTop = ((SmallInt) contextData[5]).value;
 			SmallObject returnedValue = null;
+			//This SmallObject is temporar and doesn't need to be used in all cases
+			@SuppressWarnings("unused")
 			SmallObject temp;
 			SmallObject[] tempa;
 
@@ -1393,7 +1399,7 @@ public class SmallInterpreter implements Serializable {
 						final SmallObject action = stack[--stackTop];
 						SmallObject data = stack[--stackTop];
 						returnedValue = stack[--stackTop];
-						final JList jl = new JList(data.data);
+						final JList<SmallObject> jl = new JList<SmallObject>(data.data);
 						jl.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 						returnedValue = new SmallJavaObject(returnedValue,
 								new JScrollPane(jl));
@@ -1518,10 +1524,13 @@ public class SmallInterpreter implements Serializable {
 						Object jl = jo.value;
 						if (jl instanceof JScrollPane)
 							jl = ((JScrollPane) jl).getViewport().getView();
-						if (jl instanceof JList)
-							returnedValue = newInteger(((JList) jl)
+						if (jl instanceof JList){
+							@SuppressWarnings("unchecked")
+							//We are certain that it is JList and with SmallObjects							
+							JList<SmallObject> jList = (JList<SmallObject>) jl;
+							returnedValue = newInteger(jList
 									.getSelectedIndex() + 1);
-						else if (jl instanceof JScrollBar)
+						}else if (jl instanceof JScrollBar)
 							returnedValue = newInteger(((JScrollBar) jl)
 									.getValue());
 						else
@@ -1538,8 +1547,11 @@ public class SmallInterpreter implements Serializable {
 						if (jl instanceof JScrollPane)
 							jl = ((JScrollPane) jl).getViewport().getView();
 						if (jl instanceof JList) {
-							((JList) jl).setListData(data.data);
-							((JList) jl).repaint();
+							@SuppressWarnings("unchecked")
+							//We are certain that it is JList and with SmallObjects
+							JList<SmallObject> jList = (JList<SmallObject>) jl;
+							jList.setListData(data.data);
+							jList.repaint();
 						}
 					}
 						break;
@@ -1977,7 +1989,7 @@ public class SmallInterpreter implements Serializable {
 
 						Object javaObject = receiver.value;
 						try {
-							Class cls = javaObject.getClass();
+							Class<? extends Object> cls = javaObject.getClass();
 							// Method mtd = cls.getMethod(methodName);
 							Method mtd = null;
 							Method[] methods = cls.getMethods();
@@ -2048,8 +2060,8 @@ public class SmallInterpreter implements Serializable {
 											+ receiver.value
 											+ " is not a class");
 						}
-
-						Class javaClass = (Class) receiver.value;
+						
+						Class<? extends Object> javaClass =  (Class<?>) receiver.value;
 						try {
 							Method mtd = javaClass.getMethod(methodName);
 							Object result = mtd.invoke(null); // Not need of

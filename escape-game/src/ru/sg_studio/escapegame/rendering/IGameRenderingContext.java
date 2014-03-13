@@ -1,7 +1,5 @@
 package ru.sg_studio.escapegame.rendering;
 
-import ru.sg_studio.escapegame.GameScreen;
-
 public interface IGameRenderingContext {
 
 

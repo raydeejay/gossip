@@ -3,8 +3,6 @@ package net.raydeejay.escapegame;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.script.ScriptException;
-
 import ru.sg_studio.escapegame.ContextedFactory;
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
