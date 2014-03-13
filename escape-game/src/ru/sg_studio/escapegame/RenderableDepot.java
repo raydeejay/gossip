@@ -3,7 +3,6 @@ package ru.sg_studio.escapegame;
 import java.util.ArrayList;
 
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
-import net.raydeejay.escapegame.Reactor;
 
 public class RenderableDepot {
 

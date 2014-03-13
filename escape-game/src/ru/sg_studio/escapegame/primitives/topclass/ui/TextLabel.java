@@ -2,10 +2,7 @@ package ru.sg_studio.escapegame.primitives.topclass.ui;
 
 import java.net.URL;
 
-import javax.script.ScriptException;
-
 import ru.sg_studio.RootObject;
-import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.IProxiedObject;
 
 import ru.sg_studio.escapegame.primitives.topclass.Overlay;

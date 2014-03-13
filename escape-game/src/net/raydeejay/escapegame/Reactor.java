@@ -76,7 +76,7 @@ public class Reactor extends GraphicalEntity {
 	}
 	
 	public Reactor addToRoom(Room aRoom) {
-		aRoom.addReactor(this);
+		aRoom.addGraphicalEntity(this);
 		return this;
 	}
 	

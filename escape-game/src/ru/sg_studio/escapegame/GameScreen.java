@@ -2,7 +2,6 @@ package ru.sg_studio.escapegame;
 
 import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
-import net.raydeejay.escapegame.Background;
 import net.raydeejay.escapegame.GameRegistry;
 import net.raydeejay.escapegame.Inventory;
 import net.raydeejay.escapegame.Item;
@@ -82,11 +81,6 @@ public abstract class GameScreen {
 	
 	public abstract void shutDown();
 	
-	@Deprecated
-	public void addReactor(Reactor aReactor) {
-		System.out.println("Adding "+aReactor.getName());
-		depot.addGraphical(aReactor);
-	}
 	public void addGraphical(GraphicalEntity ge){
 		System.out.println("Adding "+ge.getName());
 		depot.addGraphical(ge);

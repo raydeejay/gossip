@@ -10,7 +10,7 @@ package net.raydeejay.gossip.engine.interpreter;
  * @author Timothy A. Budd (<a href="http://web.engr.oregonstate.edu/~budd">web.engr.oregonstate.edu/~budd</a>)
  */
 public class Sema {
-	private static final long serialVersionUID = 7526472295622776145L; 
+	//private static final long serialVersionUID = 7526472295622776145L; 
 	public synchronized SmallObject get() { 
 		if (! hasBeenSet) 
 			try {

@@ -1,6 +1,5 @@
 package ru.sg_studio.escapegame.bindings.libgdx.helpers;
 
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 import com.badlogic.gdx.Gdx;

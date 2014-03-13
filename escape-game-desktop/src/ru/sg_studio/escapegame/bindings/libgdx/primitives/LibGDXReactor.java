@@ -2,8 +2,6 @@ package ru.sg_studio.escapegame.bindings.libgdx.primitives;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureUtilities;

@@ -7,7 +7,6 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -221,7 +220,7 @@ System.out.println(context.getBindings(ScriptContext.GLOBAL_SCOPE  ));
             try {
                 int v = r.readInt();
                 if (v != SmallInterpreter.imageFormatVersion) {
-                    JOptionPane.showMessageDialog(new JFrame("X"), "Incorrect Image Version:\nI was expecting " + Integer.toString(theInterpreter.imageFormatVersion) + " but got " + Integer.toString(v) + "  \n");
+                    JOptionPane.showMessageDialog(new JFrame("X"), "Incorrect Image Version:\nI was expecting " + Integer.toString(SmallInterpreter.imageFormatVersion) + " but got " + Integer.toString(v) + "  \n");
                 }
                 while (true) {
                     int si = r.readInt();
@@ -346,6 +345,8 @@ System.out.println(context.getBindings(ScriptContext.GLOBAL_SCOPE  ));
 	}
 
 
+	@SuppressWarnings("unused")
+	//It is okay, needed for readability
 	private boolean done = false;
 
 	/**

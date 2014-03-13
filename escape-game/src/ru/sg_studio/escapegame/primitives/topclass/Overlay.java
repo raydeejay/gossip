@@ -1,7 +1,6 @@
 package ru.sg_studio.escapegame.primitives.topclass;
 
 import net.raydeejay.escapegame.GameRegistry;
-import net.raydeejay.escapegame.Reactor;
 import net.raydeejay.escapegame.Room;
 import ru.sg_studio.escapegame.primitives.GraphicalEntity;
 
