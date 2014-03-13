@@ -1399,7 +1399,7 @@ public class SmallInterpreter implements Serializable {
 						final SmallObject action = stack[--stackTop];
 						SmallObject data = stack[--stackTop];
 						returnedValue = stack[--stackTop];
-						final JList jl = new JList(data.data);
+						final JList<SmallObject> jl = new JList<SmallObject>(data.data);
 						jl.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 						returnedValue = new SmallJavaObject(returnedValue,
 								new JScrollPane(jl));
@@ -1524,10 +1524,13 @@ public class SmallInterpreter implements Serializable {
 						Object jl = jo.value;
 						if (jl instanceof JScrollPane)
 							jl = ((JScrollPane) jl).getViewport().getView();
-						if (jl instanceof JList)
-							returnedValue = newInteger(((JList) jl)
+						if (jl instanceof JList){
+							@SuppressWarnings("unchecked")
+							//We are certain that it is JList and with SmallObjects							
+							JList<SmallObject> jList = (JList<SmallObject>) jl;
+							returnedValue = newInteger(jList
 									.getSelectedIndex() + 1);
-						else if (jl instanceof JScrollBar)
+						}else if (jl instanceof JScrollBar)
 							returnedValue = newInteger(((JScrollBar) jl)
 									.getValue());
 						else
@@ -1544,8 +1547,11 @@ public class SmallInterpreter implements Serializable {
 						if (jl instanceof JScrollPane)
 							jl = ((JScrollPane) jl).getViewport().getView();
 						if (jl instanceof JList) {
-							((JList) jl).setListData(data.data);
-							((JList) jl).repaint();
+							@SuppressWarnings("unchecked")
+							//We are certain that it is JList and with SmallObjects
+							JList<SmallObject> jList = (JList<SmallObject>) jl;
+							jList.setListData(data.data);
+							jList.repaint();
 						}
 					}
 						break;
