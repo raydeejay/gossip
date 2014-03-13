@@ -1977,7 +1977,7 @@ public class SmallInterpreter implements Serializable {
 
 						Object javaObject = receiver.value;
 						try {
-							Class cls = javaObject.getClass();
+							Class<? extends Object> cls = javaObject.getClass();
 							// Method mtd = cls.getMethod(methodName);
 							Method mtd = null;
 							Method[] methods = cls.getMethods();
@@ -2048,8 +2048,8 @@ public class SmallInterpreter implements Serializable {
 											+ receiver.value
 											+ " is not a class");
 						}
-
-						Class javaClass = (Class) receiver.value;
+						
+						Class<? extends Object> javaClass =  (Class<?>) receiver.value;
 						try {
 							Method mtd = javaClass.getMethod(methodName);
 							Object result = mtd.invoke(null); // Not need of
