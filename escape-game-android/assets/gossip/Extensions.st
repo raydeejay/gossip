@@ -128,7 +128,16 @@ fileOut
 METHOD Class
 fileTo: aFile
     self fileDefinitionTo: aFile.
+    self fileCommentTo: aFile.
     self fileMethodsTo: aFile
+!
+METHOD Class
+fileCommentTo: aFile
+    (Documentation for: self) ~= '' ifTrue: [
+        aFile write:
+            'COMMENT ' , self name , Char newline asString ,
+            (Documentation for: self) , Char newline asString ,
+            '!' , Char newline asString ]
 !
 
 META Transcript
