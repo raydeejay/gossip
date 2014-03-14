@@ -207,11 +207,11 @@ fileIn
 !
 
 METHOD Object
-isblock
+isBlock
     ^ false
 !
 
 METHOD Block
-isblock
+isBlock
     ^ true
 !
