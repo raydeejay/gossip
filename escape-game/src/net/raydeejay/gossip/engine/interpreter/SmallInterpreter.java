@@ -73,6 +73,7 @@ import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.SmallInterpreterInterfacer;
 import ru.sg_studio.escapegame.eventSystem.CommonEventHandler.EventType;
 import ru.sg_studio.escapegame.eventSystem.CycleUpdateHandler;
+import ru.sg_studio.gossip.engine.SmallInterpreterHelper;
 import ru.sg_studio.sense.StringHelper;
 
 /**
@@ -1970,7 +1971,7 @@ public class SmallInterpreter implements Serializable {
 							returnedValue = new SmallJavaObject(cls,
 									cl.loadClass(javaClassName));
 						} catch (Exception e) {
-							System.err.println(e);
+							SmallInterpreterHelper.report(e);
 							returnedValue = this.createGossipString(e
 									.toString());
 						}
@@ -2031,7 +2032,7 @@ public class SmallInterpreter implements Serializable {
 							returnedValue = new SmallJavaObject(
 									receiver.objClass, result);
 						} catch (Exception e) {
-							System.err.println(e);
+							SmallInterpreterHelper.report(e);
 							returnedValue = this.createGossipString(e
 									.toString());
 						}
@@ -2072,7 +2073,7 @@ public class SmallInterpreter implements Serializable {
 							returnedValue = new SmallJavaObject(
 									receiver.objClass, result);
 						} catch (Exception e) {
-							System.err.println(e);
+							SmallInterpreterHelper.report(e);
 							returnedValue = this.createGossipString(e
 									.toString());
 						}
