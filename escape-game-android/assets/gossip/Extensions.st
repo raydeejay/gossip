@@ -205,3 +205,13 @@ fileIn
 
     ^ 'File In Successful'
 !
+
+METHOD Object
+isblock
+    ^ false
+!
+
+METHOD Block
+isblock
+    ^ true
+!
