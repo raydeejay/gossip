@@ -35,7 +35,7 @@ convertWhiteSpaces: string
 
 METHOD Gossipdoc
 fileNameForClass: aClass
-	^ fileName := aClass name , '.html'
+    ^ aClass name , '.html'
 !
 
 METHOD Gossipdoc
