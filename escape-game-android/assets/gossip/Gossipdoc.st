@@ -58,36 +58,44 @@ fileNameForMethod: aMethod inClass: aClass
 
 METHOD Gossipdoc
 createForClass: aClass
-    | file mFile b methodFilename mm |
+    | m mm writeMethodBlock file methodFile |
 
-    file := File openWrite: folderName , '/' , aClass name , '.html'.
-    file write:
-        '<html><body><h1>Class ' , aClass name , '</h1><br><a href="Gossip.html">back</a><br>'.
+    m := HTMLMarkup new.
+    mm := HTMLMarkup new.
 
-    b := [ :meth :class | 
-        methodFilename := meth name printString.
-        mm := (meth name = '/')
-            ifTrue: [ 'div' ]
-            ifFalse: [ methodFilename ].
-        methodFilename := aClass name , '_' ,  mm , '.html'.
+    writeMethodBlock := [ :method :class |
+        m link: method name printString to: (self fileNameForMethod: method inClass: class).
+        m newline.
 
-        file write: '<a href="' , methodFilename , '">' , meth name printString , '</a><br>'.
-        
-        mFile := File openWrite: folderName, '/', methodFilename.
-        mFile write:
-            '<html><body><h1>Class ' , aClass name , '</h1><br>' ,
-            '<a href="' , aClass name , '.html' , '">back</a><br>'.
-        mFile write:
-            '<pre>' , (self convertWhiteSpaces: meth text) , '</pre></html>' ].
-        
-    file write: '<h2>class methods</h2><br>'.    
-    aClass class methods do: [ :m | b value: m value: aClass class ].
-    
-    file write: '<h2>instance methods</h2><br>'.    
-    aClass methods do: [ :m | b value: m value: aClass ].
-    
-    file write: '</body></html>'.
+        mm initialize. "reuse the markup generator"
+
+        mm heading: 'Class ' , aClass name level: 1.
+        mm newline.
+        mm link: '[back]' to: aClass name , '.html'.
+        mm newline.
+
+        mm code: (self convertWhiteSpaces: method text).
+
+        methodFile := File openWrite: folderName, '/', (self fileNameForMethod: method inClass: class).
+        methodFile write: mm render ].
+
+    m heading: 'Class ' , aClass name level: 1.
+    m newline.
+    m link: '[back]' to: 'index.html'
+    m newline.
+
+    m heading: 'class methods' level: 2.
+    m newline.
+    aClass class methods do: [ :each | writeMethodBlock value: each value: aClass class ].
+
+    m heading: 'instance methods' level: 2.
+    m newline.
+    aClass methods do: [ :each | writeMethodBlock value: each value: aClass ].
+
+    file := File openWrite: folderName , '/' , (self fileNameForClass: aClass).
+    file write: m render.
 !
+
 METHOD Gossipdoc
 createInFolderNamed: aFolderName
     "Write the whole system's documentation in HTML format"
