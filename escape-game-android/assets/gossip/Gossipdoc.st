@@ -101,8 +101,8 @@ createInFolderNamed: aFolderName
         m link: each name to: each name, '.html'.
         m newline ].
 
-    mFile := File openWrite: folderName , '/' , 'index.html'.
-    mFile write: m render.
+    indexFile := File openWrite: folderName , '/' , 'index.html'.
+    indexFile write: m render.
 
     Class classes do: [ :each | self createForClass: each ]
 !
