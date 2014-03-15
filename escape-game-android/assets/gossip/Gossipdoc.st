@@ -13,6 +13,12 @@ I depend on HTMLMarkup and MarkdownMarkup.
 !
 
 METHOD Gossipdoc
+initialize
+    super initialize.
+    folderName := 'doc'
+!
+
+METHOD Gossipdoc
 convertWhiteSpaces: string
     | ans |
     
@@ -60,21 +66,19 @@ createForClass: aClass
 !
 METHOD Gossipdoc
 createInFolderNamed: aFolderName
-    | mFile |
-    
+    "Write the whole system's documentation in HTML format"
+    | m indexFile |
+
     folderName := aFolderName.
-    mFile := File openWrite: folderName, '/', 'Gossip.html'.
-    mFile write: '<html>'.
-    mFile write: '<body>'.
-    mFile write: '<h1>The Gossip Smalltalk System</h1>'.
-    Class classes do: [:each| 
-        self createForClass: each.
-        mFile write: '<a href="', each name, '.html">', each name, '</a><br>'].
-    mFile write: '</body>'.
-    mFile write: '</html>'
-!
-METHOD Gossipdoc
-initialize
-    super initialize.
-    folderName := 'doc'
+    m := HTMLMarkup new.
+
+    m heading: 'The Gossip Smalltalk System' level: 1.
+    Class classes do: [ :each |
+        m link: each name to: each name, '.html'.
+        m newline ].
+
+    mFile := File openWrite: folderName , '/' , 'index.html'.
+    mFile write: m render.
+
+    Class classes do: [ :each | self createForClass: each ]
 !
