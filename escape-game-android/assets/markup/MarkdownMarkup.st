@@ -68,9 +68,9 @@ code: aString
 !
 
 METHOD MarkdownMarkup
-blockquote: aString
-    contents := contents , ((aString break: Char newline) collect: [ :line |
-        '> ' , line , Char newline asString ])
+blockQuote: aString
+    (aString break: Char newline asString) do: [ :line |
+        contents := contents , '> ' , line , Char newline asString ]
 !
 
 METHOD MarkdownMarkup
