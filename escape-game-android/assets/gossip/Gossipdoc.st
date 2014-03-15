@@ -1,11 +1,3 @@
-////////////////////////////////////////////////////////////
-// Gossipdoc generator. Produced results is a list of .html files
-// You need to have a folder Gossipdoc
-// http://bergel.eu/Athena/scripts/
-// http://bergel.eu/Athena/Athenadoc/Athena.html
-//
-// Athenadoc author: Alexandre Bergel (alexandre@bergel.eu)
-////////////////////////////////////////////////////////////
 EVAL Class addNewClass: (Object subclass: 'Gossipdoc' variables: 'folderName' classVariables: '')
 
 COMMENT Gossipdoc
@@ -15,7 +7,7 @@ I can create a set of HTML files in a directory, one for each
 class and method in the system, in a nice format and interlinked
 for viewing in a web browser.
 
-I can also export in Markdown format, for easy inclusion in the wiki.
+The default directory is 'doc/' and it must exist.
 
 I depend on HTMLMarkup and MarkdownMarkup.
 !
