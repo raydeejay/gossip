@@ -50,7 +50,7 @@ fileNameForMethod: aMethod inClass: aClass
     methodName do: [ :c |
         fileName := fileName , ( c = $:
             ifTrue: [ '_' ]
-            ifFalse: [ c asString ] ] ).
+            ifFalse: [ c asString ] ) ].
     fileName := fileName , '.html'.
 
     ^ fileName
