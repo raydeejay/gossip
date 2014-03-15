@@ -81,8 +81,7 @@ createForClass: aClass
 
     writeMethodBlock := [ :method :class |
         m link: method name printString to: (self fileNameForMethod: method inClass: class).
-        m newline.
-        self createForMethod: method inClass: class ].
+        m newline ].
 
     m heading: 'Class ' , aClass name level: 1.
     m newline.
@@ -91,11 +90,15 @@ createForClass: aClass
 
     m heading: 'class methods' level: 2.
     m newline.
-    aClass class methods do: [ :each | writeMethodBlock value: each value: aClass class ].
+    aClass class methods do: [ :method |
+        writeMethodBlock value: method value: aClass class.
+        self createForMethod: method inClass: aClass class ].
 
     m heading: 'instance methods' level: 2.
     m newline.
-    aClass methods do: [ :each | writeMethodBlock value: each value: aClass ].
+    aClass methods do: [ :method |
+        writeMethodBlock value: method value: aClass.
+        self createForMethod: method inClass: aClass ].
 
     file := File openWrite: folderName , '/' , (self fileNameForClass: aClass).
     file write: m render.
