@@ -42,15 +42,15 @@ METHOD Gossipdoc
 fileNameForMethod: aMethod inClass: aClass
     | methodName fileName |
 
-	methodName := (aMethod name = '/')
-	    ifTrue: [ 'div' ]
-	    ifFalse: [ aMethod name printString ].
+    methodName := (aMethod name = '/')
+        ifTrue: [ 'div' ]
+        ifFalse: [ aMethod name printString ].
 
-	fileName := aClass name , '__'.
+    fileName := aClass name , '__'.
     methodName do: [ :c |
-        fileName := fileName , ((c = $:)
+        fileName := fileName , ( c = $:
             ifTrue: [ '_' ]
-            ifFalse: [ c asString ] ]).
+            ifFalse: [ c asString ] ] ).
     fileName := fileName , '.html'.
 
     ^ fileName
