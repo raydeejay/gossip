@@ -32,6 +32,30 @@ convertWhiteSpaces: string
                     ifFalse: [ ans := ans , c asString] ] ].
     ^ ans
 !
+
+METHOD Gossipdoc
+fileNameForClass: aClass
+	^ fileName := aClass name , '.html'
+!
+
+METHOD Gossipdoc
+fileNameForMethod: aMethod inClass: aClass
+    | methodName fileName |
+
+	methodName := (aMethod name = '/')
+	    ifTrue: [ 'div' ]
+	    ifFalse: [ aMethod name printString ].
+
+	fileName := aClass name , '__'.
+    methodName do: [ :c |
+        fileName := fileName , ((c = $:)
+            ifTrue: [ '_' ]
+            ifFalse: [ c asString ] ]).
+    fileName := fileName , '.html'.
+
+    ^ fileName
+!
+
 METHOD Gossipdoc
 createForClass: aClass
     | file mFile b methodFilename mm |
