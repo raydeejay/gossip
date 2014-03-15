@@ -57,27 +57,32 @@ fileNameForMethod: aMethod inClass: aClass
 !
 
 METHOD Gossipdoc
-createForClass: aClass
-    | m mm writeMethodBlock file methodFile |
+createForMethod: aMethod inClass: aClass
+    | m file |
 
     m := HTMLMarkup new.
-    mm := HTMLMarkup new.
+
+    m heading: 'Class ' , aClass name level: 1.
+    m newline.
+    m link: '[back]' to: aClass name , '.html'.
+    m newline.
+
+    m code: (self convertWhiteSpaces: method text).
+
+    file := File openWrite: folderName, '/', (self fileNameForMethod: method inClass: class).
+    file write: m render
+!
+
+METHOD Gossipdoc
+createForClass: aClass
+    | m writeMethodBlock file |
+
+    m := HTMLMarkup new.
 
     writeMethodBlock := [ :method :class |
         m link: method name printString to: (self fileNameForMethod: method inClass: class).
         m newline.
-
-        mm initialize. "reuse the markup generator"
-
-        mm heading: 'Class ' , aClass name level: 1.
-        mm newline.
-        mm link: '[back]' to: aClass name , '.html'.
-        mm newline.
-
-        mm code: (self convertWhiteSpaces: method text).
-
-        methodFile := File openWrite: folderName, '/', (self fileNameForMethod: method inClass: class).
-        methodFile write: mm render ].
+        self createForMethod: method inClass: class ].
 
     m heading: 'Class ' , aClass name level: 1.
     m newline.
