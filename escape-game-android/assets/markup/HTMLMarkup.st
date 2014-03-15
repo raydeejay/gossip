@@ -23,22 +23,22 @@ extension
 
 METHOD HTMLMarkup
 begin
-    ^ '<html><body>'
+    contents := contents , '<html><body>'
 !
 
 METHOD HTMLMarkup
 end
-    ^ '<body></html>'
+    contents := contents , '<body></html>'
 !
 
 METHOD HTMLMarkup
 newline
-    ^ '<br>' , Char newline asString
+    contents := contents , '<br>' , Char newline asString
 !
 
 METHOD HTMLMarkup
 tab
-    ^ '&#09;'
+    contents := contents , '&#09;'
 !
 
 METHOD HTMLMarkup
@@ -46,66 +46,70 @@ heading: aString level: aNumber
     | level |
 
     level := aNumber asString.
-    ^ '<h' , level, '>' , aString , '</h' , level , '>'
+    contents := contents , '<h' , level, '>' , aString , '</h' , level , '>'
 !
 
 METHOD HTMLMarkup
 link: aString to: aURL
-    ^ '<a href="' , aURL , '">' , aString , '</a>'
+    contents := contents , '<a href="' , aURL , '">' , aString , '</a>'
 !
 
 METHOD HTMLMarkup
 code: aString
-    ^ '<pre>' , aString , '</pre>'
+    contents := contents , '<pre>' , aString , '</pre>'
 !
 
 METHOD HTMLMarkup
-blockquote: aString
-    ^ '<blockquote>' , aString , '</blockquote>'
+blockQuote: aString
+    contents := contents , '<blockquote>' , aString , '</blockquote>'
 !
 
 METHOD HTMLMarkup
 italic: aString
-    ^ '<i>' , aString , '</i>'
+    contents := contents , '<i>' , aString , '</i>'
 !
 
 METHOD HTMLMarkup
 bold: aString
-    ^ '<b>' , aString , '</b>'
+    contents := contents , '<b>' , aString , '</b>'
 !
 
 METHOD HTMLMarkup
 underline: aString
-    ^ '<u>' , aString , '</u>'
+    contents := contents , '<u>' , aString , '</u>'
 !
 
 METHOD HTMLMarkup
 bar
-    ^ '<hr/>'
+    contents := contents , '<hr/>'
 !
 
 METHOD HTMLMarkup
 image: aURL
-    ^ '<img src="' , aURL , '" />'
+    contents := contents , '<img src="' , aURL , '" />'
 !
 
 METHOD HTMLMarkup
-list: aStringOrBlock
-    ^ '<ul>' , aStringOrBlock , '</ul>'
+list: aBlock
+    contents := contents , '<ul>'.
+    aBlock value.
+    contents := contents , '</ul>'
 !
 
 METHOD HTMLMarkup
-orderedList: aStringOrBlock
-    ^ '<ol>' , aStringOrBlock , '</ol>'
+orderedList: aBlock
+    self orderedList: aBlock start: 1
 !
 
 METHOD HTMLMarkup
-orderedList: aStringOrBlock start: aNumber
-    ^ '<ol start="', aNumber printString , '">' , aStringOrBlock , '</ol>'
+orderedList: aBlock start: aNumber
+    contents := contents , '<ol start="', aNumber printString , '">'.
+    aBlock value.
+    contents := contents , '</ol>'
 !
 
 METHOD HTMLMarkup
 item: aString
-    ^ '<li>' , aString , '</li>'
+    contents := contents , '<li>' , aString , '</li>'
 !
 
