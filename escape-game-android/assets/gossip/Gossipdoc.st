@@ -85,7 +85,7 @@ createForClass: aClass
 
     m heading: 'Class ' , aClass name level: 1.
     m newline.
-    m link: '[back]' to: 'index.html'
+    m link: '[back]' to: 'index.html'.
     m newline.
 
     m heading: 'class methods' level: 2.
