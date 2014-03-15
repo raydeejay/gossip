@@ -38,6 +38,8 @@ EVAL File fileInWithNotification: 'gossip/Room.st'
 EVAL File fileInWithNotification: 'gossip/bitfonts/TextLabel.st'
 EVAL File fileInWithNotification: 'gossip/bitfonts/ErrorHandlerHelper.st'
 
+EVAL  File fileInWithNotification: 'gossip/sounds/SoundResource.st'
+
 EVAL File fileInWithNotification: 'gossip/GameRegistry.st'
 EVAL File fileInWithNotification: 'gossip/SetupGossip.st'
 EVAL System println: 'Finished loading'

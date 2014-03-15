@@ -23,7 +23,9 @@ public abstract class ContextedObjectProvider {
 		
 		EventListener, 
 		
-		UITextLabel
+		UITextLabel, 
+		
+		SoundResource
 	}
 	
 }

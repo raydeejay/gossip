@@ -62,6 +62,11 @@ public class LibGDXAttachableEventListener extends CommonEventHandler implements
 		//No need
 	}
 
+	@Override
+	public void sendLoadSignal() {
+		//Dummy
+	}
+
 
 	
 	
