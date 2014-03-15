@@ -22,6 +22,12 @@ EVAL File fileInWithNotification: 'gossip/PopupMenu.st'
 EVAL System println: 'Finished loading class extensions'
 
 
+EVAL File fileInWithNotification: 'markup/Markup.st'
+EVAL File fileInWithNotification: 'markup/HTMLMarkup.st'
+EVAL File fileInWithNotification: 'markup/MarkdownMarkup.st'
+EVAL System println: 'Finished loading Markup package'
+
+
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
 EVAL Class addNewClass: (Object subclass: 'GameRegistry' variables: 'reactors rooms inventory currentRoom javaObject' classVariables: 'instance javaObject')
