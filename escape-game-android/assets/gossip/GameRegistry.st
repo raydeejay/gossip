@@ -63,17 +63,6 @@ newJavaUITextLabel: aString
 	^ self javaObject invoke: 'newUITextLabel' with: aString asJavaObject
 !
 
-META GameRegistry
-newSoundResource: aString
-	| aTextLabel |
-	aTextLabel := (self javaObject invoke: 'newSoundResource' with: aString asJavaObject).
-	^ ((SoundResource forJavaObject: aTextLabel) name: aString) register.
-!
-META GameRegistry
-newJavaSoundResource: aString
-	^ self javaObject invoke: 'newSoundResource' with: aString asJavaObject
-!
-
 
 META GameRegistry
 newJavaReactor: aString
@@ -97,15 +86,8 @@ switchToRoom: aString
 !
 
 
-
-METHOD GameRegistry
-registerSoundResource: aSoundResource
-    "TODO: We need Resource registry"
-    ^self.
-!
 METHOD GameRegistry
 registerUITextLabel: aTextLabel
-	"TODO: registry is already here"
     "ah... It does nothing apparently. We need some kind of GraphicalEntity registry for reactors and non-reactors"
     ^self.
 !

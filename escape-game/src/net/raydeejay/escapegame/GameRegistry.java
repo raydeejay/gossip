@@ -8,7 +8,6 @@ import ru.sg_studio.escapegame.ContextedObjectProvider.ObjectPrototype;
 import ru.sg_studio.escapegame.GameScreen;
 import ru.sg_studio.escapegame.GossipVM;
 import ru.sg_studio.escapegame.primitives.topclass.ui.TextLabel;
-import ru.sg_studio.escapegame.primitives.resources.Sound;
 
 //Total mess... Needs total rewrite...
 
@@ -79,11 +78,6 @@ public class GameRegistry {
     	System.out.println("Instancing new UITextLabel: "+name);
     	return ((TextLabel) (ContextedFactory.instance().getContextedItem(ObjectPrototype.UITextLabel,name)).getBinded());
     }
-    
-     public Sound newSoundResource(String name){
-    	System.out.println("Instancing new SoundResource: "+name);
-    	return ((Sound) (ContextedFactory.instance().getContextedItem(ObjectPrototype.SoundResource,name)).getBinded());
-    }   
 	
     // TODO - remove this once it's not necessary
     public Item getSelectedItem() {

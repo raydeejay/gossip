@@ -2,7 +2,6 @@ package ru.sg_studio.escapegame.bindings.libgdx.primitives;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-
 import net.raydeejay.escapegame.Reactor;
 import ru.sg_studio.escapegame.IProxiedObject;
 import ru.sg_studio.escapegame.bindings.libgdx.LibGDXTextureUtilities;
@@ -61,10 +60,7 @@ public class LibGDXReactor extends LibGDXProto implements IProxiedObject {
 
 	
 	
-	@Override
-	public void sendLoadSignal() {
-		//Dummy
-	}	
+	
 	
 	
 	

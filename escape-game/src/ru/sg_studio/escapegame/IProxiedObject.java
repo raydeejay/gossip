@@ -9,8 +9,5 @@ public interface IProxiedObject {
 	
 	
 	public void trySyncGraphicalObject();
-
-
-	public void sendLoadSignal();
 	
 }

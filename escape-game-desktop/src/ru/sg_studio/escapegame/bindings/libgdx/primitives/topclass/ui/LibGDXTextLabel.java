@@ -92,12 +92,6 @@ public class LibGDXTextLabel extends LibGDXProto implements IProxiedObject {
 	
 	//Local context data
 	BitmapFont font;
-
-
-	@Override
-	public void sendLoadSignal() {
-		//Dummy
-	}
 	
 	
 
