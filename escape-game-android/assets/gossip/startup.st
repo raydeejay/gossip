@@ -21,12 +21,15 @@ EVAL File fileInWithNotification: 'gossip/Schedule.st'
 EVAL File fileInWithNotification: 'gossip/PopupMenu.st'
 EVAL System println: 'Finished loading class extensions'
 
-
+// Load Markup package, required by Gossipdoc
 EVAL File fileInWithNotification: 'markup/Markup.st'
 EVAL File fileInWithNotification: 'markup/HTMLMarkup.st'
 EVAL File fileInWithNotification: 'markup/MarkdownMarkup.st'
 EVAL System println: 'Finished loading Markup package'
 
+// Load Gossipdoc
+EVAL File fileInWithNotification: 'gossip/Gossipdoc.st'
+EVAL System println: 'Finished loading Gossipdoc package'
 
 // This little hack allows us to refer to GameRegistry class even when its
 // methods can't be defined yet, because they reference all the other classes
