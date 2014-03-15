@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (Object subclass: 'Markup' variables: '' classVariables: '')
+EVAL Class addNewClass: (Object subclass: 'Markup' variables: 'contents' classVariables: '')
 
 COMMENT Markup
 I am the abstract base class for markup language generators.
