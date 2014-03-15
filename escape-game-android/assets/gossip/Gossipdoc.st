@@ -67,9 +67,9 @@ createForMethod: aMethod inClass: aClass
     m link: '[back]' to: aClass name , '.html'.
     m newline.
 
-    m code: (self convertWhiteSpaces: method text).
+    m code: (self convertWhiteSpaces: aMethod text).
 
-    file := File openWrite: folderName, '/', (self fileNameForMethod: method inClass: class).
+    file := File openWrite: folderName, '/', (self fileNameForMethod: aMethod inClass: aClass).
     file write: m render
 !
 
