@@ -56,8 +56,7 @@ heading: aString level: aNumber
     (Interval from: 1 to: aNumber by: 1) do: [ :i | 
         prefix := prefix , '#' ].
     
-    contents := contents , ((aString break: Char newline) collect: [ :line |
-        prefix , ' ' , line , Char newline asString ])
+    contents := contents , prefix , aString , Char newline asString
 !
 
 METHOD MarkdownMarkup
