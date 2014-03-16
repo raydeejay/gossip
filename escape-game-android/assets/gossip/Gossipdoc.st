@@ -139,9 +139,10 @@ createForClass: aClass
 
     m heading: 'class methods' level: 2.
     m newline.
-    aClass class methods do: [ :method |
-        writeMethodBlock value: method value: aClass class.
-        self createForMethod: method inClass: aClass class ].
+    aClass class notNil ifTrue: [
+        aClass class methods do: [ :method |
+            writeMethodBlock value: method value: aClass class.
+            self createForMethod: method inClass: aClass class ] ].
 
     m heading: 'instance methods' level: 2.
     m newline.
