@@ -50,7 +50,7 @@ METHOD HTMLMarkup
 heading: aString level: aNumber
     | level |
 
-    level := aNumber asString.
+    level := aNumber printString.
     contents := contents , '<h' , level, '>' , aString , '</h' , level , '>'
 !
 
