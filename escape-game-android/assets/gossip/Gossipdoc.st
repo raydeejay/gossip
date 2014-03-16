@@ -31,7 +31,10 @@ initialize
 METHOD Gossipdoc
 convertWhiteSpaces: string
     | ans |
-    
+
+    self generatorClass = HTMLMarkup
+        ifFalse: [ ^ string ].
+
     ans := ''.
     string do: [ :c | 
         (c = Char newline)
