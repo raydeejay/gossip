@@ -1,4 +1,4 @@
-EVAL Class addNewClass: (Object subclass: 'Gossipdoc' variables: 'folderName' classVariables: '')
+EVAL Class addNewClass: (Object subclass: 'Gossipdoc' variables: 'folderName generatorClass' classVariables: '')
 
 COMMENT Gossipdoc
 I am an HTML documentation generator.
