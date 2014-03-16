@@ -121,6 +121,7 @@ createForClass: aClass
     m newline.
 
     m heading: 'comment' level: 2.
+    Documentation for: aClass.
     m newline.
 
     m heading: 'class variables' level: 2.
