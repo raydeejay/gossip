@@ -29,6 +29,16 @@ initialize
 !
 
 METHOD Gossipdoc
+generatorClass: aClass
+    generatorClass := aClass
+!
+
+METHOD Gossipdoc
+generatorClass
+    ^ generatorClass
+!
+
+METHOD Gossipdoc
 convertWhiteSpaces: string
     | ans |
 
