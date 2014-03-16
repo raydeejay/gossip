@@ -12,9 +12,15 @@ The default directory is 'doc/' and it must exist.
 I depend on HTMLMarkup and MarkdownMarkup.
 !
 
+META Gossipdoc
+new: aMarkupGenerator
+    ^ self new generatorClass: aMarkupGenerator
+!
+
 METHOD Gossipdoc
 initialize
     super initialize.
+    generatorClass := HTMLMarkup.
     folderName := 'doc'
 !
 
@@ -35,7 +41,7 @@ convertWhiteSpaces: string
 
 METHOD Gossipdoc
 fileNameForClass: aClass
-    ^ aClass name , '.html'
+    ^ aClass name , generatorClass fileExtension
 !
 
 METHOD Gossipdoc
@@ -51,20 +57,42 @@ fileNameForMethod: aMethod inClass: aClass
         fileName := fileName , ( c = $:
             ifTrue: [ '_' ]
             ifFalse: [ c asString ] ) ].
-    fileName := fileName , '.html'.
+    fileName := fileName , generatorClass fileExtension.
 
     ^ fileName
 !
 
 METHOD Gossipdoc
+linkForClass: aClass
+    ^ aClass name , generatorClass linkExtension
+!
+
+METHOD Gossipdoc
+linkForMethod: aMethod inClass: aClass
+    | methodName fileName |
+
+    methodName := (aMethod name = '/')
+        ifTrue: [ 'div' ]
+        ifFalse: [ aMethod name printString ].
+
+    fileName := aClass name , '__'.
+    methodName do: [ :c |
+        fileName := fileName , ( c = $:
+            ifTrue: [ '_' ]
+            ifFalse: [ c asString ] ) ].
+    fileName := fileName , generatorClass linkExtension.
+
+    ^ fileName
+!
+METHOD Gossipdoc
 createForMethod: aMethod inClass: aClass
     | m file |
 
-    m := HTMLMarkup new.
+    m := generatorClass new.
 
     m heading: 'Class ' , aClass name level: 1.
     m newline.
-    m link: '[back]' to: aClass name , '.html'.
+    m link: '[back]' to: (self linkForClass: aClass).
     m newline.
 
     m code: (self convertWhiteSpaces: aMethod text).
@@ -77,15 +105,15 @@ METHOD Gossipdoc
 createForClass: aClass
     | m writeMethodBlock file |
 
-    m := HTMLMarkup new.
+    m := generatorClass new.
 
     writeMethodBlock := [ :method :class |
-        m link: method name printString to: (self fileNameForMethod: method inClass: class).
+        m link: method name printString to: (self linkForMethod: method inClass: class).
         m newline ].
 
     m heading: 'Class ' , aClass name level: 1.
     m newline.
-    m link: '[back]' to: 'index.html'.
+    m link: '[back]' to: 'index' , generatorClass linkExtension.
     m newline.
 
     m heading: 'class methods' level: 2.
@@ -110,14 +138,14 @@ createInFolderNamed: aFolderName
     | m indexFile |
 
     folderName := aFolderName.
-    m := HTMLMarkup new.
+    m := generatorClass new.
 
     m heading: 'The Gossip Smalltalk System' level: 1.
     Class classes do: [ :each |
-        m link: each name to: each name, '.html'.
+        m link: each name to: (self linkForClass: each).
         m newline ].
 
-    indexFile := File openWrite: folderName , '/' , 'index.html'.
+    indexFile := File openWrite: folderName , '/' , 'index' , generatorClass fileExtension.
     indexFile write: m render.
 
     Class classes do: [ :each | self createForClass: each ]
