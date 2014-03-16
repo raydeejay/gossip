@@ -120,6 +120,15 @@ createForClass: aClass
     m link: '[back]' to: 'index' , generatorClass linkExtension.
     m newline.
 
+    m heading: 'comment' level: 2.
+    m newline.
+
+    m heading: 'class variables' level: 2.
+    m newline.
+
+    m heading: 'instance variables' level: 2.
+    m newline.
+
     m heading: 'class methods' level: 2.
     m newline.
     aClass class methods do: [ :method |
