@@ -14,9 +14,14 @@ render
     ^ contents
 !
 
-METHOD MarkdownMarkup
-extension
+META MarkdownMarkup
+fileExtension
     ^ '.md'
+!
+
+META MarkdownMarkup
+linkExtension
+    ^ ''
 !
 
 METHOD MarkdownMarkup

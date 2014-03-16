@@ -12,10 +12,26 @@ initialize
     contents := ''
 !
 
-METHOD Markup
-extension
+META Markup
+fileExtension
     self error: 'Subclass responsibility'.
     ^ '.txt'
+!
+
+METHOD Markup
+fileExtension
+    ^ self class fileExtension
+!
+
+META Markup
+linkExtension
+    self error: 'Subclass responsibility'.
+    ^ '.txt'
+!
+
+METHOD Markup
+linkExtension
+    ^ self class linkExtension
 !
 
 METHOD Markup
@@ -119,4 +135,3 @@ item: aString
     self error: 'Subclass responsibility'.
     ^ 'ERROR'
 !
-

@@ -16,8 +16,13 @@ render
     ^ contents
 !
 
-METHOD HTMLMarkup
-extension
+META HTMLMarkup
+fileExtension
+    ^ '.html'
+!
+
+META HTMLMarkup
+linkExtension
     ^ '.html'
 !
 
