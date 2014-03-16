@@ -1,15 +1,19 @@
 EVAL Class addNewClass: (Object subclass: 'Gossipdoc' variables: 'folderName generatorClass' classVariables: '')
 
 COMMENT Gossipdoc
-I am an HTML documentation generator.
+I am the Gossip documentation generator.
 
-I can create a set of HTML files in a directory, one for each
+By default I create a set of HTML files in a directory, one for each
 class and method in the system, in a nice format and interlinked
 for viewing in a web browser.
 
+I can also create a set of Github-flavoured Markdown files.
+
+I can use any other Markup subclass as a generator.
+
 The default directory is 'doc/' and it must exist.
 
-I depend on HTMLMarkup and MarkdownMarkup.
+I depend on HTMLMarkup.
 !
 
 META Gossipdoc
