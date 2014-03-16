@@ -126,6 +126,8 @@ createForClass: aClass
 
     m heading: 'class variables' level: 2.
     m newline.
+    aClass class variables do: [ :v | m italic: v , '' ].
+    m newline.
 
     m heading: 'instance variables' level: 2.
     m newline.
