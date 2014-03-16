@@ -119,6 +119,23 @@ createForMethod: aMethod inClass: aClass
 !
 
 METHOD Gossipdoc
+writeVariablesForClass: aClass using: aGenerator
+    aGenerator heading: 'class variables' level: 2.
+    aGenerator newline.
+    aClass class notNil ifTrue: [
+        "apparently this can be nil too..."
+        aClass class variables notNil ifTrue: [
+            aClass class variables do: [ :v | aGenerator italic: v , '' ] ] ].
+    aGenerator newline.
+
+    aGenerator heading: 'instance variables' level: 2.
+    aGenerator newline.
+    aClass variables notNil ifTrue: [
+        aClass variables do: [ :v | aGenerator italic: v , '' ] ].
+    aGenerator newline
+!
+
+METHOD Gossipdoc
 createForClass: aClass
     | m writeMethodBlock file |
 
@@ -137,15 +154,7 @@ createForClass: aClass
     m blockQuote: (self convertWhiteSpaces: (Documentation for: aClass)).
     m newline.
 
-    m heading: 'class variables' level: 2.
-    m newline.
-    aClass class variables do: [ :v | m italic: v , '' ].
-    m newline.
-
-    m heading: 'instance variables' level: 2.
-    m newline.
-    aClass variables do: [ :v | m italic: v , '' ].
-    m newline.
+    self writeVariablesForClass: aClass using: m.
 
     m heading: 'class methods' level: 2.
     m newline.
